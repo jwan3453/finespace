@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+
+class BackendServiceProvider extends ServiceProvider
+{
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        //
+    }
+
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //
+        $this->app->bind('App\Repositories\BaseRepositoryInterface', 'App\Repositories\UserRepository');
+        $this->app->bind('App\Repositories\CategoryRepositoryInterface', 'App\Repositories\CategoryRepository');
+        $this->app->bind('App\Repositories\ProductRepositoryInterface', 'App\Repositories\ProductRepository');
+        $this->app->bind('App\Repositories\ShoppingCartRepositoryInterface', 'App\Repositories\ShoppingCartRepository');
+        $this->app->bind('App\Repositories\OrderRepositoryInterface', 'App\Repositories\OrderRepository');
+        $this->app->bind('App\Repositories\OrderItemRepositoryInterface', 'App\Repositories\OrderItemRepository');
+        $this->app->bind('App\Repositories\UserAccountRepositoryInterface', 'App\Repositories\UserAccountRepository');
+    }
+}

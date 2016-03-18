@@ -1,0 +1,56 @@
+request body = <TemplateSMS>
+                    <to>18250863109</to>
+                    <appId>aaf98f895350b6880153546a80910666</appId>
+                    <templateId>1</templateId>
+                    <datas><data>6532</data><data>5</data></datas>
+                  </TemplateSMS>
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5515350d1e2015354658a380525/SMS/TemplateSMS?sig=D40992EB22EAE47B26B97856D2F079AE
+response body = <?xml version="1.0" encoding="UTF-8" standalone="yes"?><Response><statusCode>112310</statusCode><statusMsg>【短信】应用未上线，模板短信接收号码外呼受限</statusMsg></Response>
+request body = <TemplateSMS>
+                    <to>18250863109</to>
+                    <appId>aaf98f895350b6880153546a80910666</appId>
+                    <templateId>1</templateId>
+                    <datas><data>6532</data><data>5</data></datas>
+                  </TemplateSMS>
+request url = https://app.cloopen.com:8883/2013-12-26/Accounts/8a48b5515350d1e2015354658a380525/SMS/TemplateSMS?sig=C84FAF79580BE8FDD72BE5B4D9EC5B17
+response body = <?xml version="1.0" encoding="UTF-8" standalone="yes"?><Response><statusCode>112310</statusCode><statusMsg>【短信】应用未上线，模板短信接收号码外呼受限</statusMsg></Response>
+request body = <TemplateSMS>
+                    <to>18250863109</to>
+                    <appId>aaf98f895350b6880153546a80910666</appId>
+                    <templateId>1</templateId>
+                    <datas><data>6532</data><data>5</data></datas>
+                  </TemplateSMS>
+request url = https://app.cloopen.com:8883/2013-12-26/Accounts/8a48b5515350d1e2015354658a380525/SMS/TemplateSMS?sig=CB801642FD458FAC1339F8DA94DE78A0
+response body = <?xml version="1.0" encoding="UTF-8" standalone="yes"?><Response><statusCode>112310</statusCode><statusMsg>【短信】应用未上线，模板短信接收号码外呼受限</statusMsg></Response>
+request body = <TemplateSMS>
+                    <to>18250863108</to>
+                    <appId>aaf98f895350b6880153546a80910666</appId>
+                    <templateId>1</templateId>
+                    <datas><data>12345</data><data>60</data></datas>
+                  </TemplateSMS>
+request url = https://app.cloopen.com:8883/2013-12-26/Accounts/8a48b5515350d1e2015354658a380525/SMS/TemplateSMS?sig=3E869A35AC70A07CF431406C97DBB23E
+response body = <?xml version="1.0" encoding="UTF-8" standalone="yes"?><Response><statusCode>112310</statusCode><statusMsg>【短信】应用未上线，模板短信接收号码外呼受限</statusMsg></Response>
+request body = <TemplateSMS>
+                    <to>18250863109</to>
+                    <appId>aaf98f895350b6880153546a80910666</appId>
+                    <templateId>1</templateId>
+                    <datas><data>12345</data><data>60</data></datas>
+                  </TemplateSMS>
+request url = https://app.cloopen.com:8883/2013-12-26/Accounts/8a48b5515350d1e2015354658a380525/SMS/TemplateSMS?sig=2E0F5671D7D528720A38B6D0EC3B79E0
+response body = <?xml version="1.0" encoding="UTF-8" standalone="yes"?><Response><statusCode>112310</statusCode><statusMsg>【短信】应用未上线，模板短信接收号码外呼受限</statusMsg></Response>
+request body = <TemplateSMS>
+                    <to>18250863109</to>
+                    <appId>aaf98f895350b6880153546a80910666</appId>
+                    <templateId>1</templateId>
+                    <datas><data>12345</data><data>60</data></datas>
+                  </TemplateSMS>
+request url = https://app.cloopen.com:8883/2013-12-26/Accounts/8a48b5515350d1e2015354658a380525/SMS/TemplateSMS?sig=95D9A4D4877C4A50C734669A9B642FFE
+response body = <?xml version="1.0" encoding="UTF-8" standalone="yes"?><Response><statusCode>000000</statusCode><TemplateSMS><dateCreated>20160308160108</dateCreated><smsMessageSid>0d59fc3f7eb24f62a1333e667826d64f</smsMessageSid></TemplateSMS></Response>
+request body = <TemplateSMS>
+                    <to>18250863109</to>
+                    <appId>aaf98f895350b6880153546a80910666</appId>
+                    <templateId>1</templateId>
+                    <datas><data>063697</data><data>60</data></datas>
+                  </TemplateSMS>
+request url = https://app.cloopen.com:8883/2013-12-26/Accounts/8a48b5515350d1e2015354658a380525/SMS/TemplateSMS?sig=D26B28DC5E02396B71FD8B5131576BC4
+response body = <?xml version="1.0" encoding="UTF-8" standalone="yes"?><Response><statusCode>000000</statusCode><TemplateSMS><dateCreated>20160308162707</dateCreated><smsMessageSid>67b77ffed0b64f068f513965abd84ded</smsMessageSid></TemplateSMS></Response>
