@@ -17,9 +17,9 @@ class OrderItemRepository implements  OrderItemRepositoryInterface{
     }
 
 
-    public function findBy($query,$value){
+    public function findBy($query){
 
-        return OrderItem::where($query,$value)->get();
+        return OrderItem::where($query)->get();
     }
     public function save($obj)
     {

@@ -25,6 +25,7 @@ class productController extends Controller
 
     public function showProduct($id)
     {
+
         $prod = $this->product->find($id);
         return view('weixin.product.showProduct')->with('product',$prod);
     }
@@ -32,8 +33,8 @@ class productController extends Controller
 
     public function toCategory()
     {
-        $cat = $this->category->findBy('parent_id', 0);
-        return view('weixin.product.category')->with('categories',$cat);
+//        $cat = $this->category->findBy('parent_id', 0);
+        return view('weixin.product.category');//->with('categories',$cat);
     }
 
 

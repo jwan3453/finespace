@@ -1,12 +1,26 @@
 @extends('weixinsite')
 
+
+
+@section('resources')
+
+    <script src={{ asset('js/swiper/jquery.slides.min.js') }}></script>
+    {{--<link rel="stylesheet" type="text/css" href= {{ asset('js/swiper/style.css') }}>--}}
+@stop
+
 @section('content')
 
     <div class=" ui container prod-detail-box" >
 
-        <div class="prod-image-slide">
-            <img src="{{$product->img}}"/>
+        <div class="prod-image-slide" >
+            {{--<img src="{{$product->img}}"/>--}}
+
+            <div id="slides">
+                <img src="{{$product->img}}">
+                <img src="{{$product->img}}">
+            </div>
         </div>
+
         <div class="prod-desc">
             <div class="huge-font name">{{$product->name}}</div>
             <div class="font extra ">
@@ -29,9 +43,9 @@
         </div>
         <div class="pos-spacing"></div>
         <div class="prod-price">
-            <i class=" f-left minus big circle icon teal "></i>
+            <i class=" f-left minus large  icon teal icon-count "></i>
             <input class="f-left  big-font quantity" type="text" value="1"/>
-            <i class="f-left  plus big circle icon red "></i>
+            <i class="f-left  plus large icon red  icon-count"></i>
             <div class="f-right  total-price">
                 总计:<strong class="huge-font">￥{{$product->price}}</strong>
             </div>
@@ -59,11 +73,24 @@
 
 @section('script')
     <script type="text/javascript">
+
+
+
+//        $(function(){
+//            $("#slides").slidesjs({
+//                width: 940,
+//                height: 528
+//            });
+//        });
+
+
         $(document).ready(function(){
 
+
+
+
+
             $('.add-to-cart,.prod-price').css('width',$('.prod-detail-box').width());
-
-
 
             $('.plus').click(function(){
 

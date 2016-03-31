@@ -149,7 +149,6 @@ font{
 
     color: white;
 
-
 }
 .dimmer-box .dimmer-btn{
 
@@ -468,8 +467,8 @@ font{
     padding:0!important;
 }
 .recommend-sect img{
-    height:150px;
-    width:90%;
+
+    width:95%;
 }
 .item-left{
 
@@ -525,13 +524,14 @@ font{
 
     margin-left: auto;
     margin-right:auto;
-    background-color: rgba(0, 0, 0, 0.31);
+    background-color: #b53849;
+    opacity: 0.9;
     color:white;
     text-align: center;
     line-height:30px;
     font-weight: 600;
     z-index: 1001;
-    display:none;
+    display: none;
 
 }
 /***********/
@@ -543,12 +543,16 @@ font{
 /*****************/
 
 /******产品详细****/
-.prod-image-slide{
+.prod-image-slide {
 
 }
+.swiper-slide{
+    height:auto!important;
+}
+
 .prod-image-slide img{
     width:100%;
-    height:250px;
+
 }
 
 .prod-desc {
@@ -593,21 +597,24 @@ font{
     width:100%;
     border-top:1px solid lightgray;
 
-
-    padding:0 5px;
+    padding:2px 5px;
 }
-.prod-price i{
-    margin-top:7px;
-    margin-left:5px;
-    margin-right:5px;
+.prod-price .icon-count{
+    margin-top:5px;
+    margin-right:0!important;
+    border:1px solid lightgray;
+    height:28px!important;
+    width:30px;
+    line-height: 28px!important;
 }
 .prod-price .quantity{
      width:50px;
-     margin-top:8px;
-     height:25px!important;
+     margin-top:5px;
+     height:28px!important;
      border:1px solid lightgray;
      text-align: center;
-
+    line-height: 28px!important;
+    border-radius: 0%!important;
  }
 .total-price{
 
@@ -701,8 +708,17 @@ font{
     border-radius: 5%;
 }
 
+.cart-item .opt-qty-btns .icon-count{
+    border:1px solid lightgray;
+    margin:0!important;
+    height:28px;
+    width:35px;
+    line-height: 28px;
+}
+
 .cart-item .opt-qty-btns input{
-    margin:2px 2px 2px 0;
+
+    height:28px;
 }
 
 .cart-item .opt-qty-btns input,.cart-item .options .sub-header input{
@@ -711,6 +727,7 @@ font{
     /*height:25px;*/
     border:1px solid lightgray;
     text-align: center;
+    border-radius: 0%!important;
 
 
 }
@@ -740,6 +757,7 @@ font{
 
 }
 .cart-item .options .sub-header i{
+
     font-size:22px!important;
 }
 

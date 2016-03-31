@@ -57,6 +57,7 @@ Route::get('weixin/checkout','weixin\checkoutController@checkout');
 
 
 //图片验证码
+Route::post('verifyValidateCode','Service\CommonController@verifyValidateCode');
 Route::get('getValidateCode','Service\CommonController@createValidateCode');
 
 //获取手机验证码
@@ -64,7 +65,7 @@ Route::get('getValidateCode','Service\CommonController@createValidateCode');
 Route::any('/sendSmsCode','Service\CommonController@sendSmsCode');
 
 
-Route::post('/authCheck/checkMobile','Service\AuthCheckController@checkMobile');
+Route::post('/authCheck/CheckMobile','Auth\AuthController@clientCheckMobile');
 
 //订单
 Route::post('/weixin/updatePaymentMethod','weixin\orderController@updatePaymentMethod');
@@ -74,4 +75,53 @@ Route::get('/weixin/order/all','weixin\orderController@getAllOrder');
 Route::get('/weixin/order/all/{status}','weixin\orderController@getAllOrder');
 
 Route::get('/weixin/order/{orderNo}','weixin\orderController@orderDetail');
+
+
+//后台管理
+Route::get('/weixin/admin','weixin\admin\productController@index');
+
+
+//后台商品管理////
+Route::get('/weixin/admin/product','weixin\admin\productController@manageProduct');
+//添加新的商品
+Route::get('/weixin/admin/product/add','weixin\admin\productController@newProduct');
+Route::post('/weixin/admin/product/add','weixin\admin\productController@addProduct');
+
+//编辑产品
+Route::get('/weixin/admin/product/edit/{productId}','weixin\admin\productController@editProduct');
+Route::post('/weixin/admin/product/edit','weixin\admin\productController@updateProduct');
+
+
+
+//上传图片
+Route::post('/weixin/uploadImage','Service\CommonController@uploadImage');
+//删除图片
+Route::post('/wexin/deleteImage','Service\CommonController@deleteImage');
+
+Route::post('/weixin/setImageCover','Service\CommonController@setImageCover');
+
+Route::get('/weixin/admin/product/addImage/{productId}','weixin\admin\productController@addProductImages');
+
+
+
+///后台订单管理//////
+Route::get('/weixin/admin/order','weixin\admin\orderController@manageOrder');
+Route::get('/weixin/admin/order/today','weixin\admin\orderController@todayOrder');
+Route::get('/weixin/admin/order/{orderNo}','weixin\admin\orderController@orderDetail');
+
+
+//后台用户管理
+Route::get('/weixin/admin/user','weixin\admin\userController@manageUser');
+Route::get('/weixin/admin/user/{userId}','weixin\admin\userController@userDetail');
+
+////加载产品类别
+//
+//Route::post('/weixin/loadCategory','Service\CommonController@loadCategory');
+//Route::post('/weixin/loadBrand','Service\CommonController@loadBrand');
+
+
+
+
+
+
 

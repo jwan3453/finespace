@@ -5,8 +5,12 @@ use App\Models\Order;
 
 class OrderRepository implements  OrderRepositoryInterface{
 
-    public function selectAll()
+    public function selectAll($paginate = 0)
     {
+        if($paginate!=0)
+            return Order::paginate($paginate);
+        else
+
         return Order::all();
     }
 
@@ -18,8 +22,27 @@ class OrderRepository implements  OrderRepositoryInterface{
 
     public function findBy($query){
 
+        $obj = null;
+        $count = 0;
 
-       return Order::where($query)->get();
+        foreach($query as $q)
+        {
+
+
+            if($count == 0)
+            {
+             $obj = Order::where($q['key'],$q['compare'],$q['value']);
+
+            }
+            else
+            {
+                $obj->where($q['key'],$q['compare'],$q['value']);
+
+            }
+            $count++;
+        }
+
+       return $obj;
     }
 
     public function update($query)

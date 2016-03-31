@@ -1,37 +1,37 @@
 <?php
 namespace App\Repositories;
 
-use App\Models\Shopping_Cart;
+use App\Models\ShoppingCart;
 
 
 class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
 
     public function selectAll()
     {
-        return Shopping_Cart::all();
+        return ShoppingCart::all();
     }
 
     public function find($id)
     {
-        return Shopping_Cart::find($id);
+        return ShoppingCart::find($id);
     }
 
 
     public function findBy($query,$value){
 
-        return Shopping_Cart::where($query,$value)->get();
+        return ShoppingCart::where($query,$value)->get();
     }
 
     public function deleteBy($query,$value){
 
-        return Shopping_Cart::where($query,$value)->delete();
+        return ShoppingCart::where($query,$value)->delete();
     }
 
 
     public function save($obj)
     {
 
-        $newItem = new Shopping_Cart();
+        $newItem = new ShoppingCart();
         $newItem->user_id = $obj['user_id'];
         $newItem->session = $obj['session'];
         $newItem->product_id = $obj['product_id'];

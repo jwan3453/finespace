@@ -8,7 +8,7 @@ interface UserAccountRepositoryInterface{
 
     public function find($id);
 
-    public function findBy($query,$value );
+    public function findBy($query);
 
     public function deleteBy($query,$value);
 

@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 interface OrderRepositoryInterface {
 
-    public function selectAll();
+    public function selectAll($paginate = 0);
 
     public function find($id);
 

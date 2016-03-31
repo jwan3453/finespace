@@ -79,6 +79,41 @@
 </body>
 
 <script type="text/javascript">
+
+
+    function _getCartCookie(){
+        $.ajax({
+            type: 'POST',
+            async : false,
+            url: '/weixin/getCartCookie',
+            dataType: 'json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            },
+            success: function(data)
+            {
+                var itemCount  = data.statusCode;
+                if(itemCount !=0 )
+                {
+                    $('.icon-message-count').removeClass('none-display').fadeIn();
+                    $('.icon-message-count').text(itemCount);
+                }
+
+
+            },
+            error: function(xhr, type){
+                alert('Ajax error!')
+            }
+
+        });
+    }
+
+    function _showToaster($message){
+        $('.toaster').text($message);
+        $('.toaster').fadeIn(500).fadeOut(2500 );
+    }
+
+
     $(document).ready(function(){
 
 
@@ -87,33 +122,6 @@
         $('.home-header').css('width',$('.container').width());
 
         $('.home-header').offset({left:$('.container').offset().left});
-
-        function _getCartCookie(){
-            $.ajax({
-                type: 'POST',
-                async : false,
-                url: '/weixin/getCartCookie',
-                dataType: 'json',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                },
-                success: function(data)
-                {
-                    var itemCount  = data.statusCode;
-                    if(itemCount !=0 )
-                    {
-                        $('.icon-message-count').removeClass('none-display').fadeIn();
-                        $('.icon-message-count').text(itemCount);
-                    }
-
-
-                },
-                error: function(xhr, type){
-                    alert('Ajax error!')
-                }
-
-            });
-        }
 
 
 

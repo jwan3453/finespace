@@ -9,18 +9,22 @@ use App\Http\Controllers\Controller;
 use App\Tool\MessageResult;
 use App\Repositories\ProductRepositoryInterface;
 use App\Repositories\ShoppingCartRepositoryInterface;
+use App\Repositories\ImageRepositoryInterface;
 use Auth;
-use App\Models\Shopping_Cart;
+use App\Models\ShoppingCart;
 
 class cartController extends Controller
 {
 
     private $product;
     private $shoppingCart;
-    public function __construct( ProductRepositoryInterface $product,ShoppingCartRepositoryInterface $shoppingCart)
+    private $image;
+    public function __construct( ProductRepositoryInterface $product,ShoppingCartRepositoryInterface $shoppingCart,
+                                 ImageRepositoryInterface $image)
     {
         $this->product = $product;
         $this->shoppingCart = $shoppingCart;
+        $this->image = $image;
     }
     public function show(Request $request)
     {
@@ -29,9 +33,11 @@ class cartController extends Controller
 
         $cartItemList =array();
 
+
         //查看用户是否登录,如果登录 同步cookie 和数据库里面的购物车数据
         if (Auth::check()) {
             $cartItems =  $this->syncCart($cartCookie);
+
             return response()->view('weixin.cart.showAll', ['cartItemList' => $cartItems])->withCookie('cart', null);
         }
 
@@ -40,7 +46,7 @@ class cartController extends Controller
         {
             $index = strpos($value, ':');
 
-            $newItem = new shopping_cart();
+            $newItem = new shoppingCart();
             $newItem->product_id = (int)substr($value, 0,$index);
             $newItem->product_sku = '12331231';
             $newItem->count =(int)substr($value, $index+1);
@@ -260,7 +266,11 @@ class cartController extends Controller
 
         foreach($cartItemsArray  as  $productId_key =>$cartValue)
         {
-                //todo 完善child product 功能
+
+
+
+
+            //todo 完善child product 功能
                 if($cartValue->parent_product_id > 0 )
                 {
                         if($cartValue->product_id == 2)
@@ -274,7 +284,19 @@ class cartController extends Controller
                         }
                     unset($cartItemsArray[$productId_key]);
                 }
+                else
+                {
+                    //找到商品的缩略图
+                    //todo 附属商品的照片怎么办
+                    if($cartValue->product->thumb != null)
+                    {
 
+                        $cartValue->product->thumb =$this->image->find($cartValue->product->thumb)->link;
+                    }
+                    else{
+                        $cartValue->product->thumb = $this->image->findBy(['type'=>1, 'associateId'=>$cartValue->product->id])->first()->link;
+                    }
+                }
         }
 
         return $cartItemsArray;

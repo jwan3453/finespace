@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\OrderRepositoryInterface;
 use App\Repositories\ShoppingCartRepositoryInterface;
 use App\Repositories\ProductRepositoryInterface;
+use App\Repositories\ImageRepositoryInterface;
 use Auth;
 use Illuminate\Mail\Message;
 
@@ -23,27 +24,35 @@ class orderController extends Controller
     private $shoppingCart;
     private $product;
     private $orderItem;
+    private $image;
 
     public function __construct(OrderRepositoryInterface $order,OrderItemRepositoryInterface $orderItem,
-                                ShoppingCartRepositoryInterface $shoppingCart, ProductRepositoryInterface $product)
+                                ShoppingCartRepositoryInterface $shoppingCart, ProductRepositoryInterface $product,
+                                ImageRepositoryInterface $image)
     {
         $this->order = $order;
         $this->orderItem = $orderItem;
         $this->shoppingCart = $shoppingCart;
         $this->product = $product;
+        $this->image = $image;
     }
 
     public function orderDetail($orderNo)
     {
 
-        $orderDetail['order'] = $this->order->findBy(['order_no'=>trim($orderNo)])->first();
+        $query[] =[
+            'key' => 'order_no',
+            'compare' => '=',
+            'value'=>trim($orderNo)
+        ];
+        $orderDetail['order'] = $this->order->findBy($query)->first();
         $orderItemArray = array();
 
         if($orderDetail['order']!=null)
         {
 
 
-            $orderItems =  $this->orderItem->findBy('order_id',$orderDetail['order']->id);
+            $orderItems =  $this->orderItem->findBy(['order_id'=>$orderDetail['order']->id]);
 
 
             foreach($orderItems as $key => $orderItem)
@@ -82,6 +91,20 @@ class orderController extends Controller
                     //添加到父商品后,删除array 的子商品
                     unset($orderItemArray[$productId_key]);
                 }
+                else{
+
+                    //找到商品的缩略图
+                    //todo 附属商品的照片怎么办
+                    if($orderValue->product->thumb != null)
+                    {
+
+                        $orderValue->product->thumb =$this->image->find($orderValue->product->thumb)->link;
+                    }
+                    else{
+                        $orderValue->product->thumb = $this->image->findBy(['type'=>1, 'associateId'=>$orderValue->product->id])->first()->link;
+                    }
+                }
+
 
             }
 
@@ -160,11 +183,25 @@ class orderController extends Controller
 
         if(Auth::check())
         {
-            $query=array();
+            $query=[];
             if($paymentStatus != -1)
-                $query['pay_status'] = $paymentStatus;
-            $query['user_id'] = Auth::user()->id;
-            $orders = $this->order->findBy($query);
+            {
+                $query[] =[
+                    'key' => 'pay_status',
+                    'compare' => '=',
+                    'value'=>$paymentStatus
+                ];
+
+            }
+
+            $query[] =[
+                'key' => 'user_id',
+                'compare' => '=',
+                'value'=>Auth::user()->id
+            ];
+            $orders = $this->order->findBy($query)->get();
+
+
 
             foreach($orders as $order)
             {

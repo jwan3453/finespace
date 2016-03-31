@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Repositories\BaseRepositoryInterface;
+use App\Repositories\UserRepositoryInterface;
 use Auth,App\User,App\Models\Permission,App\Models\Role;
 use  Zizaco\Entrust\Traits\EntrustUserTrait;
 
@@ -17,7 +17,7 @@ class homeController extends Controller
 
     private $user;
 
-    public function __construct(BaseRepositoryInterface $user)
+    public function __construct(UserRepositoryInterface $user)
     {
         $this->user = $user;
     }
@@ -25,6 +25,10 @@ class homeController extends Controller
 
     public function index()
     {
+
+
+
+
 
        // $currentUser =Auth::getUser()->getAttributeValue('id');
 

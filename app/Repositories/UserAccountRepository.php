@@ -17,9 +17,29 @@ class UserAccountRepository implements  UserAccountRepositoryInterface{
     }
 
 
-    public function findBy($query,$value){
+    public function findBy($query){
 
-        return UserAccount::where($query,$value)->get();
+        $obj = null;
+        $count = 0;
+
+        foreach($query as $q)
+        {
+
+
+            if($count == 0)
+            {
+                $obj = UserAccount::where($q['key'],$q['compare'],$q['value']);
+
+            }
+            else
+            {
+                $obj->where($q['key'],$q['compare'],$q['value']);
+
+            }
+            $count++;
+        }
+
+        return $obj;
     }
 
     public function deleteBy($query,$value){

@@ -79,7 +79,7 @@
             </div>
             @foreach($orderDetail['orderItems'] as $orderItem)
                 <div class="cart-item">
-                    <img class="f-left" src ='{{$orderItem->product->img}}'>
+                    <img class="f-left" src ='{{$orderItem->product->thumb}}'>
                     <div class="name ">{{$orderItem->product->name}}   </div>
                     <div class="type">
                         1.0磅 X 1

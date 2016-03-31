@@ -1,0 +1,531 @@
+body{
+
+
+    font-family: "Microsoft YaHei" ;
+
+
+
+}
+a{
+
+color: #dbe4f0;
+}
+.f-right{
+
+    float:right;
+}
+
+.f-left{
+    float:left
+}
+
+.screen-bg{
+    width:100%;
+    height:100%;
+    position:fixed;
+    z-index:-2;
+    background:url('../img/admin_bg.jpg') no-repeat;
+    background-position: center;
+    background-size: 100%
+}
+.screen-mask{
+    width:100%;
+    height:100%;
+    position:fixed;
+    z-index:-1;
+    background: rgba(0, 0, 0, 0.16);
+
+}
+.transparent-input{
+    background: rgba(255, 255, 255, 0.0)!important;
+
+    border:1px solid  white!important;
+
+}
+
+.regular-btn{
+    width: 120px!important;
+    height: 39px;
+    line-height: 40px;
+    text-align: center;
+    background-color: #00b5ad;
+    color:white!important;
+    cursor: pointer;
+}
+.red-btn{
+    background-color:#ff5856!important;
+}
+
+.small-font{
+    font-size:12px!important;
+}
+
+.big-font{
+    font-size:14px!important;
+}
+
+.huge-font{
+    font-size:16px!important;
+}
+
+.giant-font{
+    font-size:18px!important;
+}
+
+.giant-font{
+    font-size:20px!important;
+}
+
+.blur {
+    filter: url(blur.svg#blur); /* FireFox, Chrome, Opera */
+
+    -webkit-filter: blur(4px); /* Chrome, Opera */
+    -moz-filter: blur(4px);
+    -ms-filter: blur(4px);
+    filter: blur(4px);
+
+    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false); /* IE6~IE9 */
+
+    -webkit-transition-duration: 1s;
+    -webkit-transition-timing-function: linear;
+
+
+    -moz-transition-duration: 1s;
+    -moz-transition-timing-function: linear;
+}
+
+/*****公共区域*********/
+
+.stick-top{
+    width:100%;
+    height:50px;
+    background:#2b3643;
+    top:0;
+    position: fixed;
+}
+.pos-spacing{
+    height:50px;
+}
+
+.none-display{
+    display: none!important;
+}
+.dimmer-box{
+    height:200px!important;
+    width:70%!important;
+
+    margin-top:100px;
+    margin-left:auto;
+    margin-right:auto;
+
+    color: white;
+
+}
+.toaster-box{
+
+    width:100%;
+    top: 30%;
+    position: fixed;
+    text-align:center;
+    z-index:1001;
+}
+
+.toaster{
+
+    width:180px;
+
+    margin-left: auto;
+    margin-right:auto;
+    background-color: #b53849;
+    opacity: 0.9;
+    color:white;
+    text-align: center;
+    line-height:30px;
+    font-weight: 600;
+    z-index: 1001;
+    display: none;
+
+}
+.search-bar{
+    margin:10px 0 0 0 ;
+}
+.search-bar input{
+    width:400px;
+}
+.search-bar i{
+    cursor:pointer!important;
+}
+.pagination{
+    list-style: none;
+    overflow: hidden;
+
+}
+.pagination li{
+    float:left;
+    padding:5px 10px;
+    border:1px solid lightgray;
+    border-radius: 100%;
+    margin-left:5px;
+
+
+}
+.pagination .active{
+    background: #ff5856;
+    color:white;
+}
+
+.pagination li a,.pagination .disabled{
+    color: #00c2c2;
+}
+
+/********************/
+
+
+/******后台首页*****/
+
+.left-side-panel{
+    color:#dbe4f0;
+    background: rgba(90, 59, 79, 0.91);
+    min-width:250px;
+
+    font-size:16px;
+    min-height: 1600px;
+}
+
+
+
+.left-side-panel i{
+    margin-top:-2px!important;
+}
+.admin-menu .item{
+    padding:15px!important;
+    cursor: pointer;
+
+}
+
+
+
+
+.right-side-panel{
+
+    margin-left: 250px;
+    padding: 0 10px;
+    position:absolute;
+    min-width:600px;
+}
+.sub-menu .item{
+    padding:10px 15px!important;
+    cursor: pointer;
+    font-size:14px;
+}
+
+.statistic-box{
+    border:1px solid lightgray;
+    width:180px;
+    height:80px;
+    float:left;
+    margin:10px 10px;
+
+    color: rgba(34, 0, 29, 0.58);
+
+}
+.statistic-box .title{
+    font-size:14px;
+    padding:10px;
+    font-weight: 600;
+
+}
+.statistic-box .content{
+    font-size:20px;
+    padding:10px;
+    text-align:right;
+    color: #ff665f;
+    font-weight: 700;
+}
+
+.breadcrumb-nav{
+    padding:10px;
+}
+
+
+/******************/
+
+
+/***后台产品页面****/
+.product-table
+{
+    padding:0 10px;
+}
+
+
+.product-table table{
+    background: white;
+    opacity: 0.7;
+    z-index:0;
+}
+
+.table-content{
+    width:100%;
+    overflow: hidden;
+    margin:10px 0 0 0 ;
+    height:40px;
+    line-height:40px;
+
+}
+
+.table-content .header{
+    color: #1f5966;
+    font-size:20px;
+}
+
+.new-product-form{
+    padding:10px 0 0 10px;
+}
+.common-input-box{
+    padding:5px 0 5px 0 ;
+}
+.common-input-box label{
+    display:block;
+    margin:5px  2px;
+    color: white;
+}
+.common-input-box input{
+    padding:5px 0;
+    height:38px;
+    width:300px;
+    color: #24296d;
+}
+.common-input-box textarea{
+    padding:5px 0;
+    height:65px;
+    width:300px;
+    color: #24296d;
+}
+.common-input-box .ui.dropdown{
+    width:300px!important;
+
+    border-radius: 0!important;
+}
+.common-input-box .checkbox{
+    display: block!important;
+}
+.common-input-box .checkbox label{
+
+    margin: 15px 0;
+}
+
+.product-image-upload{
+    clear:both;
+
+}
+.product-image-upload label{
+    display:block;
+    padding:5px  2px;
+    color: white;
+    font-size:16px;
+    margin-bottom: 20px;
+    clear:both;
+}
+
+.file-item{
+    float:left;
+    margin:0 20px 20px 0;
+
+    position: relative;
+}
+
+.image-mask{
+    position:absolute;
+    top:0;
+    width:100%;
+    height:100%!important;
+    background: rgba(58, 58, 58, 0.51);
+    display:none;
+
+}
+.image-mask .set-cover{
+
+    margin:80px auto;
+}
+
+.file-item img{
+
+}
+.file-item .remove{
+    position: absolute;
+    top:10px;
+    right:2px;
+    cursor: pointer;
+    z-index:1000;
+}
+.file-item .info{
+    background: rgba(54, 54, 54, 0.51);
+    color:white;
+    height:25px;
+    line-height:25px;
+    text-align: center;
+    margin-top:-5px;
+    width:200px;
+    overflow:hidden;
+}
+
+.file-item .loader-box{
+    position: absolute;
+    top:60px;
+    width:100%;
+}
+
+.file-item .upload-success,.file-item .upload-failed,.file-item .cover{
+    display: none;
+}
+
+/*****************/
+
+
+/***后台订单页面****/
+.order-table
+{
+    padding:0 10px;
+}
+
+
+.order-table table{
+    background: white;
+    opacity: 0.8;
+    z-index:0;
+}
+
+.order-detail-box{
+
+    margin:5px;
+    border:2px dashed #ffffff;
+    padding:5px;
+}
+
+.order-detail-box .header{
+
+    text-align: center;
+    color: #ffffff;
+    padding:2px;
+    font-weight:500;
+    font-size:16px!important;
+
+}
+
+.order-line-detail{
+
+    padding:5px 0 5px 5px;
+    clear:both;
+    overflow: hidden;
+    border-bottom: 1px solid #ffffff;
+}
+.order-line-detail span{
+    text-align:right;
+
+    font-size:14px;
+    max-width:80%;
+    white-space:normal;
+}
+.order-line-detail .total-amount{
+     color:#ff665f;
+ }
+.order-line-detail i{
+    color:#47A1B9;
+}
+
+.cart-item{
+
+    overflow:hidden;
+    padding: 5px;
+    border: 1px solid #ffffff;
+    position: relative;
+    margin:2px;
+    clear:both;
+}
+
+.cart-item img{
+    margin-right:10px;
+    width:80px;
+    height:80px;
+    border-radius: 100%;
+}
+.cart-item .name{
+    padding:5px 0 ;
+    color: #dd9d37;
+
+}
+.cart-item .type{
+    padding:3px 0;
+
+}
+.cart-item .product-price{
+    padding:5px 0;
+}
+.cart-item .product-price span,.cart-item .sub-product span,.cart-item .total-product-price span{
+     color: rgb(255, 127, 5);
+}
+
+
+/*.cart-item .totalPrice i{*/
+/*margin-top:-5px;*/
+/*}*/
+.cart-item .sub-product{
+    padding:0  0 0 5px;
+    clear:both;
+}
+
+.cart-item .total-product-price{
+    padding: 3px  0 0 5px;
+    clear:both;
+}
+
+.cart-item .delete-item
+{
+    position:absolute;
+    top:5px;
+    right:5px;
+    font-size:20px!important;
+}
+/*****************/
+
+/****后台用户页面*****/
+.user-table
+{
+    padding:0 10px;
+}
+
+
+.user-table table{
+    background: white;
+    opacity: 0.8;
+    z-index:0;
+}
+
+.member-info-box{
+
+
+    color:white;
+    width:100%;
+    margin:10px 5px 10px 0;
+    padding:10px 5px;
+    overflow: hidden;
+
+}
+
+.member-info-box img{
+    margin-right:10px;
+}
+.member-info-box .header{
+    padding:5px ;
+    color: #ff665f;
+}
+.member-info-box .meta{
+    padding:2px;
+}
+.member-info-box .description{
+    padding:5px;
+}
+.member-info-box .description span{
+    color: #ff665f;
+}
+/*******************/

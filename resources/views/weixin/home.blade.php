@@ -31,7 +31,7 @@
             <div class="ui equal width center aligned padded grid">
                 <div class="row">
                     <div class="column item-left " >
-                        <a href="/weixin/product/1"><img src="../img/bg2.jpg"></a>
+                        <a href="/weixin/product/1"><img src="../img/thumb_cake1.jpg"></a>
                         <div >凡悦私享空间</div>
                         <div class="price-info">
 
@@ -41,7 +41,7 @@
                         </div>
                     </div>
                     <div class="column item-right ">
-                        <img src="../img/bg3.jpg">
+                        <img src="../img/thumb_cake1.jpg">
                         <div>卡布奇诺</div>
                         <div class="price-info">
 
@@ -54,7 +54,7 @@
 
                 <div class="row">
                     <div class="column item-left " >
-                        <img src="../img/bg1.jpg">
+                        <img src="../img/thumb_cake1.jpg">
                         <div >凡悦私享空间</div>
                         <div class="price-info">
 
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                     <div class="column item-right ">
-                        <img src="../img/bg4.jpg">
+                        <img src="../img/thumb_cake1.jpg">
                         <div>卡布奇诺</div>
                         <div class="price-info">
 

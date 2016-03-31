@@ -4,11 +4,15 @@ namespace App\Repositories;
 
 interface ProductRepositoryInterface{
 
-    public function selectAll();
+    public function selectAll($paginate = 0);
 
     public function find($id);
 
     public function findBy($query,$value );
+
+    public function save($obj);
+
+    public function update($obj);
 
 //    public function errors();
 //

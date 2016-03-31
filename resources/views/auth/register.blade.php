@@ -4,19 +4,24 @@
 
 
 
+    @if(isset($message))
+        <div class="errorMessage none-display">
+            {{$message}}
+        </div>
+    @endif
 
-    <div class="ui  container " style=" overflow:hidden;" id="homepage">
+    <div class="ui  container login-box " style=" overflow:hidden;" >
 
-        <img  src="../img/reg_cover.jpg/" style="width:100%; height:700px;" class="bg-img">
+        {{--<img  src="../img/bg.jpg" style="width:100%;" class="bg-img">--}}
         <form method="POST"  action="{{url('auth/register')}}" id="registerForm">
-            {!! csrf_field() !!}
+
             <div class="reg-box-mask big-font">
 
                 <div  class="box-content ">
-
+                    {!! csrf_field() !!}
                     <p class="giant-font">用户注册</p>
                     <div class="ui icon input reg-input-box">
-                        <input class="login-reg-input transparent-input" name="mobile"  id="mobile" type="text" placeholder="手机号">
+                        <input class="login-reg-input transparent-input" name="mobile"  id="mobile" type="text" placeholder="手机号" value="{{isset($mobile) ? $mobile : ''}}">
                         <i class=" check  icon large"></i>
 
                     </div>
@@ -33,16 +38,16 @@
                     </div>
 
                     <div class="ui icon input reg-input-box">
-                        <input  class="login-reg-input transparent-input" name="password_confirmation" id="passwordConfirmation" type="password" placeholder=" 重复密码">
+                        <input  class="login-reg-input transparent-input" name="passwordConfirmation" id="passwordConfirmation" type="password" placeholder=" 重复密码">
                         <i class=" check  icon large"></i>
                     </div>
 
 
                     <div class="ui action  input reg-input-box">
-                        <input class="login-reg-input transparent-input" name="validateCode" type="text" placeholder="图片验证码">
+                        <input class="login-reg-input transparent-input" name="validateCode"  id="validateCode" type="text" placeholder="图片验证码">
 
                         <div style="width: 150px;">
-                            <img src ='/getValidateCode' id="validateCode" style="width:100%;height:40px;">
+                            <img src ='/getValidateCode' id="validateCodeImg" style="width:100%;height:40px;">
                         </div>
 
 
@@ -63,6 +68,8 @@
                 </div>
             </div>
          </form>
+
+
     </div>
 @stop
 
@@ -72,15 +79,18 @@
         $(document).ready(function(){
 
 
+            if(($('.errorMessage').hasClass('errorMessage') !== false))
+            {
+                $('.toaster').text($('.errorMessage').text());
+                $('.toaster').fadeIn(1000).fadeOut(1000 );
+            }
 
             $('.pos-spacing,.home-header').hide();
             $('.bg-img').addClass('blur');
-            $('.box-content').transition( {
-                animation : 'fly left',
-                duration  : 800
-            });
+            $('.box-content').transition('swing down');
 
-            $('#validateCode').click(function(){
+            $('#validateCodeImg').click(function(){
+
                     $(this).attr('src','/getValidateCode?random' + Math.random() );
             })
 
@@ -99,7 +109,7 @@
                     return;
                 } else {
 
-                    obj.text(countdown+'秒后,重新发送' );
+                    obj.text(countdown+'秒后可重发' );
                     countdown--;
                 }
                 setTimeout(function() {
@@ -117,7 +127,7 @@
                 $.ajax({
                     type: 'POST',
                     async : false,
-                    url: '/authCheck/checkMobile',
+                    url: '/authCheck/CheckMobile',
                     data: { mobile : $.trim($('#mobile').val())},
                     dataType: 'json',
                     headers: {
@@ -127,7 +137,7 @@
                     {
                         status = data.statusCode;
 
-                        if(status === 1 || status ===2)
+                        if(status === 2 || status ===3)
                         {
                             $('.toaster').text(data.statusMsg);
                             $('.toaster').fadeIn(1000).fadeOut(1000 );
@@ -193,22 +203,23 @@
                 if(countdown !== 60)
                     return;
 
+                //检查手机号
+                var mobileStatus = 2;//checkMobile($('#mobile'));
 
-                var mobileStatus = 2;//checkMobile();
-
-
+                //如果手机号码异常或是空 返回
                 if(mobileStatus===1 ||  $('#mobile').val() == '')
                 {
-                    $('#invalidTelNumber').fadeOut().fadeIn();
-                    sendBtn.attr('disabled', 'disabled');
+                    return;
                 }
                 else{
-                    //发送短信
+
+
+                    //检查随机验证码
                     $.ajax({
                         type: 'POST',
                         async:false,
-                        url: '/sendSmsCode',
-                        data: { mobile : $.trim($('#mobile').val())},
+                        url: '/verifyValidateCode',
+                        data: { validateCode : $.trim($('#validateCode').val())},
                         dataType: 'json',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -216,30 +227,60 @@
                         success: function(data)
                         {
 
-
-                            if(data.statusCode === 0)
+                            //如果图片验证码正确
+                            if(data.statusCode === 1)
                             {
 
-                                sendBtn.addClass('code-send');
-                                settime(sendBtn);
+                                //发送短信
+                                $.ajax({
+                                    type: 'POST',
+                                    async:false,
+                                    url: '/sendSmsCode',
+                                    data: { mobile : $.trim($('#mobile').val())},
+                                    dataType: 'json',
+                                    headers: {
+                                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                                    },
+                                    success: function(data)
+                                    {
+
+
+                                        if(data.statusCode === 1)
+                                        {
+                                            //验证码发送成功
+                                            sendBtn.addClass('code-send');
+                                            $('.toaster').text(data.statusMsg);
+                                            $('.toaster').fadeIn(1000).fadeOut(1000 );
+                                            settime(sendBtn);
+                                        }
+                                        else
+                                        {
+                                            $('.toaster').text(data.statusMsg);
+                                            $('.toaster').fadeIn(1000).fadeOut(1000 );
+                                            //todo 判断发送验证码失败的原因 第三方
+                                        }
+
+                                    },
+                                    error: function(xhr, type){
+                                        alert('Ajax error!')
+                                    }
+
+                                });
                             }
                             else
                             {
-                                //todo 判断发送验证码失败的原因 第三方
+                                //随机验证吗错误
+                                $('.toaster').text(data.statusMsg);
+                                $('.toaster').fadeIn(1000).fadeOut();
                             }
-
                         },
                         error: function(xhr, type){
                             alert('Ajax error!')
                         }
 
                     });
-
-
                 }
-
             })
-
 
         })
     </script>

@@ -28,7 +28,7 @@ class memberController extends Controller
         if(Auth::check())
         {
             $user = Auth::user();
-            $account = $this->userAccount->findBy('user_id',$user->id )->first();
+            $account = $this->userAccount->findBy([['key'=>'user_id','compare'=>'=','value'=>$user->id] ])->first();
             return view('weixin.member.home')->with('user',$user)->with('account',$account);
         }
 

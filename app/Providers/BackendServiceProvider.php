@@ -24,12 +24,15 @@ class BackendServiceProvider extends ServiceProvider
     public function register()
     {
         //
-        $this->app->bind('App\Repositories\BaseRepositoryInterface', 'App\Repositories\UserRepository');
+        $this->app->bind('App\Repositories\UserRepositoryInterface', 'App\Repositories\UserRepository');
         $this->app->bind('App\Repositories\CategoryRepositoryInterface', 'App\Repositories\CategoryRepository');
+        $this->app->bind('App\Repositories\BrandRepositoryInterface', 'App\Repositories\BrandRepository');
         $this->app->bind('App\Repositories\ProductRepositoryInterface', 'App\Repositories\ProductRepository');
         $this->app->bind('App\Repositories\ShoppingCartRepositoryInterface', 'App\Repositories\ShoppingCartRepository');
         $this->app->bind('App\Repositories\OrderRepositoryInterface', 'App\Repositories\OrderRepository');
         $this->app->bind('App\Repositories\OrderItemRepositoryInterface', 'App\Repositories\OrderItemRepository');
         $this->app->bind('App\Repositories\UserAccountRepositoryInterface', 'App\Repositories\UserAccountRepository');
+        $this->app->bind('App\Repositories\SmsCodeLogRepositoryInterface', 'App\Repositories\SmsCodeLogRepository');
+        $this->app->bind('App\Repositories\ImageRepositoryInterface', 'App\Repositories\ImageRepository');
     }
 }

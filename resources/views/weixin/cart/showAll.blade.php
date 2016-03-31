@@ -11,7 +11,7 @@
 
             <div class="cart-item">
                 <input class="hidden-id" type="hidden" value="{{$cartItem->product_id}}">
-                <img class="f-left" src ='{{$cartItem->product->img}}'>
+                <img class="f-left" src ='{{$cartItem->product->thumb}}'>
                 <div class="name ">{{$cartItem->product->name}}   </div>
                 <div class="type">
                     1.0磅 X 1
@@ -30,9 +30,9 @@
                         选项配置<i class="arrow circle down icon"></i>
                     </div>
                     @endif
-                    <i class=" f-right minus big circle icon teal "></i>
+                    <i class="icon-count f-right  plus large   icon red "></i>
                     <input class="f-right  big-font quantity" type="text" value="{{$cartItem->count}}"/>
-                    <i class="f-right  plus big circle icon red "></i>
+                        <i class=" icon-count f-right minus large   icon teal "></i>
                 </div>
 
                 <div class="options">
