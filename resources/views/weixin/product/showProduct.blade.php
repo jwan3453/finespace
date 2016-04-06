@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href= {{ asset('js/swiper/jquery.excoloSlider.css') }}>
 @stop
 
+
+
 @section('content')
 
     <div class=" ui container prod-detail-box"  >
@@ -41,27 +43,40 @@
                 </div>
             </div>
 
-
-
             <div class="specs specs-level2 ">
                 @foreach( $product->spec as $spec)
                     @if($spec['level'] == 2)
-                        <div class="ui big-font  tag label">{{$spec['content']}}</div>
+                        <div class="ui big-font  tag label"><i class="selected radio icon" ></i>{{$spec['content']['name']}}:{{$spec['content']['value']}}</div>
+                    @endif
+                @endforeach
+            </div>
+            <div class="specs">
+                @foreach( $product->spec as $spec)
+                    @if($spec['level'] == 1)
+                        <div>
+                            {{$spec['content']['name']}}:
+
+
+                            @if(is_numeric($spec['content']['value']))
+                                <div class="ui rating" data-rating="{{ $spec['content']['value']}}" data-max-rating="5"></div>
+                                @else
+                                {{$spec['content']['value']}}
+                            @endif
+
+                        </div>
+
+
                     @endif
                 @endforeach
             </div>
 
-            <div class="specs">
-                @foreach( $product->spec as $spec)
-                    @if($spec['level'] == 1)
-                        <div>{{$spec['content']}}</div>
-                    @endif
-                @endforeach
-            </div>
+
+
 
         </div>
 
 
+        <div class="pos-spacing"></div>
         <div class="pos-spacing"></div>
         <div class="prod-price">
             <i class=" f-left minus large  icon teal icon-count "></i>
@@ -95,12 +110,19 @@
 
 @section('script')
     <script type="text/javascript">
+        $("#slider").excoloSlider();
 
-
-    $("#slider").excoloSlider();
         $(document).ready(function(){
 
             $('.add-to-cart,.prod-price').css('width',$('.prod-detail-box').width());
+
+            //评级系统
+            $('.ui.rating')
+                    .rating({
+                        interactive:false,
+                        clearable:false
+                    })
+            ;
 
             $('.plus').click(function(){
 

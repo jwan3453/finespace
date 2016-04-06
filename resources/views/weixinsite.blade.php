@@ -70,6 +70,7 @@
             </div>
 
         </div>
+
         @yield('content')
     </div >
 
@@ -78,6 +79,7 @@
     </div>
 </body>
 
+@yield('script')
 <script type="text/javascript">
 
 
@@ -140,5 +142,5 @@
 
     })
 </script>
-@yield('script')
+
 </html>

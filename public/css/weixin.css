@@ -550,12 +550,12 @@ font{
 
 .prod-image-slide img{
     width:100%;
-
+    height:300px;
 }
 
 .prod-spec {
 
-    padding:5px 5px;
+    padding:5px 10px;
 }
 
 .prod-spec .name{
@@ -578,7 +578,7 @@ font{
 
     color:white;
 
-    border-radius:10%;
+    border-radius:5px;
 }
 
 .product-tag div:nth-child(odd){
@@ -591,24 +591,33 @@ font{
 
 
 .specs{
-    margin:10px 10px ;
+    margin:10px 0 ;
     padding:5px 0;
     border-top:1px solid lightgray;
 }
+.specs div
+{
+    margin:3px 0!important;
+}
+
 .specs-level2 div
 {
     display: block!important;
-    margin:3px 10px!important;
-    color:white!important;
+
+    color: #6a6a6a !important;
+   // background-color: #47A1B9!important;
+}
+.specs-level2 div i,.specs div i{
+    color:#ff5856!important;
 }
 
-.specs-level2 div:nth-child(odd){
-    background-color: #ff5856;
+/*.specs-level2 div:nth-child(odd){*/
+ /**/
 
-}
-.specs-level2 div:nth-child(even){
-    background-color: #47A1B9;
-}
+/*}*/
+/*.specs-level2 div:nth-child(even){*/
+    /*background-color: #47A1B9;*/
+/*}*/
 
 
 .prod-price{

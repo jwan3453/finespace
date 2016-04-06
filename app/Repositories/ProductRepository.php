@@ -107,7 +107,8 @@ class ProductRepository implements  ProductRepositoryInterface{
             {
                 $specArray=array();
                 $specInfo = $spec->specInfo()->get()->first();
-                $specArray['content'] =$specInfo->name.": ".$spec->value;
+                $specArray['content']['name'] =$specInfo->name;
+                $specArray['content']['value'] =$spec->value;
                 $specArray['level'] =$specInfo->spec_level;
                 $specInfos[] = $specArray;
             }

@@ -29,12 +29,39 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="ProductRepository.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Repositories/ProductRepository.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-7.1923075">
+              <caret line="109" column="58" selection-start-line="109" selection-start-column="58" selection-end-line="109" selection-end-column="58" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="showProduct.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/weixin/product/showProduct.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3715847">
-              <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="59" selection-end-column="18" />
-              <folding />
+            <state vertical-scroll-proportion="0.3096539">
+              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+              <folding>
+                <marker date="1459929811905" expanded="true" signature="3232:6069" placeholder="..." />
+                <marker date="1459929811905" expanded="true" signature="3243:6068" placeholder="..." />
+                <marker date="1459929811905" expanded="true" signature="3559:4146" placeholder="..." />
+                <marker date="1459929811905" expanded="true" signature="3570:4145" placeholder="..." />
+                <marker date="1459929811905" expanded="true" signature="3687:4131" placeholder="//..." />
+                <marker date="1459929811905" expanded="true" signature="4179:4378" placeholder="..." />
+                <marker date="1459929811905" expanded="true" signature="4190:4377" placeholder="..." />
+                <marker date="1459929811905" expanded="true" signature="4293:4363" placeholder="..." />
+                <marker date="1459929811905" expanded="true" signature="4417:6057" placeholder="..." />
+                <marker date="1459929811905" expanded="true" signature="4429:6040" placeholder="..." />
+                <marker date="1459929811905" expanded="true" signature="4861:5906" placeholder="{...}" />
+                <marker date="1459929811905" expanded="true" signature="4979:5728" placeholder="{...}" />
+                <marker date="1459929811905" expanded="true" signature="5223:5465" placeholder="{...}" />
+                <marker date="1459929811905" expanded="true" signature="5499:5615" placeholder="..." />
+                <marker date="1459929811905" expanded="true" signature="5815:5882" placeholder="..." />
+                <marker date="1459929811905" expanded="true" signature="5955:6021" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -52,8 +79,8 @@
       <file leaf-file-name="weixinsite.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/weixinsite.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.8846154">
-              <caret line="87" column="39" selection-start-line="87" selection-start-column="26" selection-end-line="87" selection-end-column="39" />
+            <state vertical-scroll-proportion="-14.423077">
+              <caret line="81" column="16" selection-start-line="81" selection-start-column="16" selection-end-line="81" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -89,31 +116,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ShoppingCartRepositoryInterface.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Repositories/ShoppingCartRepositoryInterface.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.576923">
-              <caret line="12" column="35" selection-start-line="12" selection-start-column="35" selection-end-line="12" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="showAll.blade.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/weixin/cart/showAll.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.714286">
-              <caret line="314" column="5" selection-start-line="314" selection-start-column="5" selection-end-line="314" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="weixin.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/css/weixin.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.98214287">
-              <caret line="593" column="18" selection-start-line="593" selection-start-column="18" selection-end-line="593" selection-end-column="18" />
+            <state vertical-scroll-proportion="54.107143">
+              <caret line="552" column="17" selection-start-line="552" selection-start-column="17" selection-end-line="552" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="adminStyle.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/css/adminStyle.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -122,7 +139,7 @@
       <file leaf-file-name="OrderRepositoryInterface.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Repositories/OrderRepositoryInterface.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="-16.384615">
               <caret line="38" column="25" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="25" />
               <folding />
             </state>
@@ -147,7 +164,6 @@
         <option value="$PROJECT_DIR$/resources/views/admin/weixinAdmin/order/orderDetail.blade.php" />
         <option value="$PROJECT_DIR$/public/js/swiper/slideme.css" />
         <option value="$PROJECT_DIR$/public/css/adminStyle.css" />
-        <option value="$PROJECT_DIR$/resources/views/weixinsite.blade.php" />
         <option value="$PROJECT_DIR$/public/js/swiper/jquery.excoloSlider.css" />
         <option value="$PROJECT_DIR$/app/Models/ProductSepc.php" />
         <option value="$PROJECT_DIR$/database/migrations/2016_04_01_104920_crate__product_sepc_table.php" />
@@ -188,12 +204,13 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/weixin/memberController.php" />
         <option value="$PROJECT_DIR$/app/Repositories/OrderRepository.php" />
         <option value="$PROJECT_DIR$/database/migrations/2016_04_01_104941_crate__spec_info_table.php" />
-        <option value="$PROJECT_DIR$/app/Repositories/ProductRepository.php" />
-        <option value="$PROJECT_DIR$/public/css/weixin.css" />
         <option value="$PROJECT_DIR$/resources/views/weixin/cart/showAll.blade.php" />
         <option value="$PROJECT_DIR$/app/Repositories/ShoppingCartRepository.php" />
         <option value="$PROJECT_DIR$/app/Repositories/ShoppingCartRepositoryInterface.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/weixin/cartController.php" />
+        <option value="$PROJECT_DIR$/app/Repositories/ProductRepository.php" />
+        <option value="$PROJECT_DIR$/public/css/weixin.css" />
+        <option value="$PROJECT_DIR$/resources/views/weixinsite.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/weixin/product/showProduct.blade.php" />
       </list>
     </option>
@@ -339,6 +356,38 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="finespaceWeixin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="finespaceWeixin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="finespaceWeixin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="finespaceWeixin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -556,11 +605,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3579795" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27452415" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2496" sideWeight="0.5088626" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.100292824" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -647,14 +696,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Models/Image.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.5384617">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Models/Permission.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -894,14 +935,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Repositories/ProductRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="114" column="0" selection-start-line="114" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2016_04_01_104941_crate__spec_info_table.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -950,22 +983,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Repositories/OrderRepositoryInterface.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="38" column="25" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/css/weixin.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.98214287">
-          <caret line="593" column="18" selection-start-line="593" selection-start-column="18" selection-end-line="593" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/weixin/cart/showAll.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-10.714286">
@@ -1006,14 +1023,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/weixinsite.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.8846154">
-          <caret line="87" column="39" selection-start-line="87" selection-start-column="26" selection-end-line="87" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/weixin/product/category.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1022,11 +1031,68 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/OrderRepositoryInterface.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-16.384615">
+          <caret line="38" column="25" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/adminStyle.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/css/weixin.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="54.107143">
+          <caret line="552" column="17" selection-start-line="552" selection-start-column="17" selection-end-line="552" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Repositories/ProductRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.1923075">
+          <caret line="109" column="58" selection-start-line="109" selection-start-column="58" selection-end-line="109" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/weixinsite.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.423077">
+          <caret line="81" column="16" selection-start-line="81" selection-start-column="16" selection-end-line="81" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/weixin/product/showProduct.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3715847">
-          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="59" selection-end-column="18" />
-          <folding />
+        <state vertical-scroll-proportion="0.3096539">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding>
+            <marker date="1459929811905" expanded="true" signature="3232:6069" placeholder="..." />
+            <marker date="1459929811905" expanded="true" signature="3243:6068" placeholder="..." />
+            <marker date="1459929811905" expanded="true" signature="3559:4146" placeholder="..." />
+            <marker date="1459929811905" expanded="true" signature="3570:4145" placeholder="..." />
+            <marker date="1459929811905" expanded="true" signature="3687:4131" placeholder="//..." />
+            <marker date="1459929811905" expanded="true" signature="4179:4378" placeholder="..." />
+            <marker date="1459929811905" expanded="true" signature="4190:4377" placeholder="..." />
+            <marker date="1459929811905" expanded="true" signature="4293:4363" placeholder="..." />
+            <marker date="1459929811905" expanded="true" signature="4417:6057" placeholder="..." />
+            <marker date="1459929811905" expanded="true" signature="4429:6040" placeholder="..." />
+            <marker date="1459929811905" expanded="true" signature="4861:5906" placeholder="{...}" />
+            <marker date="1459929811905" expanded="true" signature="4979:5728" placeholder="{...}" />
+            <marker date="1459929811905" expanded="true" signature="5223:5465" placeholder="{...}" />
+            <marker date="1459929811905" expanded="true" signature="5499:5615" placeholder="..." />
+            <marker date="1459929811905" expanded="true" signature="5815:5882" placeholder="..." />
+            <marker date="1459929811905" expanded="true" signature="5955:6021" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
