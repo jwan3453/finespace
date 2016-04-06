@@ -62,8 +62,8 @@ class productController extends Controller
 
     public function addProduct(Request $request){
 
-        $newProductArray = $this->setProductArray($request);
-        $newProduct = $this->product->save($newProductArray);
+        //$newProductArray = $this->setProductArray($request);
+        $newProduct = $this->product->addProduct($request);
 
         if($newProduct!=null && $newProduct->id >0)
         {
@@ -92,11 +92,11 @@ class productController extends Controller
 
     public function updateProduct(Request $request)
     {
-        $newProductArray = $this->setProductArray($request);
-        $newProductArray['id'] = $request->input('productId');
-        $updatedProduct =  $this->product->update($newProductArray);
+
+
+        $updatedProduct =  $this->product->updateProduct($request);
         $jsonResult = new MessageResult();
-        if($updatedProduct !=null )
+        if($updatedProduct)
         {
 
             $jsonResult->statusCode=1;
@@ -119,7 +119,7 @@ class productController extends Controller
         $product = $this->product->find($productId);
         if($product !=null)
         {
-            $productImages =  $this->productImage->findBy(['associateId'=>$productId]);
+            $productImages =  $this->productImage->findBy(['type'=>1,'associateId'=>$productId])->get();
 
             return view('admin.weixinAdmin.product.addProductImages')->with('images',$productImages)
                 ->with('productThumbID',$product->thumb)
@@ -131,61 +131,6 @@ class productController extends Controller
 
 
     }
-
-
-    public function setProductArray(Request $request)
-    {
-        $catId = $request->input('selectCat');
-        $brandId = $request->input('selectBrand');
-        $sku = $request->input('sku');
-        $name = $request->input('name');
-        $inventory = $request->input('inventory');
-        $stockAlarm = $request->input('stockAlarm');
-        $price = $request->input('price');
-        $promotePrice = $request->input('promotePrice');
-        $promoteStartDate = $request->input('promoteStartDate');
-        $promoteEndDate = $request->input('promoteEndDate');
-        $keyWords = $request->input('keyWords');
-        $brief = $request->input('brief');
-        $desc = $request->input('desc');
-        $status= $request->input('status');
-        $promoteStatus = $request->input('promoteStatus');
-        if($status == 'on')
-        {
-            $status = 1;
-        }
-        else{
-            $status = 0;
-        }
-
-        if($promoteStatus == 'on')
-        {
-            $promoteStatus = 1;
-        }
-        else{
-            $promoteStatus = 0;
-        }
-
-        $newProductArray= [
-            'category_id' => $catId,
-            'brand_id'=>$brandId,
-            'sku'=> $sku,
-            'name'=> $name,
-            'inventory' =>$inventory,
-            'stock_alarm'=> $stockAlarm,
-            'price' => $price,
-            'promote_price' =>$promotePrice,
-            'promote_start_date' =>$promoteStartDate,
-            'promote_end_date' =>$promoteEndDate,
-            'keywords' =>$keyWords,
-            'brief' =>$brief,
-            'desc' =>$desc,
-            'status' =>$status,
-            'is_promote' =>$promoteStatus,
-        ];
-        return $newProductArray;
-    }
-
 
 
 }

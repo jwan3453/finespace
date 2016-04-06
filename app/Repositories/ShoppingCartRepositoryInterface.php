@@ -8,9 +8,9 @@ interface ShoppingCartRepositoryInterface{
 
     public function find($id);
 
-    public function findBy($query,$value );
+    public function findBy($query);
 
-    public function deleteBy($query,$value);
+    public function deleteBy($query);
 
     public function save($obj);
 
@@ -31,5 +31,9 @@ interface ShoppingCartRepositoryInterface{
 //    public function delete($id);
 //
 //    public function deleteWhere($column, $value);
+
+    public function getCartItems($cartCookie);
+    public function syncCart($cartArray);
+    public function addToCart($request);
 
 }

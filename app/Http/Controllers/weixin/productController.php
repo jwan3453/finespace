@@ -5,6 +5,7 @@ namespace App\Http\Controllers\weixin;
 use App\Models\Category;
 use App\Repositories\CategoryRepositoryInterface;
 use App\Repositories\ProductRepositoryInterface;
+use App\Repositories\ImageRepositoryInterface;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -17,6 +18,7 @@ class productController extends Controller
     //
     private $category;
     private $product;
+
     public function __construct(CategoryRepositoryInterface $category, ProductRepositoryInterface $product)
     {
         $this->category = $category;
@@ -26,8 +28,13 @@ class productController extends Controller
     public function showProduct($id)
     {
 
-        $prod = $this->product->find($id);
-        return view('weixin.product.showProduct')->with('product',$prod);
+        $prodDetail = $this->product->getProductDetail($id);
+
+        if($prodDetail != null)
+        {
+            return view('weixin.product.showProduct')->with('product',$prodDetail);
+        }
+        return '商品不存在';
     }
 
 

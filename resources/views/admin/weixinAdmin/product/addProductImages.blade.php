@@ -96,6 +96,7 @@
                 // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
                 resize: false,
                 // 只允许选择图片文件。
+
                 accept: {
                     title: 'Images',
                     extensions: 'gif,jpg,jpeg,bmp,png',
@@ -154,14 +155,15 @@
             });
 
             // 文件上传成功，给item添加成功class, 用样式标记上传成功。
-            uploader.on('uploadSuccess', function (file, data) {
-                if (data.statusCode == 1) {
+            uploader.on('uploadSuccess', function (file, response) {
+
+                if (response.statusCode == 1) {
                     var html ='<div class="image-mask " >'+
                             '<div class="set-cover  regular-btn red-btn">设为封面</div>'+
                             '</div>'+
                             '<div class="ui blue ribbon label cover " >产品封面</div>'+
-                            '<input type="hidden" class="image-key" value="' + data.extra['key'] + '">'+
-                            '<input type="hidden" class="image-id" value="' + data.extra['id'] + '">';
+                            '<input type="hidden" class="image-key" value="' + response.extra['key'] + '">'+
+                            '<input type="hidden" class="image-id" value="' + response.extra['id'] + '">';
 
                     $('#' + file.id).find('.upload-success').show();
                     $('#' + file.id).append(html);

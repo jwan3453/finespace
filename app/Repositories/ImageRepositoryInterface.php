@@ -10,9 +10,14 @@ interface ImageRepositoryInterface{
 
     public function findBy($query );
 
-    public function save($obj);
+
 
     public function delete($query);
+
+    public function uploadImage($request);
+    public function deleteImage($request);
+    public function setImageCover($request);
+
 
 //    public function errors();
 //

@@ -36,7 +36,7 @@
             {!! csrf_field() !!}
             @include('admin.weixinAdmin.product.productDetail')
             <a href="{{url('/weixin/admin/product/addImage').'/'.$product->id}}"  class=" ui button f-left blue " id="submit"> 编辑产品图片</a>
-            <div  class=" ui button f-right red" id="submit"> 保存更改</div>
+            <div  class=" ui button f-right red" id="submitUpdate"> 保存更改</div>
         </form>
 
     </div>
@@ -101,7 +101,7 @@
             }
 
 
-            $('#submit').click(function(){
+            $('#submitUpdate').click(function(){
 
                 $.ajax({
                     url:"/weixin/admin/product/edit",

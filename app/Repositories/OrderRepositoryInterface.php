@@ -10,7 +10,7 @@ interface OrderRepositoryInterface {
 
     public function findBy($query );
 
-    public function save($obj);
+//    public function save($obj);
 
 
 //    public function errors();
@@ -25,10 +25,17 @@ interface OrderRepositoryInterface {
 //
 //    public function create(array $data);
 //
-    public function update( $query);
+    public function update( $request);
 //
 //    public function delete($id);
 //
 //    public function deleteWhere($column, $value);
+
+
+    public function  getOrderDetail($orderNo);
+
+    public function  generateOrder($request);
+
+    public function getAllOrder($paymentStatus);
 
 }

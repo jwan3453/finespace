@@ -3,11 +3,12 @@ namespace App\Repositories;
 use App\User;
 
 
-class UserRepository implements  UserRepositoryInterface{
+class UserRepository implements  UserRepositoryInterface
+{
 
     public function selectAll($paginate = 0)
     {
-        if($paginate!=0)
+        if ($paginate != 0)
             return User::paginate($paginate);
         else
 
@@ -18,11 +19,7 @@ class UserRepository implements  UserRepositoryInterface{
     {
         return User::find($id);
     }
-
-    public function findBy($query){
-
-        return User::where($query)->get();
-    }
 }
+
 
 

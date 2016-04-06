@@ -28,7 +28,7 @@ class checkoutController extends Controller
     {
 
         if (Auth::check()) {
-            $cartItems = $this->shoppingCart->findBy('user_id', Auth::user()->id);
+            $cartItems = $this->shoppingCart->findBy(['user_id'=> Auth::user()->id])->get();
 
             return view('weixin.checkout.checkout');
         } else {

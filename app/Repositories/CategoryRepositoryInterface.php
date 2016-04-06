@@ -8,9 +8,6 @@ interface CategoryRepositoryInterface{
 
     public function find($id);
 
-    public function findBy($query,$value );
-
-    public function save(&$obj);
 
 //    public function errors();
 //

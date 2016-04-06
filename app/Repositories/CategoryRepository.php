@@ -16,14 +16,7 @@ class CategoryRepository implements  CategoryRepositoryInterface{
     }
 
 
-    public function findBy($query,$value){
 
-        return Category::where($query,$value)->get();
-    }
-    public function save(&$obj)
-    {
-
-    }
 
 }
 

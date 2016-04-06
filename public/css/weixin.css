@@ -414,8 +414,6 @@ font{
     margin:0 auto!important;
     /*left:0;*/
     /*right:0;*/
-
-
 }
 
 .side-menu-icon
@@ -555,19 +553,21 @@ font{
 
 }
 
-.prod-desc {
-
-
-}
-
-.prod-desc .name{
+.prod-spec {
 
     padding:5px 5px;
 }
-.prod-desc .extra{
 
+.prod-spec .name{
+
+    padding:5px 0;
+}
+
+
+.product-tag{
 
 }
+
 .product-tag div{
 
     height:20px;
@@ -575,7 +575,7 @@ font{
     text-align: center;
     line-height: 20px;
     display:inline-block;
-    margin-left:5px;
+
     color:white;
 
     border-radius:10%;
@@ -589,6 +589,28 @@ font{
     background-color: #47A1B9;
 }
 
+
+.specs{
+    margin:10px 10px ;
+    padding:5px 0;
+    border-top:1px solid lightgray;
+}
+.specs-level2 div
+{
+    display: block!important;
+    margin:3px 10px!important;
+    color:white!important;
+}
+
+.specs-level2 div:nth-child(odd){
+    background-color: #ff5856;
+
+}
+.specs-level2 div:nth-child(even){
+    background-color: #47A1B9;
+}
+
+
 .prod-price{
 
     position: fixed;
@@ -596,7 +618,7 @@ font{
     height:40px;
     width:100%;
     border-top:1px solid lightgray;
-
+    background: white;
     padding:2px 5px;
 }
 .prod-price .icon-count{

@@ -8,4 +8,7 @@ class Image extends Model
 {
     //
     protected $table = 'images';
+
+
+    protected $fillable = ['type','associateId','key','link'];
 }

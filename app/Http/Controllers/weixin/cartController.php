@@ -31,109 +31,57 @@ class cartController extends Controller
 
         $cartCookie =  $this->getCartCookie($request,1);
 
-        $cartItemList =array();
 
-
-        //查看用户是否登录,如果登录 同步cookie 和数据库里面的购物车数据
+        //查看用户是否登录
         if (Auth::check()) {
+
+            //如果登录 同步cookie 和数据库里面的购物车数据
             $cartItems =  $this->syncCart($cartCookie);
+
 
             return response()->view('weixin.cart.showAll', ['cartItemList' => $cartItems])->withCookie('cart', null);
         }
 
         //循环cookie 推送数据到view
-        foreach($cartCookie  as $value)
-        {
-            $index = strpos($value, ':');
+        $cartItemList = $this->shoppingCart->getCartItems($cartCookie);
 
-            $newItem = new shoppingCart();
-            $newItem->product_id = (int)substr($value, 0,$index);
-            $newItem->product_sku = '12331231';
-            $newItem->count =(int)substr($value, $index+1);
-            $newItem->product = $this->product->find($newItem->product_id);
-
-            if($newItem->product != null)
-            {
-                array_push($cartItemList,$newItem);
-            }
-        }
 
         return view('weixin.cart.showAll')->with('cartItemList',$cartItemList);
     }
 
     public function addToCart(Request $request)
     {
-        //重cookie 里面获取product id
         $jsonResult = new MessageResult();
-        $jsonResult->statusCode =0;
-        $jsonResult->statusMsg = '添加成功';
 
+        $addResult =  $this->shoppingCart->addToCart($request);
 
-        $cart = $request->cookie('cart');
-        $productId = $request->input('productId');
-
-        //如果商品属于子商品
-        $parentProductId = $request->input('parentProductId');
-
-        $cartArray = ($cart!=null ? explode(',', $cart):array());
-
-
-        //查看用户是否登录
-        $exist = false;
-        if (Auth::check()) {
-            $cartItems = $this->shoppingCart->findBy('user_id', Auth::user()->id);
-
-            foreach ($cartItems as $cartItem) {
-                if($cartItem->product_id == $productId && $cartItem->parent_product_id ==$parentProductId) {
-                    $cartItem->count ++;
-                    $cartItem->save();
-                    $exist = true;
-                    break;
-                }
-            }
-            if($exist == false) {
-
-                $cartItem = [
-                    'user_id' => Auth::user()->id,
-                    'session' => 'testsession',
-                    'product_id' => $productId,
-                    'parent_product_id'=>$parentProductId,
-                    'has_child_product'=>0,
-                    'product_sku' => 'testSku',
-                    'count' => 1
-                ];
-                $cartItem = $this->shoppingCart->save($cartItem);
-            }
-            return $jsonResult->toJson();
-        }
-
-
-        $count =1;
-        foreach($cartArray  as &$value)
+        if($addResult['status'] == false)
         {
-            $index = strpos($value, ':');
-            if(substr($value, 0 , $index) == $productId){
-                $count = ((int) substr($value, $index+1) +1);
-                $value = $productId.':'.$count;
-                break;
-            }
-
+            $jsonResult->statusCode = 2;
+            $jsonResult->statusMsg ='添加失败';
         }
-
-        if($count == 1){
-            array_push($cartArray,$productId.':'.$count );
+        else{
+            $jsonResult->statusCode = 1;
+            $jsonResult->statusMsg ='添加成功';
         }
 
 
+        if(Auth::check())
+        {
+            return response($jsonResult->toJson());
+        }
 
-
-        return  response($jsonResult->toJson())->withCookie('cart',implode(',',$cartArray));
+        return  response($jsonResult->toJson())->withCookie('cart',implode(',',$addResult['cartArray']));
 
     }
 
     public function getCartCookie(Request $request, $type=0)
     {
         $jsonResult = new MessageResult();
+        if(Auth::check())
+        {
+
+        }
         $cart = $request->cookie('cart');
         $cartArray = ($cart!=null ? explode(',', $cart):array());
 
@@ -148,6 +96,7 @@ class cartController extends Controller
         $jsonResult->statusCode =$productCount;
         $jsonResult->statusMsg = $cartArray;
 
+        //如果不是ajax 请求
         if($type === 1)
             return  $cartArray;
         return response($jsonResult->toJson());
@@ -161,9 +110,6 @@ class cartController extends Controller
         $cartArray =  $this->getCartCookie($request,1);
 
 
-
-
-
         if($productId =='')
         {
             $jsonResult->statusCode =1;
@@ -172,10 +118,21 @@ class cartController extends Controller
         }
         else{
 
+            //如何是已经登录 直接从数据库删除
             if (Auth::check()) {
-                $this->shoppingCart->deleteBy('product_id',$productId);
+
+                $this->shoppingCart->deleteBy(['user_id'=>Auth::user()->id,'product_id'=>$productId]);
+                $childProducts = $this->shoppingCart->findBy(['user_id'=>Auth::user()->id,'parent_product_id'=>$productId])->get();
+                if($childProducts!=null)
+                {
+                    foreach($childProducts as $childProduct)
+                    {
+                        $childProduct->delete();
+                    }
+                }
                // $jsonResult->statusMsg = $cartArray;
             }
+            //从cookie中删除
             else{
 
 
@@ -199,106 +156,8 @@ class cartController extends Controller
 
     private function syncCart($cartArray){
 
-        $cartItems = $this->shoppingCart->findBy('user_id', Auth::user()->id);
-        $cartItemsArray = array();
 
-        $subProductCount = 0;
-
-
-        foreach($cartArray as $value) {
-            $exist = false;
-            $index = strpos($value, ':');
-            $productId = substr($value, 0, $index);
-            $count = (int)substr($value, $index + 1);
-
-            //比较cookie 的product 和数据库中的购物车表中的product
-            foreach ($cartItems as $cartValue) {
-
-
-                if ($cartValue->product_id == $productId) {
-                    //如果购物车cookie 里的商品数量大于数据空中的购物车商品数量
-                    if ($cartValue->count < $count) {
-                        $cartValue->count = $count;
-                        $cartValue->save();
-                    }
-                    $exist = true;
-                    break;
-                }
-            }
-
-            if ($exist == false) {
-                $cartItem = [
-                    'user_id' => Auth::user()->id,
-                    'session' => 'testsession',
-                    'product_id' => $productId,
-                    'product_sku' => 'testSku',
-                    'parent_product_id'=>0,
-                    'has_child_product'=>0,
-                    'count' => $count
-                ];
-
-                $cartItem = $this->shoppingCart->save($cartItem);
-                $cartItem->product = $this->product->find($productId);
-
-
-                $cartItemsArray[$cartItem->product_id] = $cartItem;
-
-            }
-        }
-
-
-
-        foreach($cartItems as $cartValue)
-        {
-
-                $cartValue->product = $this->product->find($cartValue->product_id);
-                //array_push($cartItemsArray, => $cartValue);
-                if($cartValue->parent_product_id >0)
-                {
-                    $cartItemsArray[uniqid()] = $cartValue;
-                }
-                else{
-                    $cartItemsArray[$cartValue->product_id] = $cartValue;
-                }
-
-        }
-
-
-        foreach($cartItemsArray  as  $productId_key =>$cartValue)
-        {
-
-
-
-
-            //todo 完善child product 功能
-                if($cartValue->parent_product_id > 0 )
-                {
-                        if($cartValue->product_id == 2)
-                        {
-                            if(isset( $cartItemsArray[$cartValue->parent_product_id]))
-                                $cartItemsArray[$cartValue->parent_product_id]['dinnerWareCount'] = $cartValue->count;
-                        }
-                        else{
-                            if(isset( $cartItemsArray[$cartValue->parent_product_id]))
-                                $cartItemsArray[$cartValue->parent_product_id]['candleCount'] = $cartValue->count;
-                        }
-                    unset($cartItemsArray[$productId_key]);
-                }
-                else
-                {
-                    //找到商品的缩略图
-                    //todo 附属商品的照片怎么办
-                    if($cartValue->product->thumb != null)
-                    {
-
-                        $cartValue->product->thumb =$this->image->find($cartValue->product->thumb)->link;
-                    }
-                    else{
-                        $cartValue->product->thumb = $this->image->findBy(['type'=>1, 'associateId'=>$cartValue->product->id])->first()->link;
-                    }
-                }
-        }
-
+        $cartItemsArray = $this->shoppingCart->syncCart($cartArray);
         return $cartItemsArray;
     }
 }

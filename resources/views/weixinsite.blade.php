@@ -44,7 +44,7 @@
         </a>
     </div>
 
-    <div class=" pusher" >
+    <div class=" pusher ui container" >
 
 
 
@@ -118,12 +118,16 @@
 
 
         $('.container').css('min-height',$(document).height()).css('background-color','white');
+//
 
         $('.home-header').css('width',$('.container').width());
 
         $('.home-header').offset({left:$('.container').offset().left});
+        $(window).resize(function(){
+            $('.home-header').css('width',$('.container').width());
 
-
+            $('.home-header').offset({left:$('.container').offset().left});
+        });
 
         _getCartCookie();
         $('.side-menu-icon').click(function(){

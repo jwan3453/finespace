@@ -26,21 +26,6 @@ class homeController extends Controller
     public function index()
     {
 
-
-
-
-
-       // $currentUser =Auth::getUser()->getAttributeValue('id');
-
-
-//
-//        $user = user::where('id',1)->first();
-//
-//        echo $user->hasRole('owner');   // false
-//        echo $user->hasRole('admin');   // true
-//        echo $user->may('edit-user');   // false
-//        echo $user->may('create-post'); // true
-//        dd("test");
         return view('weixin.home',compact('currentUser'));
     }
 }

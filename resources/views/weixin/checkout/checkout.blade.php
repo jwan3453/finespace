@@ -316,7 +316,7 @@
                     {
                         var status  = data.statusCode;
 
-                        if(status === 0 ) {
+                        if(status === 1 ) {
                             $('.loader-box').addClass('none-display');
                             location.href = '{{url('weixin/order')}}'+'/'+data.extra;
 //                            $('.dimmer').dimmer({

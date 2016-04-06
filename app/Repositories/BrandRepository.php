@@ -16,15 +16,6 @@ class BrandRepository implements  BrandRepositoryInterface{
     }
 
 
-    public function findBy($query,$value){
-
-        return Brand::where($query,$value)->get();
-    }
-    public function save(&$obj)
-    {
-
-    }
-
 }
 
 

@@ -54,14 +54,8 @@ class userController extends Controller
 
         if($user != null)
         {
-            $query = [
-                [
-                    'key'=>'user_id',
-                    'compare' => '=',
-                    'value' =>$user->id
-                ]
-            ];
-            $account =$this->userAccount->findBy($query)->first();
+
+            $account =$this->userAccount->findBy(['user_id'=>$user->id])->first();
 
 
             $query = [

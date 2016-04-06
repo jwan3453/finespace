@@ -8,11 +8,18 @@ interface ProductRepositoryInterface{
 
     public function find($id);
 
-    public function findBy($query,$value );
+//    public function findBy($query );
+
 
     public function save($obj);
 
     public function update($obj);
+
+
+
+    public function getProductDetail($productId);
+    public function addProduct($request);
+    public function updateProduct($request);
 
 //    public function errors();
 //

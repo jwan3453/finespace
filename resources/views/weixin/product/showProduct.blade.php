@@ -4,26 +4,26 @@
 
 @section('resources')
 
-    <script src={{ asset('js/swiper/jquery.slides.min.js') }}></script>
-    {{--<link rel="stylesheet" type="text/css" href= {{ asset('js/swiper/style.css') }}>--}}
+    <script src={{ asset('js/swiper/jquery.excoloSlider.min.js') }}></script>
+    <link rel="stylesheet" type="text/css" href= {{ asset('js/swiper/jquery.excoloSlider.css') }}>
 @stop
 
 @section('content')
 
-    <div class=" ui container prod-detail-box" >
+    <div class=" ui container prod-detail-box"  >
 
         <div class="prod-image-slide" >
-            {{--<img src="{{$product->img}}"/>--}}
-
-            <div id="slides">
-                <img src="{{$product->img}}">
-                <img src="{{$product->img}}">
+            <div id="slider">
+                @foreach($product->img as $img)
+                    <img src="{{$img}}">
+                @endforeach
             </div>
+
         </div>
 
-        <div class="prod-desc">
+        <div class="prod-spec">
             <div class="huge-font name">{{$product->name}}</div>
-            <div class="font extra ">
+            <div class=" extra ">
 
                 <div class="product-tag">
                     <div >
@@ -40,7 +40,28 @@
                     </div>
                 </div>
             </div>
+
+
+
+            <div class="specs specs-level2 ">
+                @foreach( $product->spec as $spec)
+                    @if($spec['level'] == 2)
+                        <div class="ui big-font  tag label">{{$spec['content']}}</div>
+                    @endif
+                @endforeach
+            </div>
+
+            <div class="specs">
+                @foreach( $product->spec as $spec)
+                    @if($spec['level'] == 1)
+                        <div>{{$spec['content']}}</div>
+                    @endif
+                @endforeach
+            </div>
+
         </div>
+
+
         <div class="pos-spacing"></div>
         <div class="prod-price">
             <i class=" f-left minus large  icon teal icon-count "></i>
@@ -55,18 +76,19 @@
             加入购物车
         </div>
 
-        <div class="ui page dimmer">
-            <div class="  dimmer-box" >
-                <h3>已经加入了购物车</h3>
 
-                <div class="ui buttons dimmer-btn "   >
-                    <button type="submit" class="ui teal button" >继续购物</button>
-                    <a class="or" data-text="<->"></a>
-                    <a class="ui teal  button" href="/weixin/cart" >购物车</a>
-                </div>
+    </div>
+
+    <div class="ui page dimmer">
+        <div class="  dimmer-box" >
+            <h3>已经加入了购物车</h3>
+
+            <div class="ui buttons dimmer-btn "   >
+                <button type="submit" class="ui teal button" >继续购物</button>
+                <a class="or" data-text="<->"></a>
+                <a class="ui teal  button" href="/weixin/cart" >购物车</a>
             </div>
         </div>
-
     </div>
 @stop
 
@@ -75,20 +97,8 @@
     <script type="text/javascript">
 
 
-
-//        $(function(){
-//            $("#slides").slidesjs({
-//                width: 940,
-//                height: 528
-//            });
-//        });
-
-
+    $("#slider").excoloSlider();
         $(document).ready(function(){
-
-
-
-
 
             $('.add-to-cart,.prod-price').css('width',$('.prod-detail-box').width());
 
@@ -131,7 +141,7 @@
                     {
                         var status  = data.statusCode;
 
-                        if(status ==0 )
+                        if(status ==1 )
                         {
                             var newitemCount =   parseInt($('.quantity').val());
 

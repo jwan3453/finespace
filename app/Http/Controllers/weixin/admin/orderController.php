@@ -55,85 +55,11 @@ class orderController extends Controller
 
     public function orderDetail($orderNo){
 
-        $orderDetail['order'] = $this->order->findBy(
-                                                        [
-                                                            [
-                                                                'key' => 'order_no',
-                                                                'compare'=>'=',
-                                                                'value'=>trim($orderNo)
-                                                            ]
-                                                        ])->first();
-        $orderItemArray = array();
-
-        if($orderDetail['order']!=null)
-        {
-
-
-            $orderItems =  $this->orderItem->findBy(['order_id'=>$orderDetail['order']->id]);
-
-
-            foreach($orderItems as $key => $orderItem)
-            {
-
-                $orderItem->product = $this->product->find($orderItem->product_id);
-                //array_push($cartItemsArray, => $cartValue);
-                if($orderItem->parent_product_id >0)
-                {
-                    $orderItemArray[uniqid()] = $orderItem;
-                }
-                else{
-                    $orderItemArray[$orderItem->product_id] = $orderItem;
-                }
-
-            }
-
-
-            foreach($orderItemArray  as  $productId_key =>$orderValue)
-            {
-                //todo 完善child product 功能
-                //判断是否为子商品
-                if($orderValue->parent_product_id > 0 )
-                {
-                    //判断子商品种类
-                    if($orderValue->product_id == 2)
-                    {
-                        //如果父商品存在的话,把子商品添加到父商品中(添加数量即可) 用于view 显示
-                        if(isset( $orderItemArray[$orderValue->parent_product_id]))
-                            $orderItemArray[$orderValue->parent_product_id]['dinnerWareCount'] = $orderValue->count;
-                    }
-                    else{
-                        if(isset( $orderItemArray[$orderValue->parent_product_id]))
-                            $orderItemArray[$orderValue->parent_product_id]['candleCount'] = $orderValue->count;
-                    }
-                    //添加到父商品后,删除array 的子商品
-                    unset($orderItemArray[$productId_key]);
-                }
-                else{
-                    //找到商品的缩略图
-                    //todo 附属商品的照片怎么办
-                    if($orderValue->product->thumb != null)
-                    {
-
-                        $orderValue->product->thumb =$this->image->find($orderValue->product->thumb)->link;
-                    }
-                    else{
-                        $orderValue->product->thumb = $this->image->findBy(['type'=>1, 'associateId'=>$orderValue->product->id])->first()->link;
-                    }
-                }
-            }
-
-        }
-        else
-        {
-
-        }
-        $orderDetail['orderItems'] = $orderItemArray;
-
+        $orderDetail = $this->order->getOrderDetail($orderNo);
         return view('admin.weixinAdmin.order.orderDetail')->with('orderDetail',$orderDetail);
     }
 
     public function todayOrder(){
-
 
         $query = [
             [

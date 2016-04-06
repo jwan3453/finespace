@@ -264,7 +264,7 @@
                     success: function(data)
                     {
                         var status  = data.statusCode;
-                        if(status ==0 )
+                        if(status ==1 )
                         {
 
                         }
@@ -293,7 +293,7 @@
                     success: function(data)
                     {
                         var itemCount  = data.statusCode;
-                        if(itemCount !=0 )
+                        if(itemCount !=1 )
                         {
                             $('.icon-message-count').removeClass('none-display').fadeIn();
                             $('.icon-message-count').text(itemCount);

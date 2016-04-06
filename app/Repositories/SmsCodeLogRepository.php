@@ -15,7 +15,7 @@ class SmsCodeLogRepository implements  SmsCodeLogRepositoryInterface{
         return SmsCodeLog::find($id);
     }
 
-
+//
     public function findBy($query){
 
 
