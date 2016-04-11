@@ -22,6 +22,32 @@
             <img src="../img/bg5.jpg">
         </div>
 
+        <div class="ui grid">
+        <div class="five column row cat_mar">
+            <div class="column cat_border" style="text-align: center;">
+                <a class="ui label a-width "><div class="icon-one"></div> 
+                <span class="big-font">布丁</span> </a>
+            </div>
+            <div class="column cat_border" style="text-align: center;">
+                <a class="ui label a-width"><div class="icon-two"></div> 
+                <span class="big-font">乳脂</span> </a>
+            </div>
+            <div class="column" style="text-align: center;">
+                <a class="ui label a-width"><div class="icon-three"></div> 
+                <span class="big-font">穆斯</span> </a>
+            </div>
+            <div class="column" style="text-align: center;">
+                <a class="ui label a-width "><div class="icon-four"></div> 
+                <span class="big-font">巧克力</span>  </a>
+            </div>
+            <div class="column" style="text-align: center;">
+                <a class="ui label a-width"><div class="icon-five"></div> 
+                <span class="big-font">芝士</span> </a>
+            </div>
+           
+        </div>
+        </div>
+
         <!-- 热门推荐-->
         <div class="white-background recommend-sect">
             <div class="recommend-header">

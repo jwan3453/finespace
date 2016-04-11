@@ -457,6 +457,68 @@ font{
 }
 
 
+.cat_mar{
+    margin-top: 5px;
+}
+
+.cat_mar .label{
+
+    background-color: white!important;
+}
+
+.cat_mar .column{
+    padding:0!important;
+}
+
+.a-width{
+    text-align: center;
+
+}
+
+.cat_border{
+    border: 1px;
+}
+
+.icon-one{
+    background: url(../img/icon-1460364405555.png) center no-repeat;
+    background-size: cover;
+    width: 32px;
+    height: 32px;
+    margin: 3px auto;
+}
+
+.icon-two{
+    background: url(../img/icon-1460364633966.png) center no-repeat;
+    background-size: cover;
+    width: 32px;
+    height: 32px;
+    margin: 3px auto;
+}
+
+.icon-three{
+    background: url(../img/icon-1460364662844.png) center no-repeat;
+    background-size: cover;
+    width: 32px;
+    height: 32px;
+    margin: 3px auto;
+}
+
+.icon-four{
+    background: url(../img/icon-1460364650163.png) center no-repeat;
+    background-size: cover;
+    width: 32px;
+    height: 32px;
+    margin: 3px auto;
+}
+
+.icon-five{
+    background: url(../img/icon-1460364669956.png) center no-repeat;
+    background-size: cover;
+    width: 32px;
+    height: 32px;
+    margin: 3px auto;
+}
+
 
 .recommend-header{
     margin: 5px 0 0 0 ;

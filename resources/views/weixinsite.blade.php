@@ -60,7 +60,7 @@
 
 
             <div class="icon-menu f-right ">
-                <a class="item icon-anchor"><i class="user icon big  "></i>
+                <a class="item icon-anchor" href="/auth/login"><i class="user icon big  "></i>
 
                 </a>
             </div>
