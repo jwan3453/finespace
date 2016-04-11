@@ -8,7 +8,7 @@ interface UserRepositoryInterface{
 
     public function find($id);
 
-
+    public function findBy($request);
 
 //    public function errors();
 //

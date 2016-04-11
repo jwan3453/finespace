@@ -26,6 +26,8 @@ class homeController extends Controller
     public function index()
     {
 
-        return view('weixin.home',compact('currentUser'));
+
+        $currentUser ='';
+        return view('weixin.home')->with('currentUser',$currentUser);
     }
 }

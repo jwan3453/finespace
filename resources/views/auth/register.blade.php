@@ -53,12 +53,12 @@
 
                     </div>
 
-                    <div class="ui input reg-input-box">
-                        <input class="login-reg-input transparent-input" name="verifySmsCode" id="verifySmsCode" type="text" placeholder=" 验证码">
-                        <div class="long-btn " id="sendVerifySmsCode">
-                            发送验证码
-                        </div>
-                    </div>
+                    {{--<div class="ui input reg-input-box">--}}
+                        {{--<input class="login-reg-input transparent-input" name="verifySmsCode" id="verifySmsCode" type="text" placeholder=" 验证码">--}}
+                        {{--<div class="long-btn " id="sendVerifySmsCode">--}}
+                            {{--发送验证码--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
 
 
 

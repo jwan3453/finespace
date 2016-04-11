@@ -66,7 +66,7 @@ class AuthController extends Controller
         $mobile = $data['mobile'];
         $password = $data['password'];
         $passwordConfirmation = $data['passwordConfirmation'];
-        $smsCode = $data['verifySmsCode'];
+        //$smsCode = $data['verifySmsCode'];
         $check = 1;
         $mobileStatus = $this->checkMobile($mobile);
 
@@ -81,11 +81,11 @@ class AuthController extends Controller
         else if ($passwordStatus == 3)
             return 5;
 
-        $smsCodeStatus = $this->checkSmsCode($mobile, $smsCode);
-        if ($smsCodeStatus == 2)
-            return 6;
-        else if ($smsCodeStatus == 3)
-            return 7;
+//        $smsCodeStatus = $this->checkSmsCode($mobile, $smsCode);
+//        if ($smsCodeStatus == 2)
+//            return 6;
+//        else if ($smsCodeStatus == 3)
+//            return 7;
 
         return $check;
 
