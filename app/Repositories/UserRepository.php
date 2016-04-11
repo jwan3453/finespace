@@ -22,6 +22,7 @@ class UserRepository implements  UserRepositoryInterface
 
     //welcome our new freind
     //xin de comment
+    //change somethings
     public function findBy($request)
     {
         $test = new User();
