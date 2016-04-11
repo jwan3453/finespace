@@ -23,7 +23,9 @@ class UserRepository implements  UserRepositoryInterface
     //welcome our new freind
     public function findBy($request)
     {
+        $test = new User();
         return User::where($request);
+
     }
 }
 
