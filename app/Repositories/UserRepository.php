@@ -20,6 +20,7 @@ class UserRepository implements  UserRepositoryInterface
         return User::find($id);
     }
 
+    //welcome our new freind
     public function findBy($request)
     {
         return User::where($request);
