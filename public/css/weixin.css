@@ -217,6 +217,11 @@ font{
 
 
 }
+
+.side-menu a{
+    color: #204b82 !important;
+}
+
 .loader-box{
     position:fixed;
     top:30%;
@@ -550,7 +555,7 @@ font{
 
 .prod-image-slide img{
     width:100%;
-    height:300px;
+
 }
 
 .prod-spec {
@@ -605,7 +610,7 @@ font{
     display: block!important;
 
     color: #6a6a6a !important;
-   // background-color: #47A1B9!important;
+    background-color: #f2f2f2 !important;
 }
 .specs-level2 div i,.specs div i{
     color:#ff5856!important;

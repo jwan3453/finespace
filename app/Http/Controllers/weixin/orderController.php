@@ -76,7 +76,7 @@ class orderController extends Controller
         {
             $orders=  $this->order->getAllOrder($paymentStatus);
 
-            if($orders != null)
+            if(count($orders) != 0)
             {
                 return view('weixin.order.showAllorder')->with('orders',$orders);
             }

@@ -67,7 +67,7 @@ class productController extends Controller
 
         if($newProduct!=null && $newProduct->id >0)
         {
-            return redirect('/weixin/admin/product/addImage/'.$newProduct->id);
+            return redirect('/weixin/admin/product/addProductSpec/'.$newProduct->id);
         }
 
         return redirect('/weixin/admin/product/add');
@@ -129,8 +129,56 @@ class productController extends Controller
             return '商品不存在';
         }
 
+    }
+
+//    public function loadSpecs(Request $request)
+//    {
+//        $jsonResult = new MessageResult();
+//        $specs = $this->product->loadSpecs($request);
+//        $jsonResult->extra = $specs;
+//        return response($jsonResult->toJson());
+//    }
+
+    public function newProductSpecs($productId)
+    {
+
+        $specs = $this->product->newProductSpecs($productId);
+        //todo 如果产品的属性不为空的话跳转到编辑页面
+        if(is_numeric($specs))
+        {
+            return redirect('/weixin/admin/product/editProductSpec/'.$productId);
+        }
+        return view('admin.weixinAdmin.product.addProductSpecs')->with('specs',$specs)
+            ->with('productId',$productId);
 
     }
 
+
+    public function  addProductSpecs(Request $request)
+    {
+
+        $productId = $request->input('productId');
+        $status = $this->product->addProductSpecs($request);
+
+        return redirect('/weixin/admin/product/addImage/'.$productId);
+    }
+
+    public function editProductSpecs($productId)
+    {
+        $productSpecs = $this->product->editProductSpecs($productId);
+        //商品没有属性记录 跳转到创建属性页面
+        if(count($productSpecs) == 0)
+            return redirect('/weixin/admin/product/addProductSpec/'.$productId);
+
+        return view('admin.weixinAdmin.product.editProductSpecs')->with('specs',$productSpecs)
+                                                                 ->with('productId',$productId);
+    }
+
+    public function updateProductSpecs(Request $request)
+    {
+        $productId = $request->input('productId');
+       $this->product->updateProductSpecs($request);
+        return redirect('/weixin/admin/product');
+    }
 
 }

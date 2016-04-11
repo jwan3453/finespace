@@ -27,7 +27,6 @@ class productController extends Controller
 
     public function showProduct($id)
     {
-
         $prodDetail = $this->product->getProductDetail($id);
 
         if($prodDetail != null)
@@ -36,7 +35,6 @@ class productController extends Controller
         }
         return '商品不存在';
     }
-
 
     public function toCategory()
     {

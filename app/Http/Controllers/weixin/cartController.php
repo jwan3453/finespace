@@ -43,7 +43,7 @@ class cartController extends Controller
         }
 
         //循环cookie 推送数据到view
-        $cartItemList = $this->shoppingCart->getCartItems($cartCookie);
+        $cartItemList = $this->shoppingCart->getCartItemsByCookie($cartCookie);
 
 
         return view('weixin.cart.showAll')->with('cartItemList',$cartItemList);
@@ -123,7 +123,7 @@ class cartController extends Controller
 
                 $this->shoppingCart->deleteBy(['user_id'=>Auth::user()->id,'product_id'=>$productId]);
                 $childProducts = $this->shoppingCart->findBy(['user_id'=>Auth::user()->id,'parent_product_id'=>$productId])->get();
-                if($childProducts!=null)
+                if(count($childProducts)!=0)
                 {
                     foreach($childProducts as $childProduct)
                     {

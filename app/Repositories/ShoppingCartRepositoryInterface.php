@@ -32,7 +32,8 @@ interface ShoppingCartRepositoryInterface{
 //
 //    public function deleteWhere($column, $value);
 
-    public function getCartItems($cartCookie);
+    public function getCartItems();
+    public function getCartItemsByCookie($cartCookie);
     public function syncCart($cartArray);
     public function addToCart($request);
 

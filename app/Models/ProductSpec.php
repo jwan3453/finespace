@@ -9,6 +9,8 @@ class ProductSpec extends Model
     //
     protected $table =  'product_spec';
     public $timestamps = false;
+    public $fillable = ['product_id','spec_info_id','value'];
+
 
     public function specInfo()
     {

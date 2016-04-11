@@ -42,11 +42,6 @@
             <label>价格(￥):</label>
             <input class="transparent-input" type="text" name="price" id="price" value="{{$product->price}}"/>
         </div>
-
-
-    </div>
-
-    <div class="f-left" >
         <div class="common-input-box">
             <label>促销价格:</label>
             <input class="transparent-input" type="text" name="promotePrice" id="promotePrice" value="{{$product->promote_price}}"/>
@@ -59,6 +54,11 @@
             <label>促销结束时间:</label>
             <input class="transparent-input" type="text"  name="promoteEndDate" value="{{$product->promote_end_date}}"/>
         </div>
+
+
+    </div>
+
+    <div class="f-left" >
 
         <div class="common-input-box">
             <label>商品关键词(用逗号隔开):</label>
@@ -73,6 +73,13 @@
             <label>商品详情</label>
             <textarea class="transparent-input" type="text" name="desc" >{{$product->desc}}</textarea>
         </div>
+
+
+        <div class="product-spec">
+
+        </div>
+
+
         <div class="common-input-box">
             <div class="ui checkbox">
                 <input type="checkbox" name="status" id="status"  >

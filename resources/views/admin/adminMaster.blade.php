@@ -134,8 +134,8 @@
                 })
             })
             function _showToaster($message){
-                $('.toaster').text($message);
-                $('.toaster').fadeIn(500).fadeOut(2500 );
+                $('.toaster').text($message).fadeIn(500).fadeOut(2500 );
+
             }
 </script>
 

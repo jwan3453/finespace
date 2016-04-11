@@ -49,6 +49,35 @@
             $(' .select-cat').dropdown({
                             onChange: function(value, text, $selectedItem) {
                                 $('#selectCat').val(value);
+                                //根据所选种类,加载产品属性
+                                {{--$.ajax({--}}
+                                    {{--url:'/weixin/admin/loadSpecs',--}}
+                                    {{--type: 'POST',--}}
+                                    {{--async: false,--}}
+                                    {{--dataType: 'json',--}}
+                                    {{--data:{categoryId:value},--}}
+                                    {{--headers: {--}}
+                                        {{--'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')--}}
+                                    {{--},--}}
+                                    {{--success: function (data) {--}}
+
+                                        {{--var html ='';--}}
+                                        {{--for(var i=0 ; i<data.extra.length;i++)--}}
+                                        {{--{--}}
+                                            {{--html = html+'<div class="common-input-box">'+--}}
+                                                            {{--'<label>商品详情</label>'+--}}
+                                                            {{--'<input class="transparent-input"  type="text"  name="'+data.extra[i].id+'" value="{{$product->sku}}"/>'+--}}
+                                                        {{--'</div>';--}}
+                                        {{--}--}}
+
+
+                                    {{--},--}}
+                                    {{--error: function (xhr, type) {--}}
+                                        {{--//todo--}}
+                                    {{--}--}}
+                                {{--})--}}
+
+
                        }
             });
 

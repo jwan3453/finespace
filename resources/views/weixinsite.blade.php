@@ -2,12 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-
-
     <meta name=”viewport” content=”width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;” />
-
     <meta name=”viewport” content=”width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=false;” />
-
     <meta name=”viewport” content=”width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no;” />
     <meta name="viewport" content="width=device-width, user-scalable=no" />
     <meta name="_token" content="{{ csrf_token() }}"/>
@@ -26,19 +22,19 @@
 
 
     <div class="ui bottom  demo vertical  sidebar labeled icon menu side-menu " >
-        <a class="item " style="color:#47A1B9" href="/weixin">
+        <a class="item "  href="/weixin">
             <i class="home icon"></i>
             凡悦
         </a>
-        <a class="item " style="color:#47A1B9" href="/weixin/order">
+        <a class="item "  href="/weixin/order">
             <i class="gift icon"></i>
             订单中心
         </a>
-        <a class="item" style="color:#47A1B9" href="/weixin/member">
+        <a class="item"  href="/weixin/member">
             <i class="user icon"></i>
             个人中心
         </a>
-        <a class="item " style="color:#47A1B9" href="/weixin/cart">
+        <a class="item "  href="/weixin/cart">
             <i class="add to cart icon  icon"></i>
             购物车
         </a>
@@ -121,7 +117,6 @@
 
         $('.container').css('min-height',$(document).height()).css('background-color','white');
 //
-
         $('.home-header').css('width',$('.container').width());
 
         $('.home-header').offset({left:$('.container').offset().left});

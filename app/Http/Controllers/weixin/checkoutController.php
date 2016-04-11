@@ -28,9 +28,11 @@ class checkoutController extends Controller
     {
 
         if (Auth::check()) {
-            $cartItems = $this->shoppingCart->findBy(['user_id'=> Auth::user()->id])->get();
 
-            return view('weixin.checkout.checkout');
+            //从数据库获得购物车商品
+            $cartItems = $this->shoppingCart->getCartItems();
+
+            return view('weixin.checkout.checkout')->with('cartItems',$cartItems);
         } else {
             return view('weixin.home');
         }

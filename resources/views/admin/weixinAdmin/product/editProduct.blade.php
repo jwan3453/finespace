@@ -35,8 +35,9 @@
             <input type="hidden" id="selectBrand" name="selectBrand" value="{{$product->brand_id}}"/>
             {!! csrf_field() !!}
             @include('admin.weixinAdmin.product.productDetail')
-            <a href="{{url('/weixin/admin/product/addImage').'/'.$product->id}}"  class=" ui button f-left blue " id="submit"> 编辑产品图片</a>
-            <div  class=" ui button f-right red" id="submitUpdate"> 保存更改</div>
+            <a href="{{url('/weixin/admin/product/addImage').'/'.$product->id}}"  class=" ui button  blue " id="submit"> 编辑产品图片</a>
+            <a href="{{url('/weixin/admin/product/editProductSpec').'/'.$product->id}}"  class=" ui button  blue " id="submit"> 编辑产品属性</a>
+            <div  class=" ui button red" id="submitUpdate" style="margin:10px 0;"> 保存更改</div>
         </form>
 
     </div>

@@ -119,34 +119,39 @@
             <div class="ui horizontal divider header">
                 商品清单
             </div>
-            <div class="cart-item">
-                <img class="f-left" src ='/img/cake_1.jpg'>
-                <div class="name ">白兰地樱桃黑森林   </div>
-                <div class="type">
-                    1.0磅 X 1
 
+            @foreach($cartItems as $cartItem)
+                <div class="cart-item">
+                    <img class="f-left" src ='{{$cartItem->product->thumb}}'>
+                    <div class="name ">{{$cartItem->product->name}}   </div>
+                    <div class="type">
+                        1.0磅 X 1
+                    </div>
+                    <div class="product-price">
+                        单价: <span class=" f-right">￥100</span>
+
+                    </div>
+                    @if($cartItem->dinnerWareCount>0)
+                        <div class="sub-product">
+                            餐具(￥5) x  {{$cartItem->dinnerWareCount}}
+                            <span class="sub-price f-right">￥20</span>
+                        </div>
+                    @endif
+                    @if($cartItem->candleCount>0)
+                        <div class="sub-product ">
+                            蜡烛(￥5) x {{$cartItem->candleCount}}
+                            <span class="sub-price f-right">￥20</span>
+                        </div>
+                    @endif
+                    <div class="total-product-price">
+                        总计:
+                        <span class="sub-price f-right huge-font">￥140</span>
+
+                    </div>
                 </div>
-                <div class="product-price">
-                    总价: <span class="huge-font">$100</span>
-
-                </div>
+            @endforeach
 
 
-            </div>
-            <div class="cart-item">
-                <img class="f-left" src ='/img/cake_2.jpg'>
-                <div class="name ">白兰地樱桃黑森林   </div>
-                <div class="type">
-                    1.0磅 X 1
-
-                </div>
-                <div class="product-price">
-                    总价: <span class="huge-font">$100</span>
-
-                </div>
-
-
-            </div>
         </div>
 
 

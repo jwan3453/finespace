@@ -295,8 +295,9 @@
                         var itemCount  = data.statusCode;
                         if(itemCount !=1 )
                         {
-                            $('.icon-message-count').removeClass('none-display').fadeIn();
-                            $('.icon-message-count').text(itemCount);
+
+                            $('.icon-message-count').removeClass('none-display').fadeIn().text(itemCount);
+
                         }
 
 

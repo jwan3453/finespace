@@ -21,6 +21,15 @@ interface ProductRepositoryInterface{
     public function addProduct($request);
     public function updateProduct($request);
 
+
+    public function newProductSpecs($productId);
+    public function addProductSpecs($request);
+
+    public function editProductSpecs($productId);
+    public function updateProductSpecs($request);
+
+    public function loadSpecs($categoryId);
+
 //    public function errors();
 //
 //    public function all(array $related = null);

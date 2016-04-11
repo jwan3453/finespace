@@ -39,7 +39,66 @@ class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
 
     }
 
-    public function getCartItems($cartCookie)
+    public function getCartItems()
+    {
+        //获得购物车商品清单 获得子商品
+        $cartItemsArray = array();
+        $cartItems = shoppingCart::where('user_id', Auth::user()->id)->get();
+        //循环 获得cartItemsArray()
+        foreach($cartItems as $cartValue)
+        {
+
+            $cartValue->product = Product::find($cartValue->product_id);
+            //array_push($cartItemsArray, => $cartValue);
+            if($cartValue->parent_product_id >0)
+            {
+                $cartItemsArray[uniqid()] = $cartValue;
+            }
+            else{
+                $cartItemsArray[$cartValue->product_id] = $cartValue;
+            }
+
+        }
+
+
+        foreach($cartItemsArray  as  $productId_key =>$cartValue)
+        {
+
+            //todo 完善child product 功能
+            if($cartValue->parent_product_id > 0 )
+            {
+                if($cartValue->product_id == 2)
+                {
+                    if(isset( $cartItemsArray[$cartValue->parent_product_id]))
+                        $cartItemsArray[$cartValue->parent_product_id]['dinnerWareCount'] = $cartValue->count;
+                }
+                else{
+                    if(isset( $cartItemsArray[$cartValue->parent_product_id]))
+                        $cartItemsArray[$cartValue->parent_product_id]['candleCount'] = $cartValue->count;
+                }
+                unset($cartItemsArray[$productId_key]);
+            }
+            else
+            {
+                //找到商品的缩略图
+                //todo 附属商品的照片怎么办
+                if($cartValue->product->thumb != null)
+                {
+
+                    $cartValue->product->thumb =Image::find($cartValue->product->thumb)->link;
+                }
+                else{
+                    $cartValue->product->thumb = Image::where('type',1)->where( 'associateId',$cartValue->product->id)->first()->link;
+                }
+            }
+        }
+
+
+        return $cartItemsArray;
+    }
+
+
+    public function getCartItemsByCookie($cartCookie)
     {
 
         //根据cookie 获取相应的product

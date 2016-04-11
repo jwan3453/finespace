@@ -83,13 +83,30 @@ Route::get('/weixin/admin','weixin\admin\productController@index');
 
 //后台商品管理////
 Route::get('/weixin/admin/product','weixin\admin\productController@manageProduct');
+
 //添加新的商品
 Route::get('/weixin/admin/product/add','weixin\admin\productController@newProduct');
+//商品表单提交
 Route::post('/weixin/admin/product/add','weixin\admin\productController@addProduct');
+
+//添加商品属性
+Route::get('/weixin/admin/product/addProductSpec/{productId}','weixin\admin\productController@newProductSpecs');
+//商品属性表单提交
+Route::post('/weixin/admin/product/addProductSpec','weixin\admin\productController@addProductSpecs');
+
+
+//添加商品图片
+Route::get('/weixin/admin/product/addImage/{productId}','weixin\admin\productController@addProductImages');
+
 
 //编辑产品
 Route::get('/weixin/admin/product/edit/{productId}','weixin\admin\productController@editProduct');
 Route::post('/weixin/admin/product/edit','weixin\admin\productController@updateProduct');
+
+Route::get('/weixin/admin/product/editProductSpec/{productId}','weixin\admin\productController@editProductSpecs');
+Route::post('/weixin/admin/product/editProductSpec','weixin\admin\productController@updateProductSpecs');
+
+Route::post('/weixin/admin/loadSpecs','weixin\admin\productController@loadSpecs');
 
 
 
@@ -100,7 +117,7 @@ Route::post('/wexin/deleteImage','Service\CommonController@deleteImage');
 
 Route::post('/weixin/setImageCover','Service\CommonController@setImageCover');
 
-Route::get('/weixin/admin/product/addImage/{productId}','weixin\admin\productController@addProductImages');
+
 
 
 

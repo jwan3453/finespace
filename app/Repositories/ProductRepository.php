@@ -2,7 +2,8 @@
 namespace App\Repositories;
 use App\Models\Product;
 use App\Models\Image;
-
+use App\Models\SpecInfo;
+use App\Models\ProductSpec;
 
 
 class ProductRepository implements  ProductRepositoryInterface{
@@ -187,6 +188,100 @@ class ProductRepository implements  ProductRepositoryInterface{
             'is_promote' =>$promoteStatus,
         ];
         return $newProductArray;
+    }
+
+
+
+
+    public function newProductSpecs($productId)
+    {
+        $categoryId = 0;
+        $product = Product::find($productId);
+        if($product!=null)
+            $categoryId = $product->category_id;
+
+        $specs = $this->loadSpecs($categoryId);
+        $productSpecs = ProductSpec::where('product_id',$productId)->select('spec_info_id','value')->get();
+
+        if(count($productSpecs) != 0)
+            return 1;
+        return $specs;
+    }
+
+    public function addProductSpecs($request)
+    {
+        $productId= $request->input('productId');
+
+        $specArray = $request->all();
+        foreach($specArray as $key=> $spec)
+        {
+            //如果key 是spec info 的id
+            if(is_numeric($key))
+            {
+                $newSepcs = [
+                    'product_id'=>$productId,
+                    'spec_info_id'=>$key,
+                    'value'=>$spec
+                ];
+                ProductSpec::create($newSepcs);
+            }
+        }
+
+    }
+
+    public function editProductSpecs($productId)
+    {
+//        $categoryId = 0;
+//        $product = $this->product->find($productId);
+//        if($product != null)
+//            $categoryId = $product->category_id;
+//
+//        $specs = $this->product->loadSpecs($categoryId);
+
+        $productSpecs = ProductSpec::where('product_id',$productId)->select('spec_info_id','value')->get();
+
+            //如果有记录 返回属性列表和属性值让用户更新
+            foreach( $productSpecs as $productSpec)
+            {
+                $specInfo = $productSpec->specInfo()->select('id','name')->first();
+                $productSpec->id = $specInfo->id;
+                $productSpec->name = $specInfo->name;
+            }
+
+        return $productSpecs;
+    }
+
+    public function updateProductSpecs($request)
+    {
+
+        $productId= $request->input('productId');
+        $specs = ProductSpec::where('product_id',$productId)->get();
+        $specArray = $request->all();
+
+        foreach($specs as $spec )
+        {
+
+            foreach($specArray as $key=> $specInputValue)
+            {
+                //如果key 是spec info 的id
+                if(is_numeric($key) && $spec->spec_info_id == (int)$key )
+                {
+                    $spec->value = $specInputValue;
+                    $spec->save();
+                }
+            }
+
+        }
+    }
+
+    public function loadSpecs($categoryId)
+    {
+        $specs = SpecInfo::where('category_id',$categoryId)->select('id','name')->get();
+        foreach( $specs as $spec)
+        {
+            $spec->value ='';
+        }
+        return $specs;
     }
 }
 

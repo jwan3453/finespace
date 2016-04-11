@@ -106,8 +106,6 @@
             {{--</div>--}}
         {{--</div>--}}
         <hr/>
-
-
     </div>
 
 
@@ -123,10 +121,6 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function(){
-
-
-
-
 
             var clickable = true;
             var itemCount = 0;
@@ -165,12 +159,7 @@
 //                        this.destory(); //移除dom
                     }
                 });
-
-
             })
-
-
-
         })
     </script>
 @stop

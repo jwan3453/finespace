@@ -8,6 +8,9 @@
     <link rel="stylesheet" type="text/css" href= {{ asset('js/swiper/jquery.excoloSlider.css') }}>
 @stop
 
+<script type="text/javascript">
+
+</script>
 
 
 @section('content')
@@ -110,8 +113,8 @@
 
 @section('script')
     <script type="text/javascript">
-        $("#slider").excoloSlider();
 
+        $("#slider").excoloSlider();
         $(document).ready(function(){
 
             $('.add-to-cart,.prod-price').css('width',$('.prod-detail-box').width());
@@ -124,10 +127,11 @@
                     })
             ;
 
+            var quantity = $('.quantity');
             $('.plus').click(function(){
 
-                var itemCount =   parseInt($('.quantity').val());
-                $('.quantity').val(itemCount+1);
+                var itemCount =   parseInt(quantity.val());
+                quantity.val(itemCount+1);
 //                var itemCount = parseInt($('.icon-message-count').text());
 //                itemCount +=1;
 //                if(itemCount === 0)
@@ -162,20 +166,21 @@
                     success: function(data)
                     {
                         var status  = data.statusCode;
+                        var messageCount = $('.icon-message-count');
 
                         if(status ==1 )
                         {
                             var newitemCount =   parseInt($('.quantity').val());
 
-                            var itemCount = parseInt($('.icon-message-count').text());
+                            var itemCount = parseInt(messageCount.text());
 
                             if(itemCount === 0)
                             {
-                                $('.icon-message-count').removeClass('none-display').fadeIn();
-                                $('.icon-message-count').text(itemCount+newitemCount);
+                                messageCount.removeClass('none-display').fadeIn();
+                                messageCount.text(itemCount+newitemCount);
                             }
                             else{
-                                $('.icon-message-count').text(itemCount+newitemCount);
+                                messageCount.text(itemCount+newitemCount);
                             }
 
                             $('.dimmer')

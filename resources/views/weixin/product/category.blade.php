@@ -59,10 +59,11 @@
 
             $('.add-to-cart,.prod-price').css('width',$('.prod-detail-box').width());
 
+            var quantity = $('.quantity');
             $('.plus').click(function(){
 
-                var itemCount =   parseInt($('.quantity').val());
-                $('.quantity').val(itemCount+1);
+                var itemCount =   parseInt(quantity.val());
+                quantity.val(itemCount+1);
 //                var itemCount = parseInt($('.icon-message-count').text());
 //                itemCount +=1;
 //                if(itemCount === 0)
@@ -78,7 +79,7 @@
 
             $('.minus').click(function(){
 
-                var itemCount =   parseInt($('.quantity').val());
+                var itemCount =   parseInt(quantity.val());
                 if(itemCount >= 0){
                     $('.quantity').val(itemCount-1);
                 }

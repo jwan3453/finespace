@@ -252,13 +252,13 @@ color: #dbe4f0;
 
 
 /***后台产品页面****/
-.product-table
+.product-table,.product-specs-table
 {
     padding:0 10px;
 }
 
 
-.product-table table{
+.product-table table,.product-specs-table table{
     background: white;
     opacity: 0.7;
     z-index:0;
@@ -312,6 +312,15 @@ color: #dbe4f0;
 .common-input-box .checkbox label{
 
     margin: 15px 0;
+}
+
+
+.product-specs-table input{
+    padding:5px 0;
+    height:38px;
+    width:300px;
+    color: #24296d;
+    border:1px solid #a2a2a2 !important;
 }
 
 .product-image-upload{
