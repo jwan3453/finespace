@@ -7,7 +7,7 @@
         <div >
 
 
-             @foreach ($cartItemList as $cartItem)
+        @foreach ($cartItemList as $cartItem)
 
             <div class="cart-item">
                 <input class="hidden-id" type="hidden" value="{{$cartItem->product_id}}">
@@ -89,18 +89,29 @@
         @endforeach
 
 
+         @if(count($cartItemList) ==0)
+             <div class = "no-cart-items">
+                 <div class="empty-cart-icon auto-margin">
 
+                 </div>
 
+                <div class="empty-cart-text giant-font">
+                   您的购物车空空如也
+                </div>
+
+                 <a href="/weixin"><div class="regular-btn auto-margin">去购物<i class="chevron circle  right icon big "></i></div></a>
+             </div>
+        @endif
 
         </div>
-
+        @if(count($cartItemList) !=0)
         <div class="pos-spacing ">
         </div>
         <div class="check-out-box stick-btom">
             总计:<span class="giant-font">￥2000</span>
             <a  class="confirm-btn f-right" href="/weixin/checkout/"><div>小二 · 买单</div></a>
         </div>
-
+        @endif
         <div class="ui page dimmer dinnerBoxDimmer">
             <div class="  dimmer-box" >
                 <h3>餐具</h3>
@@ -131,8 +142,6 @@
 
             var deleteItem;
 
-
-
             $('.check-out-box').css('width',$('.cart-box').width());
 
             $('.delete-item').click(function(){
@@ -150,8 +159,7 @@
                 ;
 
                 deleteItem
-                        .transition('fly up')
-                ;
+                        .transition('fly down');
                 //delete product from cookie
 
                 deleteFromCart(deleteItem);
@@ -233,10 +241,7 @@
                 if(itemCount >= 1){
                     $(this).siblings('input').val(itemCount-1);
                 }
-            })
-
-
-
+            });
 
             function addToCart(addItem,_subProductId)
             {
@@ -292,24 +297,25 @@
                     },
                     success: function(data)
                     {
-                        var itemCount  = data.statusCode;
-                        if(itemCount !=1 )
-                        {
 
+                        var itemCount = parseInt($('.icon-message-count').text());
+                        if(data.statusCode == 1 && itemCount >0)
+                        {
+                            itemCount = itemCount -1;
                             $('.icon-message-count').removeClass('none-display').fadeIn().text(itemCount);
 
                         }
-
-
+                        if(itemCount == 0)
+                        {
+                            //如果购物车空了 跳转 刷新
+                            location.href = "/weixin/cart";
+                        }
                     },
                     error: function(xhr, type){
                         alert('Ajax error!')
                     }
-
                 });
             }
-
-
         })
     </script>
 

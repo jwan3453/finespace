@@ -125,7 +125,7 @@ font{
     height: 40px;
     line-height: 40px;
     text-align: center;
-    background-color: #00b5ad;
+    background-color: #47A1B9;
     color:white!important;
 }
 .red-btn{
@@ -440,6 +440,7 @@ font{
     color:#47A1B9;
     margin-right:6px;
 
+
 }
 
 .pos-spacing{
@@ -608,15 +609,11 @@ font{
 /*****************/
 
 /******产品详细****/
-.prod-image-slide {
 
-}
-.swiper-slide{
-    height:auto!important;
-}
 
-.prod-image-slide img{
-    width:100%;
+
+.owl-dots{
+    margin-top:0!important;
 
 }
 
@@ -873,6 +870,29 @@ font{
     height:60px;
 }
 
+
+
+
+.no-cart-items{
+    width:100%;
+    text-align: center;
+
+    padding:15px 0;
+    margin-top:50px;
+
+}
+
+.empty-cart-icon{
+    width:75px;
+    height:64px;
+    background: url(../img/empty.png) center no-repeat;
+    background-size: cover;
+
+}
+.empty-cart-text{
+    padding:5px 0  15px 0 ;
+    color: #eb4f38;
+}
 
 
 

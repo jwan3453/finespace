@@ -112,7 +112,7 @@ class cartController extends Controller
 
         if($productId =='')
         {
-            $jsonResult->statusCode =1;
+            $jsonResult->statusCode =2;
             $jsonResult->statusMsg = '商品id为空';
             return response($jsonResult->toJson());
         }
@@ -147,7 +147,7 @@ class cartController extends Controller
                 }
                 $jsonResult->statusMsg = $cartArray;
             }
-            $jsonResult->statusCode =0;
+            $jsonResult->statusCode =1;
 
         }
         return response($jsonResult->toJson())->withCookie('cart',implode(',',$cartArray));

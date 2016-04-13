@@ -4,28 +4,31 @@
 
 @section('resources')
 
-    <script src={{ asset('js/swiper/jquery.excoloSlider.min.js') }}></script>
-    <link rel="stylesheet" type="text/css" href= {{ asset('js/swiper/jquery.excoloSlider.css') }}>
+    <script src={{ asset('js/swiper/owl.carousel.min.js') }}></script>
+    <link rel="stylesheet" type="text/css" href= {{ asset('js/swiper/owl.carousel.min.css') }}>
+    <link rel="stylesheet" type="text/css" href= {{ asset('js/swiper/owl.theme.default.min.css') }}>
+
+
+
+
 @stop
 
-<script type="text/javascript">
 
-</script>
 
 
 @section('content')
 
     <div class=" ui container prod-detail-box"  >
 
-        <div class="prod-image-slide" >
-            <div id="slider">
+
+        <div >
+            <div class="owl-carousel owl-theme">
                 @foreach($product->img as $img)
-                    <img src="{{$img}}">
+
+                <div class="item" > <img style="width:100%;" src = {{$img}}></div>
                 @endforeach
             </div>
-
         </div>
-
         <div class="prod-spec">
             <div class="huge-font name">{{$product->name}}</div>
             <div class=" extra ">
@@ -114,8 +117,36 @@
 @section('script')
     <script type="text/javascript">
 
-        $("#slider").excoloSlider();
+
+
         $(document).ready(function(){
+
+
+            $('.owl-carousel').owlCarousel({
+                loop:true,
+                responsiveClass:true,
+                autoplay:true,
+                autoplayTimeout:3000,
+                autoHeight:true,
+
+                responsive:{
+                    0:{
+                        items:1,
+
+                        loop:true
+                    },
+                    600:{
+                        items:1,
+
+                        loop:true
+                    },
+                    1000:{
+                        items:1,
+
+                        loop:false
+                    }
+                }
+            })
 
             $('.add-to-cart,.prod-price').css('width',$('.prod-detail-box').width());
 
