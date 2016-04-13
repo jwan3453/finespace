@@ -605,6 +605,26 @@ font{
 
 /******产品分类****/
 
+.product-text{
+    text-align: center;
+}
+
+.txt-length{
+    width:90%;
+    height: 42px;
+    white-space:pre-line;
+    word-break:break-all;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+#my-item .meta{
+    margin: auto;
+}
+
+#my-divided .title-pro{
+    margin: auto;
+}
 
 /*****************/
 
@@ -635,7 +655,7 @@ font{
 .product-tag div{
 
     height:20px;
-    width:50px;
+    padding: 0 10px;
     text-align: center;
     line-height: 20px;
     display:inline-block;

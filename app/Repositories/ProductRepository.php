@@ -283,6 +283,25 @@ class ProductRepository implements  ProductRepositoryInterface{
         }
         return $specs;
     }
+
+    public function getCategoryProduct($category_id)
+    {
+        $products = Product::where('category_id',$category_id)->get();
+
+        foreach ($products as $product) {
+            $img_link = Image::where('id',$product->thumb)->select('link')->first();
+
+            if ($img_link != null) {
+                $product->img = $img_link->link;
+            }
+
+            if ($product->keywords != null) {
+                $product->words = explode('|', $product->keywords);
+            }
+        }
+
+        return $products;
+    }
 }
 
 

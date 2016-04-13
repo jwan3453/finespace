@@ -137,7 +137,7 @@ Route::get('/weixin/admin/user/{userId}','weixin\admin\userController@userDetail
 //Route::post('/weixin/loadBrand','Service\CommonController@loadBrand');
 
 
-
+Route::get('/weixin/Pudding','weixin\productController@PuddingList');
 
 
 

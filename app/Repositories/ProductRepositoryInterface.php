@@ -30,6 +30,8 @@ interface ProductRepositoryInterface{
 
     public function loadSpecs($categoryId);
 
+    public function getCategoryProduct($category_id);
+
 //    public function errors();
 //
 //    public function all(array $related = null);
