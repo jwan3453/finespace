@@ -48,6 +48,21 @@
 
                 </div>
             </div>
+
+            <div class="item ">
+                <i class=" f-left users icon"></i>
+                <div class=" f-left content">产品分类</div>
+                <i class="f-right  angle down icon"></i>
+                <div class="ui  middle aligned animated list sub-menu ">
+                    <div class="item ">
+                        <a href="{{url('/weixin/admin/category')}}"> <i class="f-left right triangle icon"></i>
+                        <div class="  f-left content">分类管理 </div></a>
+                    </div>
+
+
+                </div>
+            </div>
+
             <div class="item ">
                 <i class="  f-left marker icon"></i>
                 <div class="  f-left content">订单 </div>

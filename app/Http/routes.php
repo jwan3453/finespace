@@ -139,6 +139,16 @@ Route::get('/weixin/admin/user/{userId}','weixin\admin\userController@userDetail
 
 Route::get('/weixin/Pudding','weixin\productController@PuddingList');
 
+Route::get('/weixin/admin/category','weixin\admin\categoryController@categoryList');
+
+Route::post('/weixin/admin/category/getCategory','weixin\admin\categoryController@getCategory');
+
+Route::post('/weixin/admin/category/updateOraddCategory','weixin\admin\categoryController@updateOraddCategory');
+
+Route::get('/weixin/admin/category/add','weixin\admin\categoryController@add');
+
+Route::post('/weixin/admin/category/delCategory','weixin\admin\categoryController@del');
+
 
 
 

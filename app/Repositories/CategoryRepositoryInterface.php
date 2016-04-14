@@ -8,6 +8,14 @@ interface CategoryRepositoryInterface{
 
     public function find($id);
 
+    public function getAllCategoryInfo();
+
+    public function getNameInfo();
+
+    public function updateOraddCategory($request);
+
+    public function DelCategory($id);
+
 
 //    public function errors();
 //
