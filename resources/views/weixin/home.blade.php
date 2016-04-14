@@ -25,7 +25,7 @@
         <div class="ui grid">
         <div class="five column row cat_mar">
             <div class="column cat_border" style="text-align: center;">
-                <a class="ui label a-width "><div class="icon-one"></div> 
+                <a class="ui label a-width " href="/weixin/Pudding"><div class="icon-one"></div> 
                 <span class="big-font">布丁</span> </a>
             </div>
             <div class="column cat_border" style="text-align: center;">

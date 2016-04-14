@@ -284,17 +284,22 @@ class ProductRepository implements  ProductRepositoryInterface{
         return $specs;
     }
 
+
+    //----获取分类下的产品-------
     public function getCategoryProduct($category_id)
     {
-        $products = Product::where('category_id',$category_id)->get();
+        $products = Product::where(['category_id'=>$category_id,'status'=>1])->get();
 
         foreach ($products as $product) {
+
+            //--获取产品图片---
             $img_link = Image::where('id',$product->thumb)->select('link')->first();
 
             if ($img_link != null) {
                 $product->img = $img_link->link;
             }
 
+            //---操作产品关键词---
             if ($product->keywords != null) {
                 $product->words = explode('|', $product->keywords);
             }

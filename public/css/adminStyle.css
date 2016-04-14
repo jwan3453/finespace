@@ -251,6 +251,16 @@ color: #dbe4f0;
 /******************/
 
 
+
+/*******后台分类管理页面********/
+
+#category-form .ui{
+    width: 100%
+}
+
+/******************/
+
+
 /***后台产品页面****/
 .product-table,.product-specs-table
 {
