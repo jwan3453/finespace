@@ -36,5 +36,7 @@ interface ShoppingCartRepositoryInterface{
     public function getCartItemsByCookie($cartCookie);
     public function syncCart($cartArray);
     public function addToCart($request);
+    public function deleteFromCart($request);
+    public function getCartItemsCount();
 
 }

@@ -49,39 +49,12 @@ class cartController extends Controller
         return view('weixin.cart.showAll')->with('cartItemList',$cartItemList);
     }
 
-    public function addToCart(Request $request)
-    {
-        $jsonResult = new MessageResult();
 
-        $addResult =  $this->shoppingCart->addToCart($request);
-
-        if($addResult['status'] == false)
-        {
-            $jsonResult->statusCode = 2;
-            $jsonResult->statusMsg ='添加失败';
-        }
-        else{
-            $jsonResult->statusCode = 1;
-            $jsonResult->statusMsg ='添加成功';
-        }
-
-
-        if(Auth::check())
-        {
-            return response($jsonResult->toJson());
-        }
-
-        return  response($jsonResult->toJson())->withCookie('cart',implode(',',$addResult['cartArray']));
-
-    }
 
     public function getCartCookie(Request $request, $type=0)
     {
         $jsonResult = new MessageResult();
-        if(Auth::check())
-        {
 
-        }
         $cart = $request->cookie('cart');
         $cartArray = ($cart!=null ? explode(',', $cart):array());
 
@@ -94,20 +67,32 @@ class cartController extends Controller
         }
 
         $jsonResult->statusCode =$productCount;
-        $jsonResult->statusMsg = $cartArray;
+       // $jsonResult->statusMsg = $cartArray;
 
         //如果不是ajax 请求
         if($type === 1)
             return  $cartArray;
-        return response($jsonResult->toJson());
+        //如果是ajax 请求
+        else
+        {
+            if(Auth::check())
+            {
+                //从数据库中得到购物车数量,然后跟cookie中的商品数量相加
+                $existCartItemCount = $this->shoppingCart->getCartItemsCount();
+                $jsonResult->statusCode = $productCount += $existCartItemCount;
+            }
 
+        }
+
+        return response($jsonResult->toJson());
     }
 
-    public function deleteCookieProd(Request $request)
+
+
+    public function addToCart(Request $request)
     {
         $jsonResult = new MessageResult();
         $productId = $request->input('productId');
-        $cartArray =  $this->getCartCookie($request,1);
 
 
         if($productId =='')
@@ -116,41 +101,54 @@ class cartController extends Controller
             $jsonResult->statusMsg = '商品id为空';
             return response($jsonResult->toJson());
         }
+
         else{
-
-            //如何是已经登录 直接从数据库删除
-            if (Auth::check()) {
-
-                $this->shoppingCart->deleteBy(['user_id'=>Auth::user()->id,'product_id'=>$productId]);
-                $childProducts = $this->shoppingCart->findBy(['user_id'=>Auth::user()->id,'parent_product_id'=>$productId])->get();
-                if(count($childProducts)!=0)
-                {
-                    foreach($childProducts as $childProduct)
-                    {
-                        $childProduct->delete();
-                    }
-                }
-               // $jsonResult->statusMsg = $cartArray;
-            }
-            //从cookie中删除
-            else{
-
-
-                foreach($cartArray  as $key=> $value)
-                {
-                    $index = strpos($value, ':');
-
-                    if(substr($value, 0 , $index) == $productId){
-
-                        array_splice($cartArray,$key,1);
-                    }
-                }
-                $jsonResult->statusMsg = $cartArray;
-            }
+            $addResult =  $this->shoppingCart->addToCart($request);
             $jsonResult->statusCode =1;
-
+//            $jsonResult->statusMsg = $cartArray;
+            if($addResult['status'] == 1)
+            {
+                return response($jsonResult->toJson());
+            }
+            else if($addResult['status'] == 2)
+            {
+                return response($jsonResult->toJson())->withCookie('cart',implode(',', $addResult['cartArray'] ));
+            }
         }
-        return response($jsonResult->toJson())->withCookie('cart',implode(',',$cartArray));
+
+    }
+
+
+
+    public function deleteFromCart(Request $request)
+    {
+        $jsonResult = new MessageResult();
+
+        $productId = $request->input('productId');
+
+        if($productId =='')
+        {
+            $jsonResult->statusCode =2;
+            $jsonResult->statusMsg = '商品id为空';
+            return response($jsonResult->toJson());
+        }
+        else
+        {
+            $deleteResult =  $this->shoppingCart->deleteFromCart($request);
+            $jsonResult->statusCode =1;
+//
+            if($deleteResult['status'] == 1)
+            {
+
+                return response($jsonResult->toJson());
+            }
+            else if($deleteResult['status'] == 2)
+
+            {
+                $jsonResult->statusMsg = $deleteResult['cartArray'];
+                return response($jsonResult->toJson())->withCookie('cart',implode(',', $deleteResult['cartArray'] ));
+            }
+        }
 
     }
 

@@ -67,12 +67,14 @@ class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
             //todo 完善child product 功能
             if($cartValue->parent_product_id > 0 )
             {
+                //id 为2 的是蛋糕餐具
                 if($cartValue->product_id == 2)
                 {
                     if(isset( $cartItemsArray[$cartValue->parent_product_id]))
                         $cartItemsArray[$cartValue->parent_product_id]['dinnerWareCount'] = $cartValue->count;
                 }
-                else{
+                //id 为3 的是蛋糕蜡烛
+                else if($cartValue->product_id == 3){
                     if(isset( $cartItemsArray[$cartValue->parent_product_id]))
                         $cartItemsArray[$cartValue->parent_product_id]['candleCount'] = $cartValue->count;
                 }
@@ -209,18 +211,22 @@ class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
         }
 
 
+
         foreach($cartItemsArray  as  $productId_key =>$cartValue)
         {
 
             //todo 完善child product 功能
             if($cartValue->parent_product_id > 0 )
             {
+                //id 为2 的是蛋糕餐具
                 if($cartValue->product_id == 2)
                 {
                     if(isset( $cartItemsArray[$cartValue->parent_product_id]))
                         $cartItemsArray[$cartValue->parent_product_id]['dinnerWareCount'] = $cartValue->count;
                 }
-                else{
+
+                //id 为3 的是蜡烛
+                else if($cartValue->product_id == 3){
                     if(isset( $cartItemsArray[$cartValue->parent_product_id]))
                         $cartItemsArray[$cartValue->parent_product_id]['candleCount'] = $cartValue->count;
                 }
@@ -251,16 +257,28 @@ class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
     {
         //重cookie 里面获取product id
 
-        $addResult['status'] = false;
+
 
 
         $cart = $request->cookie('cart');
         $productId = $request->input('productId');
+        $quantity = 0;
+        $addResult['status'] = 0;
 
         //如果商品属于子商品
         $parentProductId = $request->input('parentProductId');
 
         $cartArray = ($cart!=null ? explode(',', $cart):array());
+
+
+        if($request->input('quantity') != null)
+        {
+            $quantity = (int)$request->input('quantity');
+
+        }
+        else
+            $quantity = 1;
+
 
 
         //查看用户是否登录
@@ -272,15 +290,15 @@ class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
             foreach ($cartItems as $cartItem) {
                 if($cartItem->product_id == $productId && $cartItem->parent_product_id ==$parentProductId)
                 {
-                    $cartItem->count ++;
+                    $cartItem->count += $quantity;
                     if($cartItem->save())
                     {
-                        $addResult['status'] =true;
+                        $addResult['status'] =1;
 
 
                     }
                     else{
-                        $addResult['status'] = false;
+                        $addResult['status'] = 0;
 
                     }
                     $exist = true;
@@ -296,12 +314,12 @@ class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
                     'parent_product_id'=>$parentProductId,
                     'has_child_product'=>0,
                     'product_sku' => 'testSku',
-                    'count' => 1
+                    'count' => $quantity
                 ];
                 $cartItem = ShoppingCart::create($cartItem);
                 if($cartItem != null)
                 {
-                    $addResult['status'] = true;
+                    $addResult['status'] = 1;
 
                 }
             }
@@ -314,7 +332,7 @@ class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
         {
             $index = strpos($value, ':');
             if(substr($value, 0 , $index) == $productId){
-                $count = ((int) substr($value, $index+1) +1);
+                $count = ((int) substr($value, $index+1) +$quantity);
                 $value = $productId.':'.$count;
                 break;
             }
@@ -326,12 +344,96 @@ class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
         }
 
 
-        $addResult['status']=true;
+        $addResult['status']=2;
         $addResult['cartArray'] = $cartArray;
         return $addResult;
 
     }
 
+
+    public function deleteFromCart($request)
+    {
+            $productId = $request->input('productId');
+            $parentProductId = $request->input('parentProductId');
+            $type = $request->input('type');
+            $cart = $request->cookie('cart');
+            $cartArray = ($cart!=null ? explode(',', $cart):array());
+            $deleteResult['status'] = 0;
+            //如何是已经登录 直接从数据库删除
+            if (Auth::check()) {
+
+                //删除整个商品包括子商品
+                if($type==1) {
+                    ShoppingCart::where(['user_id' => Auth::user()->id, 'product_id' => $productId])->delete();
+                    $childProducts = ShoppingCart::where(['user_id' => Auth::user()->id, 'parent_product_id' => $productId])->get();
+                    if (count($childProducts) != 0) {
+                        foreach ($childProducts as $childProduct) {
+                            $childProduct->delete();
+                        }
+                    }
+                }
+                //删除单个商品
+                else if($type == 2)
+                {
+                    $item = ShoppingCart::where(['user_id' => Auth::user()->id, 'product_id' => $productId])->first();
+                    if($item->count>0)
+                    {
+                        $item->count -= 1;
+                        $item->save();
+                    }
+                }
+                $deleteResult['status'] =1;
+            }
+            //从cookie中删除
+            else{
+
+
+                foreach($cartArray  as $key=> &$value)
+                {
+                    $index = strpos($value, ':');
+
+                    if(substr($value, 0 , $index) == $productId){
+
+                        if($type == 1)
+                        {
+                            //从cookie 中移除商品
+                            array_splice($cartArray,$key,1);
+                        }
+                        else if ($type ==2)
+                        {
+                            //更改cookie中商品数量
+                            if((int) substr($value, $index+1) > 0)
+                            {
+                                $count = ((int) substr($value, $index+1) -1);
+                                $value = $productId.':'.$count;
+
+                            }
+
+                        }
+                        break;
+                    }
+                }
+
+                $deleteResult['status'] =2;
+                $deleteResult['cartArray'] = $cartArray;
+            }
+
+
+            return $deleteResult;
+
+    }
+
+    public function getCartItemsCount()
+    {
+
+        $totalItemCount = 0;
+        $cartItems = shoppingCart::where('user_id', Auth::user()->id)->get();
+        foreach( $cartItems as $cartItem)
+        {
+            $totalItemCount += $cartItem->count;
+        }
+        return $totalItemCount;
+    }
 
 }
 

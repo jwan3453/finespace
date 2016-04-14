@@ -79,6 +79,8 @@
 <script type="text/javascript">
 
 
+
+    //从cookie 和数据中获得购物车商品数量
     function _getCartCookie(){
         $.ajax({
             type: 'POST',
@@ -91,12 +93,12 @@
             success: function(data)
             {
                 var itemCount  = data.statusCode;
-                if(itemCount !=0 )
+                if(itemCount != 0  )
                 {
-                    $('.icon-message-count').removeClass('none-display').fadeIn();
-                    $('.icon-message-count').text(itemCount);
-                }
+                    var itemCountMsgObj = $('.icon-message-count');
+                    itemCountMsgObj.removeClass('none-display').fadeIn().text(itemCount);
 
+                }
 
             },
             error: function(xhr, type){

@@ -48,7 +48,7 @@ Route::get('weixin/product/{productId}','weixin\productController@showProduct');
 Route::get('weixin/cart','weixin\cartController@show');// ['middleware' => '','uses' => ]);
 Route::post('weixin/addToCart/', 'weixin\cartController@addToCart');
 Route::any('weixin/getCartCookie', 'weixin\cartController@getCartCookie');
-Route::post('weixin/deleteCookieProd',  'weixin\cartController@deleteCookieProd');
+Route::post('weixin/deleteFromCart',  'weixin\cartController@deleteFromCart');
 
 //手机站结算
 Route::get('weixin/checkout','weixin\checkoutController@checkout');

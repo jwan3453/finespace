@@ -51,7 +51,7 @@
                         </div>
                         <div class="sub-header small-font">
                             <i class=" f-left minus big circle icon teal "></i>
-                            <input class="f-left  big-font " type="text" value="{{$cartItem->dinnerWareCount}}"/>
+                            <input class="f-left  big-font " type="text" value="{{$cartItem->dinnerWareCount or 0}}"/>
                             <i class="f-left  plus big circle icon red "></i>
                             <span class="f-right">总价:￥5</span>
                         </div>
@@ -68,21 +68,21 @@
                         </div>
                         <div class="sub-header small-font">
                             <i class=" f-left minus big circle icon teal "></i>
-                            <input class="f-left  big-font " type="text" value="{{$cartItem->candleCount}}"/>
+                            <input class="f-left  big-font " type="text" value="{{$cartItem->candleCount or 0}}"/>
                             <i class="f-left  plus big circle icon red "></i>
                             <span class="f-right">总价:￥5</span>
                         </div>
 
                     </div>
-                    <div>
-                        <div class=" opt-header">
-                            备注
-                            <span class="f-right"><i class="pointing right icon"></i>举个栗子？</span>
-                        </div>
-                        <div class=" sub-header small-font">可以写下祝福语啦</div>
+                    {{--<div>--}}
+                        {{--<div class=" opt-header">--}}
+                            {{--备注--}}
+                            {{--<span class="f-right"><i class="pointing right icon"></i>举个栗子？</span>--}}
+                        {{--</div>--}}
+                        {{--<div class=" sub-header small-font">可以写下祝福语啦</div>--}}
 
-                        <textarea class="greeting"  placeholder="happy birthday,生日快乐"></textarea>
-                    </div>
+                        {{--<textarea class="greeting"  placeholder="happy birthday,生日快乐"></textarea>--}}
+                    {{--</div>--}}
                 </div>
 
             </div>
@@ -140,12 +140,14 @@
     <script type="text/javascript">
         $(document).ready(function(){
 
-            var deleteItem;
+            var itemCountMsgObj = $('.icon-message-count');
+            var needDeleteItem;
+
 
             $('.check-out-box').css('width',$('.cart-box').width());
 
             $('.delete-item').click(function(){
-                deleteItem = $(this).parent();
+                needDeleteItem = $(this).parent();
                 $('.confirmDimmer')
                         .dimmer('show',{closable:'false'})
                 ;
@@ -158,11 +160,10 @@
                         .dimmer('hide');
                 ;
 
-                deleteItem
-                        .transition('fly down');
-                //delete product from cookie
 
-                deleteFromCart(deleteItem);
+                //delete product from cookie
+                //删除整个商品包括子商品
+                deleteFromCart(needDeleteItem,0,1);
 
             })
 
@@ -197,23 +198,13 @@
 
             $('.plus').click(function(){
 
-               var plusBtn =  $(this);
+                var plusBtn =  $(this);
 
-                var itemCount =   parseInt(plusBtn.siblings('input').val());
-                $(this).siblings('input').val(itemCount+1);
-                 itemCount = parseInt($('.icon-message-count').text());
-                itemCount +=1;
-                if(itemCount === 0)
-                {
-                    $('.icon-message-count').removeClass('none-display').fadeIn();
 
-                }
-                else{
-                    $('.cart').transition('jiggle');
-                    $('.icon-message-count').text(itemCount);
 
-                }
 
+
+                //添加产品到购物车
                 if(plusBtn.parent('.opt-qty-btns').length ===1 )
                 {
                     addToCart(plusBtn,0);
@@ -234,14 +225,6 @@
 
             });
 
-            $('.minus').click(function(){
-
-
-                var itemCount =   parseInt($(this).siblings('input').val());
-                if(itemCount >= 1){
-                    $(this).siblings('input').val(itemCount-1);
-                }
-            });
 
             function addToCart(addItem,_subProductId)
             {
@@ -250,11 +233,11 @@
                 var parentProductId = 0;
                 if(_subProductId > 0)
                 {
-                     parentProductId =addItem.parents('.options').siblings('.hidden-id').val();
+                    parentProductId =addItem.parents('.options').siblings('.hidden-id').val();
                     productId = _subProductId;
                 }
                 else{
-                    productId = addItem.parent().siblings('.hidden-id').val();;
+                    productId = addItem.parent().siblings('.hidden-id').val();
                 }
 
                 $.ajax({
@@ -271,7 +254,18 @@
                         var status  = data.statusCode;
                         if(status ==1 )
                         {
+                            var itemCount = 0;
+                            if(!isNaN(parseInt(addItem.siblings('input').val())))
+                            {
 
+                                itemCount = parseInt(addItem.siblings('input').val());
+                            }
+
+                            addItem.siblings('input').val(itemCount+1);
+                            itemCount = parseInt(itemCountMsgObj.text());
+                            itemCount +=1;
+                            $('.cart').transition('jiggle');
+                            itemCountMsgObj.text(itemCount);
                         }
                         else{
                             alert('失败了');
@@ -285,26 +279,115 @@
                 });
             }
 
-            function deleteFromCart(deleteItem){
+
+
+            $('.minus').click(function(){
+                var minusBtn =  $(this);
+
+                    //添加产品到购物车
+                    if (minusBtn.parent('.opt-qty-btns').length === 1) {
+
+
+                        if(parseInt(minusBtn.siblings('input').val()) === 1)
+                        {
+
+                            //删除整个商品
+                            deleteFromCart(minusBtn.parents('.cart-item'),0,1);
+                        }
+                        else {
+                            //删除一件商品
+                            deleteFromCart(minusBtn, 0, 2);
+                        }
+                    }
+                    else {
+                        if (minusBtn.parents('.opt-dinnerware').length === 1) {
+                            //删除一件子商品
+                            deleteFromCart(minusBtn, 2,2);
+                        }
+                        else {
+                            //删除一件子商品
+                            deleteFromCart(minusBtn, 3,2);
+                        }
+                    }
+
+
+            });
+
+
+
+
+            function deleteFromCart(deleteItem,_subProductId,type){
+                var productId = 0;
+                var parentProductId = 0;
+                if(_subProductId > 0)
+                {
+                    parentProductId =deleteItem.parents('.options').siblings('.hidden-id').val();
+                    productId = _subProductId;
+                }
+                else{
+                    if(type ==1)
+                    {
+                        productId = deleteItem.find('.hidden-id').val();
+                    }
+                    else if(type ==2) {
+                        productId = deleteItem.parent().siblings('.hidden-id').val();
+                    }
+
+
+                }
+
                 $.ajax({
                     type: 'POST',
                     async : false,
-                    url: '/weixin/deleteCookieProd',
+                    url: '/weixin/deleteFromCart',
                     dataType: 'json',
-                    data:{productId: deleteItem.find('.hidden-id').val()},
+                    data:{productId:productId, parentProductId:parentProductId,type:type},
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                     },
                     success: function(data)
                     {
+                        var itemCount = 0;
+                        if(type == 2) {
+                            if(data.statusCode === 1)
+                            {
 
-                        var itemCount = parseInt($('.icon-message-count').text());
-                        if(data.statusCode == 1 && itemCount >0)
-                        {
-                            itemCount = itemCount -1;
-                            $('.icon-message-count').removeClass('none-display').fadeIn().text(itemCount);
+                                if (!isNaN(parseInt(deleteItem.siblings('input').val()))) {
 
+                                    itemCount = parseInt(deleteItem.siblings('input').val());
+                                }
+
+                                if (itemCount > 0) {
+                                    deleteItem.siblings('input').val(itemCount - 1);
+                                    itemCount = parseInt(itemCountMsgObj.text());
+                                    itemCount -= 1;
+                                    $('.cart').transition('jiggle');
+                                    itemCountMsgObj.text(itemCount);
+                                }
+                            }
                         }
+                        else if(type ==1)
+                        {
+
+                            if(data.statusCode === 1)
+                            {
+                                deleteItem
+                                        .transition('fly up');
+                                deleteItem.find('input[type=text]').each(function(){
+
+                                    itemCount =itemCount + parseInt($(this).val());
+
+                                })
+
+                                itemCount = parseInt(itemCountMsgObj.text()) -  itemCount;
+                                if(itemCount >=0)
+                                {
+                                    $('.cart').transition('jiggle');
+                                    itemCountMsgObj.text(itemCount);
+                                }
+                            }
+                        }
+
                         if(itemCount == 0)
                         {
                             //如果购物车空了 跳转 刷新

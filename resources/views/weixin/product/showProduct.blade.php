@@ -86,7 +86,7 @@
         <div class="pos-spacing"></div>
         <div class="prod-price">
             <i class=" f-left minus large  icon teal icon-count "></i>
-            <input class="f-left  big-font quantity" type="text" value="1"/>
+            <input class="f-left  big-font quantity" type="text"  value="1"/>
             <i class="f-left  plus large icon red  icon-count"></i>
             <div class="f-right  total-price">
                 总计:<strong class="huge-font">￥{{$product->price}}</strong>
@@ -190,7 +190,7 @@
                     async : false,
                     url: '/weixin/addToCart',
                     dataType: 'json',
-                    data:{productId:'{{$product->id}}',parentProductId:0},
+                    data:{productId:'{{$product->id}}',parentProductId:0,quantity:$('.quantity').val()},
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                     },
