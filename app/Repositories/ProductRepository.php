@@ -5,6 +5,8 @@ use App\Models\Image;
 use App\Models\SpecInfo;
 use App\Models\ProductSpec;
 
+use App\Tool\MessageResult;
+
 
 class ProductRepository implements  ProductRepositoryInterface{
 
@@ -139,6 +141,7 @@ class ProductRepository implements  ProductRepositoryInterface{
 
     public  function setProduct($request)
     {
+        // dd($request);
         $catId = $request->input('selectCat');
         $brandId = $request->input('selectBrand');
         $sku = $request->input('sku');
@@ -154,6 +157,9 @@ class ProductRepository implements  ProductRepositoryInterface{
         $desc = $request->input('desc');
         $status= $request->input('status');
         $promoteStatus = $request->input('promoteStatus');
+        $is_new = $request->input('is_new');
+        $is_hot = $request->input('is_hot');
+        $is_recommend = $request->input('is_recommend');
         if($status == 'on')
         {
             $status = 1;
@@ -169,6 +175,26 @@ class ProductRepository implements  ProductRepositoryInterface{
         else{
             $promoteStatus = 0;
         }
+
+        if ($is_new == 'on') {
+            $is_new = 1;
+        }
+        else{
+            $is_new = 0;
+        }
+
+        if ($is_hot == 'on') {
+            $is_hot = 1;
+        }else{
+            $is_hot = 0;
+        }
+
+        if ($is_recommend == 'on') {
+            $is_recommend = 1;
+        }else{
+            $is_recommend = 0;
+        }
+
 
         $newProductArray= [
             'category_id' => $catId,
@@ -186,6 +212,9 @@ class ProductRepository implements  ProductRepositoryInterface{
             'desc' =>$desc,
             'status' =>$status,
             'is_promote' =>$promoteStatus,
+            'is_new' => $is_new,
+            'is_hot' => $is_hot,
+            'is_recommend' => $is_recommend
         ];
         return $newProductArray;
     }
@@ -306,6 +335,63 @@ class ProductRepository implements  ProductRepositoryInterface{
         }
 
         return $products;
+    }
+
+    //--修改产品的新品、热销、推荐等状态
+    public function changeStatus($productId,$StatusName,$status)
+    {
+        // $ReturnId = '';
+        // $removeClass = '';
+        // $addClass = '';
+        switch ($StatusName) {
+            case 'new':
+                if ($status == 0) {
+                    Product::where('id',$productId)->update(['is_new'=>1]);
+                    $ReturnId = "new_R_".$productId;
+                    
+                    $changeStatus = 1;
+                }elseif ($status == 1) {
+                    Product::where('id',$productId)->update(['is_new'=>0]);
+                    $ReturnId = "new_C_".$productId;
+                  
+                    $changeStatus = 2;
+                }
+                break;
+            case 'hot':
+                if ($status == 0) {
+                    Product::where('id',$productId)->update(['is_hot'=>1]);
+                    $ReturnId = "hot_R_".$productId;
+                    
+                    $changeStatus = 1;
+                }elseif ($status == 1) {
+                    Product::where('id',$productId)->update(['is_hot'=>0]);
+                    $ReturnId = "hot_C_".$productId;
+                  
+                    $changeStatus = 2;
+                }
+                break;
+            case 'recommend':
+                if ($status == 0) {
+                    Product::where('id',$productId)->update(['is_recommend'=>1]);
+                    $ReturnId = "recommend_R_".$productId;
+              
+                    $changeStatus = 1;
+                }elseif ($status == 1) {
+                    Product::where('id',$productId)->update(['is_recommend'=>0]);
+                    $ReturnId = "recommend_C_".$productId;
+             
+                    $changeStatus = 2;
+                }
+                break;
+        }
+
+        $jsonResult = new MessageResult();
+
+        $jsonResult->ReturnId=$ReturnId;
+     
+        $jsonResult->changeStatus = $changeStatus;
+        
+        return $jsonResult;
     }
 }
 

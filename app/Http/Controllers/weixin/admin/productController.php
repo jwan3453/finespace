@@ -181,4 +181,32 @@ class productController extends Controller
         return redirect('/weixin/admin/product');
     }
 
+    public function changeStatus(Request $request)
+    {
+        $productId = $request->input('productId');
+        $StatusName = $request->input('StatusName');
+        $status = $request->input('status');
+
+        $ResultData = $this->product->changeStatus($productId,$StatusName,$status);
+        // dd($ResultData);
+        $jsonResult = new MessageResult();
+
+        if(!empty($ResultData))
+        {
+
+            $jsonResult->statusId=$ResultData;
+            $jsonResult->statusCode=1;
+            $jsonResult->statusMsg="更新成功";
+
+        }
+        else
+        {
+            //todo
+            $jsonResult->statusCode=2;
+            $jsonResult->statusMsg="更新失败";
+        }
+        return response($jsonResult->toJson());
+
+    }
+
 }

@@ -81,6 +81,23 @@
 
 
         <div class="common-input-box">
+
+            <div class="ui checkbox">
+                <input type="checkbox" name="is_new" id="is_new"  >
+                <label>新品</label>
+            </div>
+
+            <div class="ui checkbox">
+                <input type="checkbox" name="is_recommend" id="is_recommend"  >
+                <label>推荐</label>
+            </div>
+
+            <div class="ui checkbox">
+                <input type="checkbox" name="is_hot" id="is_hot"  >
+                <label>热销</label>
+            </div>
+
+
             <div class="ui checkbox">
                 <input type="checkbox" name="status" id="status"  >
                 <label>是否上线</label>

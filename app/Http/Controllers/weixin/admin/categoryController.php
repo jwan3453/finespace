@@ -28,7 +28,7 @@ class categoryController extends Controller
     public function categoryList()
     {
         $category = $this->category->getAllCategoryInfo();
-        // dd($category);
+        
         return view('admin.weixinAdmin.category.CategoryList')->with('category',$category);
     }
 

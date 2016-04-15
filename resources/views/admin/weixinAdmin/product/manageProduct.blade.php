@@ -32,6 +32,9 @@
                 <th>库存</th>
                 <th>价格</th>
                 <th>状态</th>
+                <th>新品</th>
+                <th>热销</th>
+                <th>推荐</th>
                 <th>简介</th>
                 <th>操作</th>
             </tr>
@@ -44,6 +47,29 @@
                     <td>{{$product->inventory}}</td>
                     <td>{{$product->price}}</td>
                     <td>{{$product->status}}</td>
+
+                    <td>
+                        @if($product->is_new == 1)
+                            <i class="blue checkmark icon" onclick="IsChange({{$product->id}},'new',{{$product->is_new}})" id="new_C_{{$product->id}}"></i>
+                        @elseif($product->is_new == 0)
+                            <i class="red remove icon" onclick="IsChange({{$product->id}},'new',{{$product->is_new}})" id="new_R_{{$product->id}}"></i>
+                        @endif
+                    </td>
+                    <td>
+                        @if($product->is_hot == 1)
+                            <i class="blue checkmark icon" onclick="IsChange({{$product->id}},'hot',{{$product->is_hot}})" id="hot_C_{{$product->id}}"></i>
+                        @elseif($product->is_hot == 0)
+                            <i class="red remove icon" onclick="IsChange({{$product->id}},'hot',{{$product->is_hot}})" id="hot_R_{{$product->id}}"></i>
+                        @endif
+                    </td>
+                    <td>
+                        @if($product->is_recommend == 1)
+                            <i class="blue checkmark icon" onclick="IsChange({{$product->id}},'recommend',{{$product->is_recommend}})" id="recommend_C_{{$product->id}}"></i>
+                        @elseif($product->is_recommend == 0)
+                            <i class="red remove icon" onclick="IsChange({{$product->id}},'recommend',{{$product->is_recommend}})" id="recommend_R_{{$product->id}}"></i>
+                        @endif
+                    </td>
+                    
                     <td>{{$product->brief}}</td>
                     <td>
 
@@ -88,5 +114,30 @@
                 $(this).siblings('.sub-menu').slideToggle(300);
             })
         })
+
+        function IsChange(id,name,status){
+            $.ajax({
+                type: 'POST',
+                url: '/weixin/admin/product/changeStatus',
+                data: {productId : id , StatusName : name , status : status},
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
+                success: function(data){
+                    
+                    if (data.statusId.changeStatus == 1) {
+                        $("#"+data.statusId.ReturnId).removeClass("red").removeClass("remove").addClass("blue").addClass("checkmark"); 
+                    }else{
+                        $("#"+data.statusId.ReturnId).removeClass("blue").removeClass("checkmark").addClass("red").addClass("remove"); 
+                    }
+                   
+                    alert(data.statusMsg);
+                },
+                error: function(xhr, type){
+                    alert('Ajax error!')
+                }
+            });
+        }
     </script>
 @stop

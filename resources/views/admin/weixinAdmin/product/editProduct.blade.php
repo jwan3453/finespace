@@ -101,6 +101,16 @@
                 $('#promoteStatus').attr("checked", true);
             }
 
+            if ('{{$product->is_new}}' === '1') {
+                $('#is_new').attr("checked", true);
+            }
+            if ('{{$product->is_hot}}' === '1') {
+                $('#is_hot').attr("checked", true);
+            }
+            if ('{{$product->is_recommend}}' === '1') {
+                $('#is_recommend').attr("checked", true);
+            }
+
 
             $('#submitUpdate').click(function(){
 

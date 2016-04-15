@@ -32,6 +32,8 @@ interface ProductRepositoryInterface{
 
     public function getCategoryProduct($category_id);
 
+    public function changeStatus($productId,$StatusName,$status);
+
 //    public function errors();
 //
 //    public function all(array $related = null);

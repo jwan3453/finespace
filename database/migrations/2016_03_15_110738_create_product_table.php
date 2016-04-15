@@ -31,6 +31,9 @@ class CreateProductTable extends Migration
             $table->text('desc');
             $table->string('thumb');
             $table->string('img');
+            $table->string('is_new',2);
+            $table->string('is_hot',2);
+            $table->string('is_recommend',2);
 
 
         });

@@ -104,6 +104,60 @@
 
         </div>
 
+        <div class="white-background recommend-sect">
+            <div class="recommend-header">
+                <h5> <i class="heartbeat icon red"></i>
+                    热门推荐
+                </h5>
+            </div>
+
+            <div class="ui equal width center aligned padded grid">
+
+                <div class="row">
+                    <div class="column">
+                        <div class="ui segment">
+                            <img src="../img/thumb_cake1.jpg">
+                        <div>卡布奇诺</div>
+                        <div class="price-info">
+
+                            <span class="f-left big-font">￥21.00</span>
+                            <i class="plus red icon circle big f-right addcart"></i>
+
+                        </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui segment">
+                            <img src="../img/thumb_cake1.jpg">
+                        <div>卡布奇诺</div>
+                        <div class="price-info">
+
+                            <span class="f-left big-font">￥21.00</span>
+                            <i class="plus red icon circle big f-right addcart"></i>
+
+                        </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui segment">
+                            <img src="../img/thumb_cake1.jpg">
+                        <div>卡布奇诺</div>
+                        <div class="price-info">
+
+                            <span class="f-left big-font">￥21.00</span>
+                            <i class="plus red icon circle big f-right addcart"></i>
+
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        
+
         {{--<div class="ui five column grid  " >--}}
             {{--<div class="column nav-menu" >--}}
                 {{--<a >--}}
