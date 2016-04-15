@@ -2,6 +2,7 @@
 namespace App\Repositories;
 use App\Models\Image;
 use App\Models\Product;
+Use App\Models\AdSlide;
 use App\Tool\MessageResult;
 
 use Qiniu\Auth as QiniuAuth;
@@ -54,7 +55,9 @@ class ImageRepository implements  ImageRepositoryInterface
         $uploadMgr = new UploadManager();
         $jsonResult = new MessageResult();
         $file = $request->file('file');
-        $type = 0;//1 为产品 2 为article
+        $type = 0;//1 为产品 2 为article 3为用户头像
+                 // 当isAdSlide 为1的时后, 1 为产品首页幻灯片
+        $isAdSlide = 0;
         $associateId = 0;
         if($request->input('productId') != '')
         {
@@ -68,6 +71,11 @@ class ImageRepository implements  ImageRepositoryInterface
         }else if ($request->input('UserId') != '') {
             $type = 3;
             $associateId = $request->input('UserId');
+        }
+        else if($request->input('slideType') !='')
+        {
+            $type = $request->input('slideType');
+            $isAdSlide = 1;
         }
 
 
@@ -88,23 +96,36 @@ class ImageRepository implements  ImageRepositoryInterface
         //如果error 为空则上传成功
         if($error == null)
         {
-            $newImage = [
-                'type' => $type,
-                'associateId' => $associateId,
-                'key' => $result['key'],
-                'link' =>'http://7xq9bj.com1.z0.glb.clouddn.com/'. $result['key'],
-            ];
-            $imageObj = Image::create($newImage);
-            if($imageObj != null || $imageObj->id > 0)
-            {
-                $jsonResult->statusCode  = 1;
+            $imageObj = null;
+
+            if($isAdSlide == 0) {
+
+                $newImage = [
+                    'type' => $type,
+                    'associateId' => $associateId,
+                    'key' => $result['key'],
+                    'link' => 'http://7xq9bj.com1.z0.glb.clouddn.com/' . $result['key'],
+                ];
+                $imageObj = Image::create($newImage);
+
+            }
+            else{
+                $newImage = [
+                    'type' => $type,
+                    'key' => $result['key'],
+                    'link' => 'http://7xq9bj.com1.z0.glb.clouddn.com/' . $result['key'],
+                ];
+                $imageObj = AdSlide::create($newImage);
+
+            }
+
+            if ($imageObj != null || $imageObj->id > 0) {
+                $jsonResult->statusCode = 1;
                 $jsonResult->statusMsg = '上传成功';
                 $jsonResult->extra = $imageObj;
 
 
-
-            }
-            else{
+            } else {
                 $jsonResult->statusCode = 2;
                 $jsonResult->statusMsg = '插入数据库失败';
                 $jsonResult->extra = $imageObj;
@@ -125,6 +146,12 @@ class ImageRepository implements  ImageRepositoryInterface
         $imageKey = $request->input('imageKey');
         $jsonResult = new MessageResult();
 
+        $type = 0; //0 为删除储存在image 表里面的图像 1 为删除储存在adslide 表的图像
+
+        if($request->input('slideType'))
+        {
+            $type = $request->input('slideType');
+        }
 
         if($imageKey != null)
         {
@@ -137,29 +164,43 @@ class ImageRepository implements  ImageRepositoryInterface
 
             if($err == null)
             {
-                //图片删除后是否影响产品封面
 
-                $deleteImg=  Image::where('key',$imageKey)->first();
-                $product = Product::where('thumb',$deleteImg->id)->first();
-                $deleteRow = $deleteImg->delete();
+                //删除image 表的图片
+                if($type == 0) {
+                    $deleteImg = Image::where('key', $imageKey)->first();
+                    $product = Product::where('thumb', $deleteImg->id)->first();
+                    $deleteRow = $deleteImg->delete();
 
-                if($deleteRow)
-                {
-                    $jsonResult->statusCode=1;
-                    $jsonResult->statusMsg='删除成功';
-                    if($product!=null)
-                    {
-                        //如果删除的图片为产品封面 要重置产品的封面
-                        $product->thumb = '';
-                        $product->save();
+                    //图片删除后是否影响产品封面
+                    if ($deleteRow) {
+                        $jsonResult->statusCode = 1;
+                        $jsonResult->statusMsg = '删除成功';
+                        if ($product != null) {
+                            //如果删除的图片为产品封面 要重置产品的封面
+                            $product->thumb = '';
+                            $product->save();
+                        }
+
+                    } else {
+                        $jsonResult->statusCode = 2;
+                        $jsonResult->statusMsg = '删除失败';
                     }
-
                 }
+
+                //删除adslide 表的图像
                 else{
-                    $jsonResult->statusCode=2;
-                    $jsonResult->statusMsg='删除失败';
-                }
+                    $deleteImg = Adslide::where('key', $imageKey)->where('type',$type)->first();
+                    $deleteRow = $deleteImg->delete();
+                    if ($deleteRow) {
 
+                        $jsonResult->statusCode = 1;
+                        $jsonResult->statusMsg = '删除成功';
+
+                    } else {
+                        $jsonResult->statusCode = 2;
+                        $jsonResult->statusMsg = '删除失败';
+                    }
+                }
 
             }
             else{
@@ -220,11 +261,18 @@ class ImageRepository implements  ImageRepositoryInterface
     }
 
     //---不要request
-    public function deleteImageSingle($imageKey)
+    public function deleteImageSingle($imageKey,$slideType)
     {
         // $imageKey = $request->input('imageKey');
+
         $jsonResult = new MessageResult();
 
+        $type = 0; //0 为删除储存在image 表里面的图像 1 为删除储存在adslide 表的图像
+
+        if($slideType != '')
+        {
+            $type = $slideType;
+        }
 
         if($imageKey != null)
         {
@@ -237,29 +285,43 @@ class ImageRepository implements  ImageRepositoryInterface
 
             if($err == null)
             {
-                //图片删除后是否影响产品封面
 
-                $deleteImg=  Image::where('key',$imageKey)->first();
-                $product = Product::where('thumb',$deleteImg->id)->first();
-                $deleteRow = $deleteImg->delete();
+                //删除image 表的图片
+                if($type == 0) {
+                    $deleteImg = Image::where('key', $imageKey)->first();
+                    $product = Product::where('thumb', $deleteImg->id)->first();
+                    $deleteRow = $deleteImg->delete();
 
-                if($deleteRow)
-                {
-                    $jsonResult->statusCode=1;
-                    $jsonResult->statusMsg='删除成功';
-                    if($product!=null)
-                    {
-                        //如果删除的图片为产品封面 要重置产品的封面
-                        $product->thumb = '';
-                        $product->save();
+                    //图片删除后是否影响产品封面
+                    if ($deleteRow) {
+                        $jsonResult->statusCode = 1;
+                        $jsonResult->statusMsg = '删除成功';
+                        if ($product != null) {
+                            //如果删除的图片为产品封面 要重置产品的封面
+                            $product->thumb = '';
+                            $product->save();
+                        }
+
+                    } else {
+                        $jsonResult->statusCode = 2;
+                        $jsonResult->statusMsg = '删除失败';
                     }
-
                 }
+
+                //删除adslide 表的图像
                 else{
-                    $jsonResult->statusCode=2;
-                    $jsonResult->statusMsg='删除失败';
-                }
+                    $deleteImg = Adslide::where('key', $imageKey)->where('type',$type)->first();
+                    $deleteRow = $deleteImg->delete();
+                    if ($deleteRow) {
 
+                        $jsonResult->statusCode = 1;
+                        $jsonResult->statusMsg = '删除成功';
+
+                    } else {
+                        $jsonResult->statusCode = 2;
+                        $jsonResult->statusMsg = '删除失败';
+                    }
+                }
 
             }
             else{
@@ -272,6 +334,11 @@ class ImageRepository implements  ImageRepositoryInterface
             $jsonResult->statusMsg='图片不存在';
         }
         return $jsonResult;
+
+
+
+
+
     }
 
     function resize_image($filename, $tmpname, $xmax, $ymax,$time)

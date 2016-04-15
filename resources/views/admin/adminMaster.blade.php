@@ -122,6 +122,22 @@
 
                 </div>
             </div>
+            <div class="item ">
+                <i class="  f-left linkify icon"></i>
+                <div class="  f-left content">
+                    系统设置
+                </div>
+                <i class="f-right angle down icon"></i>
+                <div class="ui  middle aligned animated list sub-menu ">
+                    <div class="item ">
+                        <a href="/weixin/admin/manageHomeSlide">
+                            <i class="f-left right triangle icon"></i>
+                            <div class="  f-left content">首页幻灯片</div>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
     <div class="toaster-box big-font ">

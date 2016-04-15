@@ -4,6 +4,11 @@
 
 @section('resources')
     <script src={{ asset('js/jquery.fly.min.js') }}></script>
+    <script src={{ asset('js/swiper/owl.carousel.min.js') }}></script>
+    <link rel="stylesheet" type="text/css" href= {{ asset('js/swiper/owl.carousel.min.css') }}>
+    <link rel="stylesheet" type="text/css" href= {{ asset('js/swiper/owl.theme.default.min.css') }}>
+
+
 @stop
 
 @section('content')
@@ -18,8 +23,12 @@
 
 
 
-        <div class="home-bg">
-            <img src="../img/bg5.jpg">
+        <div >
+            <div class="owl-carousel owl-theme">
+                @foreach($images as $img)
+                    <div class="item" > <img style="width:100%;" src = {{$img->link}}></div>
+                @endforeach
+            </div>
         </div>
 
         <div class="ui grid">
@@ -205,6 +214,34 @@
             var clickable = true;
             var itemCount = 0;
             var offset = $('#cartIcon').offset();
+
+            $('.owl-carousel').owlCarousel({
+                loop:true,
+                responsiveClass:true,
+                autoplay:true,
+                autoplayTimeout:3000,
+                autoHeight:true,
+
+                responsive:{
+                    0:{
+                        items:1,
+
+                        loop:true
+                    },
+                    600:{
+                        items:1,
+
+                        loop:true
+                    },
+                    1000:{
+                        items:1,
+
+                        loop:false
+                    }
+                }
+            })
+
+
             $('.addcart').click(function(){
 
 
@@ -243,3 +280,4 @@
         })
     </script>
 @stop
+

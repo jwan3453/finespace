@@ -105,7 +105,13 @@
                 'formData': {
 
                     '_token': '{{ csrf_token() }}',
-                    'productId':'{{$productId}}'
+                    @if(isset($productId))
+                        'productId':'{{$productId}}',
+                    @elseif(isset($articleId))
+                         'articleId':'{{$articleId}}',
+                    @elseif(isset($slideType))
+                         'slideType':'{{$slideType}}'
+                    @endif
                 },
             });
             // 当有文件添加进来的时候
@@ -229,7 +235,12 @@
                     type: 'POST',
                     async: false,
                     url: '/wexin/deleteImage',
-                    data: {imageKey: imageKey},
+                    data: {
+                        imageKey: imageKey,
+                        @if(isset($slideType))
+                            'slideType':'{{$slideType}}'
+                        @endif
+                    },
                     dataType: 'json',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -287,21 +298,22 @@
 
 
 
+
+
+            //设置图像为产品封面
+            @if(!isset($slideType))
+
+
             $(document).on('mouseenter ', '.file-item', function(){
 
-                    $(this).find('.image-mask').toggle(300);
-
-
-
+                $(this).find('.image-mask').toggle(300);
 
             })
             $(document).on('mouseleave', '.file-item', function(){
 
-
                 $(this).find('.image-mask').removeClass('visible,transition').hide();
             })
 
-            //设置图像为产品封面
             $(document).on('click', '.set-cover', function(){
                 var coverLabel = $(this).parent().siblings('.cover');
                 $.ajax({
@@ -342,6 +354,7 @@
                     $(this).show();
                 }
             })
+            @endif
 
         })
     </script>

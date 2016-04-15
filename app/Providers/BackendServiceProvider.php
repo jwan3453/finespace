@@ -34,5 +34,6 @@ class BackendServiceProvider extends ServiceProvider
         $this->app->bind('App\Repositories\UserAccountRepositoryInterface', 'App\Repositories\UserAccountRepository');
         $this->app->bind('App\Repositories\SmsCodeLogRepositoryInterface', 'App\Repositories\SmsCodeLogRepository');
         $this->app->bind('App\Repositories\ImageRepositoryInterface', 'App\Repositories\ImageRepository');
+        $this->app->bind('App\Repositories\SettingRepositoryInterface', 'App\Repositories\SettingRepository');
     }
 }

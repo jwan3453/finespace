@@ -139,13 +139,13 @@ class CommonController extends Controller
             $jsonResult = new MessageResult();
             $jsonResult = $this->image->uploadImage($request);
             return response($jsonResult->toJson());
-}
+        }
 
 
         public function deleteImage(Request $request){
             $jsonResult = new MessageResult();
 
-            $jsonResult = $this->image->deleteImageSingle($request->input('imageKey'));
+            $jsonResult = $this->image->deleteImageSingle($request->input('imageKey'),$request->input('slideType'));
 
             return response($jsonResult->toJson());
         }

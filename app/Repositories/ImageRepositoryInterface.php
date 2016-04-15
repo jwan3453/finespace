@@ -36,5 +36,6 @@ interface ImageRepositoryInterface{
 //    public function delete($id);
 //
 //    public function deleteWhere($column, $value);
+    public function deleteImageSingle($imageKey,$slideType);
 
 }

@@ -159,4 +159,6 @@ Route::post('/weixin/admin/category/delCategory','weixin\admin\categoryControlle
 
 
 
+//首页幻灯片设置
+Route::get('/weixin/admin/manageHomeSlide','weixin\admin\settingController@manageHomeSlide');
 

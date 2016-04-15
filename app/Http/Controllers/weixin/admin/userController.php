@@ -56,16 +56,8 @@ class userController extends Controller
         {
 
             $account =$this->userAccount->findBy(['user_id'=>$user->id])->first();
-
-
-            $query = [
-                [
-                    'key' => 'user_id',
-                    'compare'=>'=',
-                    'value'=> $user->id
-                ]
-            ];
-            $orders  =$this->order->findBy($query)->paginate(4);
+            
+            $orders  =$this->order->findBy(['key'=> $user->id])->paginate(4);
 
             $totalAmount = 0;
             foreach($orders as $order)
