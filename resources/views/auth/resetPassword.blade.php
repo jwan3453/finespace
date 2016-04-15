@@ -224,6 +224,7 @@
                                         }
                                         else
                                         {
+
                                             _showToaster(data.extra.msg);
                                             //todo 判断发送验证码失败的原因 第三方
                                         }
@@ -250,7 +251,8 @@
                             $('.dimmer').dimmer('show',{closable:'false'})
                         }
                         else {
-                            __showToaster(data.statusMsg);
+
+                            _showToaster(data.statusMsg);
                         }
 
                     },
