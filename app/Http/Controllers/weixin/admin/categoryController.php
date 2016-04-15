@@ -32,9 +32,9 @@ class categoryController extends Controller
         return view('admin.weixinAdmin.category.CategoryList')->with('category',$category);
     }
 
-    public function getCategory()
+    public function getCategory(Request $request)
     {
-        $category_name = $this->category->getNameInfo();
+        $category_name = $this->category->getNameInfo($request->input('categoryid'));
 
         return $category_name;
     }
