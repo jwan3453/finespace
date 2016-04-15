@@ -61,7 +61,7 @@
     <div class="f-left" >
 
         <div class="common-input-box">
-            <label>商品关键词(用逗号隔开):</label>
+            <label>商品关键词(用  ' | '  隔开):</label>
             <input class="transparent-input" type="text"  name="keyWords" value="{{$product->keywords}}"/>
         </div>
         <div class="common-input-box">

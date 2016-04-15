@@ -22,15 +22,18 @@ class UserAccountRepository implements  UserAccountRepositoryInterface{
         return UserAccount::where($query);
     }
 
-    public function deleteBy($query,$value){
-
-        return UserAccount::where($query,$value)->delete();
-    }
 
 
-    public function save($obj)
+
+    public function newUserAccount($id)
     {
+        $creatUser = UserAccount::insert(['user_id'=>$id,'amount'=>0,'last_update_time'=>date('Y-m-d H:i:s',time())]);
 
+        if ($creatUser) {
+            return true;
+        }else{
+            return false;
+        }
     }
 
 

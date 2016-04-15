@@ -25,23 +25,23 @@
         <div class="ui grid">
         <div class="five column row cat_mar">
             <div class="column cat_border" style="text-align: center;">
-                <a class="ui label a-width " href="/weixin/Pudding"><div class="icon-one"></div> 
+                <a class="ui label a-width " href="/weixin/CateProList/1"><div class="icon-one"></div> 
                 <span class="big-font">布丁</span> </a>
             </div>
             <div class="column cat_border" style="text-align: center;">
-                <a class="ui label a-width"><div class="icon-two"></div> 
+                <a class="ui label a-width" href="/weixin/CateProList/2"><div class="icon-two"></div> 
                 <span class="big-font">乳脂</span> </a>
             </div>
             <div class="column" style="text-align: center;">
-                <a class="ui label a-width"><div class="icon-three"></div> 
+                <a class="ui label a-width" href="/weixin/CateProList/3"><div class="icon-three"></div> 
                 <span class="big-font">穆斯</span> </a>
             </div>
             <div class="column" style="text-align: center;">
-                <a class="ui label a-width "><div class="icon-four"></div> 
+                <a class="ui label a-width " href="/weixin/CateProList/4"><div class="icon-four"></div> 
                 <span class="big-font">巧克力</span>  </a>
             </div>
             <div class="column" style="text-align: center;">
-                <a class="ui label a-width"><div class="icon-five"></div> 
+                <a class="ui label a-width" href="/weixin/CateProList/5"><div class="icon-five"></div> 
                 <span class="big-font">芝士</span> </a>
             </div>
            

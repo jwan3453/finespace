@@ -42,10 +42,10 @@ class productController extends Controller
         return view('weixin.product.category');//->with('categories',$cat);
     }
 
-    public function PuddingList()
+    public function CateProList($id)
     {
-        $product = $this->product->getCategoryProduct(1);
-        return view('weixin.product.PuddingList')->with('product',$product);
+        $product = $this->product->getCategoryProduct($id);
+        return view('weixin.product.CateProList')->with('product',$product)->with('id',$id);
     }
 
 

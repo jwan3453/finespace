@@ -381,7 +381,14 @@ font{
 
 .member-info-box img{
     margin-right:10px;
+  
 }
+
+#menber-info-img img{
+    max-width: 80px;
+    height: 80px;
+}
+
 .member-info-box .header{
     padding:5px ;
     color: #dd9d37;

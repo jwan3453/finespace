@@ -1,0 +1,160 @@
+.addbtn{
+	margin-left: 50px;
+}
+.colu{
+	width: 90%;
+}
+.lmlm{
+	width: 75%
+}
+.lmlma{
+	width: 25%
+}
+.dlmlm{
+	cursor:pointer;
+}
+.tlmlm{
+	cursor:pointer;
+}
+.formpa1{
+	float: left;
+	width: 50%;
+}
+.dwidth{
+	width: 100%
+}
+.btnst{
+	font-size: 12px;
+}
+.Ppointers{
+	cursor:pointer;
+}
+.numnewk{
+	float: right;
+	background-color: #999;
+    border-radius: 10px;
+    color: #fff;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    min-width: 10px;
+    padding: 3px 7px;
+    text-align: center;
+    vertical-align: baseline;
+    white-space: nowrap;
+}
+.umtitle{
+	width: 50%;
+	margin-top: 15px;
+	margin-left: 10px;
+	margin-bottom: -5px;
+}
+.timefloa{
+	float: right;
+}
+.floatcen{
+	margin-left: 20px;
+}
+.aryed{
+	height: 10px;
+}
+.bar {
+    background-color: green;
+    border-radius: 3px;
+    display: block;
+    height: 20px;
+    width: 0;
+}
+.delimg {
+    color: #090;
+    cursor: pointer;
+    /*margin-left: 20px;*/
+}
+.percent {
+    color: #fff;
+    display: inline-block;
+    height: 20px;
+    left: 2%;
+    position: absolute;
+    top: 3px;
+}
+.progress {
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+    height: 20px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    display: none;
+    /*margin-left: 100px;*/
+    margin-top: 5px;
+    padding: 1px;
+    position: relative;
+    /*width: 200px;*/
+}
+.btns {
+    border: 1px solid transparent;
+    border-radius: 3px;
+    box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.09) inset;
+    font-weight: 500;
+}
+.btns input {
+    border: medium solid transparent;
+    cursor: pointer;
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.btns {
+    -moz-user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857;
+    margin-bottom: 0;
+    padding: 6px 12px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    background-color: #5bb75b;
+    color: #fff;
+    /*margin-right: 50px; */
+    overflow: hidden; 
+    position: relative;
+}
+.sele{
+    width: 250px;
+    margin-top: 15px;
+}
+.idsls{
+    float: right;
+}
+.kjla{
+    width: 60%;
+}
+.foanh{
+    margin-top: 8px;
+    margin-left: 10px;
+}
+.viewpic{
+    /*padding: 3px;*/
+    /*border-radius: 0.25em;*/
+    cursor: pointer;
+}
+.ztfont{
+    font-size: 12px;
+}
+.keybtn{
+    margin-left: 50px;
+    margin-top: 20px;
+}
+.iuy{
+    width: 50%;
+}

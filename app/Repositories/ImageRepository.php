@@ -65,12 +65,26 @@ class ImageRepository implements  ImageRepositoryInterface
         {
             $type = 2;
             $associateId = $request->input('articleId');
+        }else if ($request->input('UserId') != '') {
+            $type = 3;
+            $associateId = $request->input('UserId');
         }
 
 
-
         $filename =time().uniqid().'.'.$file->guessExtension();
+
         list($result,$error) = $uploadMgr->putFile($token, $filename, $file);
+
+        // if ($request->input('UserId') != '') {
+        //     $a = $this->resize_image($file->getClientOriginalName(),$file->getRealPath(),80,80,time());
+        //     $jsonResult->pic = $a;
+        //     return $jsonResult;
+        //     dd($a);
+        //     list($result,$error) = $uploadMgr->put($token, $filename, $a);
+        // }else{
+        //     list($result,$error) = $uploadMgr->putFile($token, $filename, $file);
+        // }
+
         //如果error 为空则上传成功
         if($error == null)
         {
@@ -178,6 +192,127 @@ class ImageRepository implements  ImageRepositoryInterface
             }
         }
         return $jsonResult;
+    }
+
+    public function IsUserHeadImage($UserId,$type=3)
+    {
+        $imgCount = Image::where(['associateId'=>$UserId,'type'=>3])->select('id')->count();
+
+        return $imgCount;
+    }
+
+    public function getImageKey($UserId,$type=3)
+    {
+        $key = Image::where(['associateId'=>$UserId,'type'=>3])->select('key')->first();
+
+        return $key->key;
+    }
+
+    public function getUserHeadImg($UserId,$key=3)
+    {
+        $img = Image::where(['associateId'=>$UserId,'type'=>3])->select('link')->first();
+        if ($img) {
+            return $img->link;
+        }
+        else{
+            return "/img/icon_member.png";
+        }
+    }
+
+    //---不要request
+    public function deleteImageSingle($imageKey)
+    {
+        // $imageKey = $request->input('imageKey');
+        $jsonResult = new MessageResult();
+
+
+        if($imageKey != null)
+        {
+            //初始化BucketManager
+            $bucketMgr = new BucketManager($this->auth);
+
+            //删除$bucket 中的文件 $key
+            $err = $bucketMgr->delete($this->bucket, $imageKey);
+
+
+            if($err == null)
+            {
+                //图片删除后是否影响产品封面
+
+                $deleteImg=  Image::where('key',$imageKey)->first();
+                $product = Product::where('thumb',$deleteImg->id)->first();
+                $deleteRow = $deleteImg->delete();
+
+                if($deleteRow)
+                {
+                    $jsonResult->statusCode=1;
+                    $jsonResult->statusMsg='删除成功';
+                    if($product!=null)
+                    {
+                        //如果删除的图片为产品封面 要重置产品的封面
+                        $product->thumb = '';
+                        $product->save();
+                    }
+
+                }
+                else{
+                    $jsonResult->statusCode=2;
+                    $jsonResult->statusMsg='删除失败';
+                }
+
+
+            }
+            else{
+                $jsonResult->statusCode=3;
+                $jsonResult->statusMsg='无法从云端删除';
+            }
+        }
+        else{
+            $jsonResult->statusCode=4;
+            $jsonResult->statusMsg='图片不存在';
+        }
+        return $jsonResult;
+    }
+
+    function resize_image($filename, $tmpname, $xmax, $ymax,$time)
+    {
+
+        $ext = explode(".", $filename);
+        $ext = $ext[count($ext)-1];
+        if($ext == "jpg" || $ext == "jpeg")
+            $im = imagecreatefromjpeg($tmpname);
+        elseif($ext == "png")
+            $im = imagecreatefrompng($tmpname);
+        elseif($ext == "gif")
+            $im = imagecreatefromgif($tmpname);
+        $x = imagesx($im);
+        $y = imagesy($im);
+        // if($x <= $xmax && $y <= $ymax){
+        //     return $im;
+        // }
+        if($x >= $y) {
+            $newx = $xmax;
+            $newy = $newx * $y / $x;
+        }
+        else {
+            $newy = $ymax;
+            $newx = $x / $y * $newy;
+        }
+        $im2 = imagecreatetruecolor($newx, $newy);
+        imagecopyresized($im2, $im, 0, 0, 0, 0, floor($newx), floor($newy), $x, $y);
+
+        $paths='C://project/finespace/app/Repositories/upload/';//上传小图路径
+    
+        $file3 = $paths.$time.".".$ext;
+        imagejpeg($im2,$file3);
+     
+        $fp = fopen($file3,"rb"); 
+        // return $im2;
+        $buf = addslashes(fread($fp,filesize($file3))); 
+        return $buf;
+
+
+        
     }
 
 

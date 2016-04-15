@@ -4,7 +4,22 @@
 
 <div class="ui top attached tabular menu">
 	 
-  	<div class="active item"><div class="icon-one"></div>布丁</div>
+  	<div class="active item">
+
+  	@if($id == 1)
+  		<div class="icon-one"></div>布丁
+  	@elseif($id == 2)
+  		<div class="icon-two"></div>乳脂
+  	@elseif($id == 3)
+  		<div class="icon-three"></div>穆斯
+  	@elseif($id == 4)
+  		<div class="icon-four"></div>巧克力
+  	@elseif($id == 5)
+  		<div class="icon-five"></div>芝士
+  	@endif
+
+
+  	</div>
 </div>
 
 <div id="my-divided" class="ui divided items">
