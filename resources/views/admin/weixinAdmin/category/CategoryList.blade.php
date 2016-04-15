@@ -124,7 +124,7 @@
             $.ajax({
                 type: 'POST',
                 url: '/weixin/admin/category/getCategory',
-                data: {},
+                data: {categoryid : _this.id},
                 dataType: 'json',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -154,7 +154,7 @@
             $("#name").val(_this.name);
             $("#parent_id").val(_this.parent_id);
             $("#desc").val(_this.desc);
-            $('#edit-model').modal('show');
+            $('#edit-model').modal('setting', 'closable', false).modal('show');
             $('.dropdown').dropdown({})
         }
 
@@ -205,7 +205,7 @@
             $.ajax({
                 type: 'POST',
                 url: '/weixin/admin/category/getCategory',
-                data: {},
+                data: {categoryid : 0},
                 dataType: 'json',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')

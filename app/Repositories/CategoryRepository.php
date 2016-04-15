@@ -32,9 +32,9 @@ class CategoryRepository implements  CategoryRepositoryInterface{
     	return $CategoryInfo;
     }
 
-    public function getNameInfo()
+    public function getNameInfo($categoryid)
     {
-    	return Category::select('id','name')->get();
+    	return Category::where('id' , '!=' , $categoryid)->select('id','name')->get();
     	// dd($AllName);
     }
 

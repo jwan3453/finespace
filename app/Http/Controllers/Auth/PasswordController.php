@@ -73,7 +73,7 @@ class PasswordController extends Controller
         //找不到验证码 或者 验证码过期
         else{
             $jsonResult->statusCode  = 3;
-            $jsonResult->statusMsg ='短信验证码错误';
+            $jsonResult->statusMsg ='短信验证码错误---吴华';
         }
 
 

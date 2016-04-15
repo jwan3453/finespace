@@ -10,7 +10,7 @@ interface CategoryRepositoryInterface{
 
     public function getAllCategoryInfo();
 
-    public function getNameInfo();
+    public function getNameInfo($categoryid);
 
     public function updateOraddCategory($request);
 
