@@ -32,7 +32,9 @@ Route::get('weixin','weixin\homeController@index');
 
 Route::get('weixin/member','weixin\memberController@home');
 
+Route::post('/weixin/member/addPic','weixin\memberController@addPic');
 
+Route::post('/weixin/member/DelUserHeadImg','weixin\memberController@DelUserHeadImg');
 
 //手机站产品分类
 
@@ -137,7 +139,7 @@ Route::get('/weixin/admin/user/{userId}','weixin\admin\userController@userDetail
 //Route::post('/weixin/loadBrand','Service\CommonController@loadBrand');
 
 
-Route::get('/weixin/Pudding','weixin\productController@PuddingList');
+Route::get('/weixin/CateProList/{id}','weixin\productController@CateProList');
 
 Route::get('/weixin/admin/category','weixin\admin\categoryController@categoryList');
 

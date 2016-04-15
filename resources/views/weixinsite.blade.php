@@ -26,7 +26,7 @@
             <i class="home icon"></i>
             凡悦
         </a>
-        <a class="item "  href="/weixin/order">
+        <a class="item "  href="/weixin/order/all">
             <i class="gift icon"></i>
             订单中心
         </a>
@@ -76,6 +76,7 @@
 </body>
 
 @yield('script')
+
 <script type="text/javascript">
 
 

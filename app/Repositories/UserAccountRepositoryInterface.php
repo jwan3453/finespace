@@ -10,9 +10,8 @@ interface UserAccountRepositoryInterface{
 
     public function findBy($query);
 
-    public function deleteBy($query,$value);
+	public function newUserAccount($id);
 
-    public function save($obj);
 
 //    public function errors();
 //

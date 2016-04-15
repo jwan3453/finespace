@@ -13,6 +13,7 @@ use App\Http\Requests;
 use App\Tool\MessageResult;
 use App\Repositories\UserRepositoryInterface;
 use App\Repositories\SmsCodeLogRepositoryInterface;
+use App\Repositories\UserAccountRepositoryInterface;
 
 class AuthController extends Controller
 {
@@ -36,6 +37,7 @@ class AuthController extends Controller
     protected $username = 'mobile';
     protected $user;
     protected $smsCodeLog;
+    protected $userAccount;
     /**
      * Create a new authentication controller instance.
      *
@@ -43,11 +45,12 @@ class AuthController extends Controller
      */
 
 
-    public function __construct(UserRepositoryInterface $user,SmsCodeLogRepositoryInterface $smsCodeLog)
+    public function __construct(UserRepositoryInterface $user,SmsCodeLogRepositoryInterface $smsCodeLog,UserAccountRepositoryInterface $userAccount)
     {
         $this->user = $user;
         $this->smsCodeLog = $smsCodeLog;
         $this->middleware('guest', ['except' => 'getLogout']);
+        $this->userAccount = $userAccount;
     }
 
     /**
@@ -99,14 +102,20 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-
-
-        return User::create([
+        $newUser = User::create([
             'name' => 'finespaceUser',
             'mobile' => $data['mobile'],
             'password' => bcrypt($data['password']),
             'email' => rand(1,200).'@qq.com'
         ]);
+
+        //添加用户账号 数据库
+
+        if ($newUser) {
+            $s = $this->userAccount->newUserAccount($newUser->id);
+        }
+        
+        return $newUser;
     }
 
 

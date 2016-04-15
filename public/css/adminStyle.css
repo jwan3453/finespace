@@ -533,6 +533,8 @@ color: #dbe4f0;
 
 .member-info-box img{
     margin-right:10px;
+    width: 100px;
+    height: 100px;
 }
 .member-info-box .header{
     padding:5px ;
@@ -547,4 +549,6 @@ color: #dbe4f0;
 .member-info-box .description span{
     color: #ff665f;
 }
+
+
 /*******************/
