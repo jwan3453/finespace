@@ -14,7 +14,7 @@ class Product extends Model
 
     protected $fillable =['category_id','brand_id','sku','name','inventory','stock_alarm',
                           'price','promote_price','promote_start_date','promote_end_date','keywords',
-                            'brief','desc','status','is_promote'];
+                            'brief','desc','status','is_promote','is_new','is_hot','is_recommend'];
 
 
     public function specifications()

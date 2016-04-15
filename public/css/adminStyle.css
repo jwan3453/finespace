@@ -398,6 +398,10 @@ color: #dbe4f0;
     display: none;
 }
 
+.product-table table tbody tr td i{
+    cursor: pointer ;
+}
+
 /*****************/
 
 

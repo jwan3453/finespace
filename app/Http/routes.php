@@ -114,6 +114,8 @@ Route::post('/weixin/admin/product/editProductSpec','weixin\admin\productControl
 
 Route::post('/weixin/admin/loadSpecs','weixin\admin\productController@loadSpecs');
 
+Route::post('/weixin/admin/product/changeStatus','weixin\admin\productController@changeStatus');
+
 
 
 //上传图片
