@@ -69,7 +69,7 @@ class AuthController extends Controller
         $mobile = $data['mobile'];
         $password = $data['password'];
         $passwordConfirmation = $data['passwordConfirmation'];
-        //$smsCode = $data['verifySmsCode'];
+        $smsCode = $data['verifySmsCode'];
         $check = 1;
         $mobileStatus = $this->checkMobile($mobile);
 
@@ -84,11 +84,11 @@ class AuthController extends Controller
         else if ($passwordStatus == 3)
             return 5;
 
-//        $smsCodeStatus = $this->checkSmsCode($mobile, $smsCode);
-//        if ($smsCodeStatus == 2)
-//            return 6;
-//        else if ($smsCodeStatus == 3)
-//            return 7;
+        $smsCodeStatus = $this->checkSmsCode($mobile, $smsCode);
+        if ($smsCodeStatus == 2)
+            return 6;
+        else if ($smsCodeStatus == 3)
+            return 7;
 
         return $check;
 
@@ -163,7 +163,7 @@ class AuthController extends Controller
 
     public function checkSmsCode($mobile,$smsCode)
     {
-        $smsCodeObj = $this->smsCodeLog->findBy(['mobile'=>$mobile,'smsCode'=>$smsCode])->orderBy('created_at','desc')->first();
+        $smsCodeObj = $this->smsCodeLog->findBy(['mobile'=>$mobile,'smsCode'=>$smsCode,'status'=>1])->orderBy('created_at','desc')->first();
 
         if($smsCodeObj == null)
         {
@@ -180,7 +180,7 @@ class AuthController extends Controller
 
     public function clientCheckMobile (Request $request)
     {
-       $result = new MessageResult;
+       $jsonResult = new MessageResult;
 
         $mobile = trim($request->input('mobile'));
 
@@ -191,22 +191,22 @@ class AuthController extends Controller
 
         if($status == 1)
         {
-            $result->statusCode = 1;
+            $jsonResult->statusCode = 1;
         }
         else if($status == 2)
         {
-            $result->statusCode = 2;
-            $result->statusMsg ='手机号已经被注册';
+            $jsonResult->statusCode = 2;
+            $jsonResult->statusMsg ='手机号已经被注册';
         }
         else if($status == 3)
         {
 
-            $result->statusCode = 3;
-            $result->statusMsg ='手机号格式不正确';
+            $jsonResult->statusCode = 3;
+            $jsonResult->statusMsg ='手机号格式不正确';
 
         }
         //$this->result->statusMsg = $request->session()->get('validateCode','');
 
-        return response($result->toJson());
+        return response($jsonResult->toJson());
     }
 }

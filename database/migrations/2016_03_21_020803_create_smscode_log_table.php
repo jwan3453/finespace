@@ -19,6 +19,7 @@ class CreateSmscodeLogTable extends Migration
             $table->string('type',10);
             $table->string('detail');
             $table->timestamp('expire');
+            $table->integer('status');
             $table->timestamps();
         });
     }

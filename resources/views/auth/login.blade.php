@@ -19,18 +19,31 @@
 
         <form method="POST" action="{{url('auth/login')}}" onsubmit=" return checkLogin()">
             {!! csrf_field() !!}
-            <div class="login-box-mask huge-font">
+            <div class="login-box-mask big-font" >
 
-                <div  class="box-content ">
+                <div  class="box-content  " >
                     <span class="giant-font slogan">凡悦 - fine space</span>
                     <p class="big-font">Place To Get You Mind Off</p>
-                    <div class="ui  left icon input login-input-box">
+                    <div class="ui  left icon input login-input-box" >
                         <input class="login-reg-input transparent-input" name="mobile" id="mobile" type="text" placeholder="手机号/用户名" value="{{ old('mobile') }}">
                         <i class="users icon" style="color:white"></i>
                     </div>
                     <div class="ui  left icon input login-input-box">
                         <input  class="login-reg-input transparent-input" name="password" id="password" type="password" placeholder="密码">
                         <i class="lock icon" style="color:white"></i>
+                    </div>
+
+                    <div class="login-opts " >
+
+                        <div class="ui checkbox f-left">
+                            <input type="checkbox" name="example">
+                            <label>记住密码</label>
+                        </div>
+
+                        <a href="/auth/resetPassword" class="small-btn f-right">
+                                忘记密码
+                        </a>
+
                     </div>
 
                     <div class="ui buttons login-btn-box" >

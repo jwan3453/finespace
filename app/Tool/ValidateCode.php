@@ -65,6 +65,7 @@ class ValidateCode {
         $this->createFont();
         $this->outPut();
     }
+
     //获取验证码
     public function getCode() {
         return strtolower($this->code);

@@ -86,9 +86,10 @@ class CommonController extends Controller
 
             $smscode = new sendTemplateSMS;
             $jsonResult = new MessageResult();
-            $status = ';';
+            $status = 0;
             $code = $this->generateSmsCode();
             $mobile =$request->input('mobile');
+            $type = $request->input('type');
             if($mobile =='')
             {
                 $jsonResult->statusCode = 3;
@@ -96,39 +97,39 @@ class CommonController extends Controller
 
             }
             else {
+
                 //发送验证码到手机
-                $result = $smscode->sendTemplateSMS($mobile, array($code, 2), 1);
+                $result = $smscode->sendTemplateSMS($mobile, $code,$type);
+
 
                 //检查发送状态
-                if ($result == null) {
+                if ($result == false || $result->code != 1 ) {
 
-                    $jsonResult->statusCode =2;
-                    $jsonResult->statusMsg = '发送失败';
-
-                }
-                if ($result->statusCode != 0) {//if($result->statusCode!=0) {
 
                     //TODO 添加错误处理逻辑
-                    $jsonResult->statusCode = 4;
+                    $status = 0;
+                    $jsonResult->statusCode = 2;
                     $jsonResult->statusMsg= '发送失败' ;
                     $jsonResult->extra =$result;
                 } else {
 
                     //TODO 添加成功处理逻辑
                     //发送成功 代码为1
+                    $status = 1;
                     $jsonResult->statusCode = 1;
                     $jsonResult->statusMsg = '发送成功';
 
-
-                    $newSmsCodeLog = [
-                        'mobile' => $request->input('mobile'),
-                        'smsCode' => $code,
-                        'type' => 'register',
-                        'detail' => $jsonResult->statusCode.':'.$jsonResult->statusMsg,
-                        'expire' => date('Y-m-d H:i:s', time() + 60 * 60)
-                    ];
-                    $this->smsCodeLog->save($newSmsCodeLog);
                 }
+
+                $newSmsCodeLog = [
+                    'mobile' => $request->input('mobile'),
+                    'smsCode' => $code,
+                    'type' => $type,
+                    'detail' => $jsonResult->statusMsg.':'.$request->ip.':'.$result->msg,
+                    'expire' => date('Y-m-d H:i:s', time() + 60 * 60),
+                    'status' =>$status
+                ];
+                $this->smsCodeLog->save($newSmsCodeLog);
             }
              return response($jsonResult->toJson());
         }
@@ -156,5 +157,4 @@ class CommonController extends Controller
             $jsonResult = $this->image->setImageCover($request);
             return response($jsonResult->toJson());
         }
-
 }

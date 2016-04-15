@@ -34,7 +34,10 @@ class SmsCodeLogRepository implements  SmsCodeLogRepositoryInterface{
         $newSmsCodeLog->mobile = $obj['mobile'];
         $newSmsCodeLog->smsCode = $obj['smsCode'];
         $newSmsCodeLog->type = $obj['type'];
+        $newSmsCodeLog->detail = $obj['detail'];
         $newSmsCodeLog->expire = $obj['expire'];
+        $newSmsCodeLog->status = $obj['status'];
+
 
         $newSmsCodeLog->save();
         return $newSmsCodeLog;

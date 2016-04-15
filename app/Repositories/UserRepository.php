@@ -30,6 +30,18 @@ class UserRepository implements  UserRepositoryInterface
         return User::where($request);
 
     }
+
+    public function setPassword($mobile,$newPassword)
+    {
+        $user = User::where('mobile',$mobile)->first();
+        $status = 2;
+        if($user!=null)
+        {
+            $user->password = bcrypt($newPassword);
+            $status = $user->save();
+        }
+        return $status;
+    }
 }
 
 

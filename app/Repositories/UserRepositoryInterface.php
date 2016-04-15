@@ -10,6 +10,8 @@ interface UserRepositoryInterface{
 
     public function findBy($request);
 
+    public function setPassword($mobile,$newPassword);
+
 //    public function errors();
 //
 //    public function all(array $related = null);

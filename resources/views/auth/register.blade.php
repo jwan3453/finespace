@@ -53,14 +53,14 @@
 
                     </div>
 
-                    {{--<div class="ui input reg-input-box">--}}
-                        {{--<input class="login-reg-input transparent-input" name="verifySmsCode" id="verifySmsCode" type="text" placeholder=" 验证码">--}}
-                        {{--<div class="long-btn " id="sendVerifySmsCode">--}}
-                            {{--发送验证码--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
 
 
+                    <div class="ui input reg-input-box">
+                        <input class="login-reg-input transparent-input" name="verifySmsCode" id="verifySmsCode" type="text" placeholder=" 验证码">
+                        <div class="long-btn " id="sendVerifySmsCode">
+                            发送验证码
+                        </div>
+                    </div>
 
                     <div class="ui buttons login-btn-box" >
                         <button type="submit" class="ui teal button submit">注册</button>
@@ -96,26 +96,6 @@
 
 
 
-
-            var countdown=60;//倒计时60秒
-            function settime(obj) {
-
-
-                if (countdown == 0) {
-
-                    obj.removeClass('code-send');
-                    obj.text("再次发送");
-                    countdown = 60;
-                    return;
-                } else {
-
-                    obj.text(countdown+'秒后可重发' );
-                    countdown--;
-                }
-                setTimeout(function() {
-                            settime(obj) }
-                        ,1000)
-            }
 
 
 
@@ -195,6 +175,30 @@
 
 
 
+
+
+
+            var countdown=60;//倒计时60秒
+            function settime(obj) {
+
+
+                if (countdown == 0) {
+
+                    obj.removeClass('code-send');
+                    obj.text("再次发送");
+                    countdown = 60;
+                    return;
+                } else {
+
+                    obj.text(countdown+'秒后可重发' );
+                    countdown--;
+                }
+                setTimeout(function() {
+                            settime(obj) }
+                        ,1000)
+            }
+
+
             //发送验证码
             $('#sendVerifySmsCode').click(function(){
 
@@ -204,10 +208,10 @@
                     return;
 
                 //检查手机号
-                var mobileStatus = 2;//checkMobile($('#mobile'));
+                var mobileStatus = checkMobile($('#mobile'));
 
                 //如果手机号码异常或是空 返回
-                if(mobileStatus===1 ||  $('#mobile').val() == '')
+                if(mobileStatus !==1 ||  $('#mobile').val() == '')
                 {
                     return;
                 }
@@ -236,7 +240,7 @@
                                     type: 'POST',
                                     async:false,
                                     url: '/sendSmsCode',
-                                    data: { mobile : $.trim($('#mobile').val())},
+                                    data: { mobile : $.trim($('#mobile').val()),type:1},
                                     dataType: 'json',
                                     headers: {
                                         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
@@ -249,14 +253,13 @@
                                         {
                                             //验证码发送成功
                                             sendBtn.addClass('code-send');
-                                            $('.toaster').text(data.statusMsg);
-                                            $('.toaster').fadeIn(1000).fadeOut(1000 );
+                                            _showToaster(data.statusMsg);
+
                                             settime(sendBtn);
                                         }
                                         else
                                         {
-                                            $('.toaster').text(data.statusMsg);
-                                            $('.toaster').fadeIn(1000).fadeOut(1000 );
+                                            _showToaster(data.statusMsg);
                                             //todo 判断发送验证码失败的原因 第三方
                                         }
 
@@ -270,8 +273,7 @@
                             else
                             {
                                 //随机验证吗错误
-                                $('.toaster').text(data.statusMsg);
-                                $('.toaster').fadeIn(1000).fadeOut();
+                                _showToaster(data.statusMsg);
                             }
                         },
                         error: function(xhr, type){

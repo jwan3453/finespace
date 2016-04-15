@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 //微信注册登录
 Route::get('auth/login','Auth\AuthController@getLogin');
@@ -26,7 +24,13 @@ Route::post('auth/register','Auth\AuthController@postRegister');
 
 Route::get('auth/logout','Auth\AuthController@getLogout');
 
+Route::get('auth/resetPassword','Auth\PasswordController@resetPassword');
+Route::post('auth/setPassword','Auth\PasswordController@setPassword');
+
 Route::get('weixin','weixin\homeController@index');
+Route::get('/','weixin\homeController@index');
+
+
 
 //手机站个人中心
 
