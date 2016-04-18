@@ -261,7 +261,7 @@ class ImageRepository implements  ImageRepositoryInterface
     }
 
     //---不要request
-    public function deleteImageSingle($imageKey,$slideType)
+    public function deleteImageSingle($imageKey,$slideType='')
     {
         // $imageKey = $request->input('imageKey');
 

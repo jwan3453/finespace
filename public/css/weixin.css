@@ -436,6 +436,11 @@ font{
 
 /***  微信首页*******/
 
+.product-img-wAh{
+    max-width: 200px;
+    max-height: 200px;
+}
+
 
 .home-header
 {
