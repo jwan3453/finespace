@@ -1,4 +1,3 @@
-
 @extends('weixinsite')
 
 
@@ -116,50 +115,32 @@
         <div class="white-background recommend-sect">
             <div class="recommend-header">
                 <h5> <i class="heartbeat icon red"></i>
-                    热门推荐
+                    精品促销
                 </h5>
             </div>
 
             <div class="ui equal width center aligned padded grid">
-
+                @foreach($hotProduct as $hotpro)
                 <div class="row">
-                    <div class="column">
+
+                    @foreach($hotpro as $product)
+                    <div class="column" id="touchArea">
                         <div class="ui segment">
-                            <img src="../img/thumb_cake1.jpg">
-                        <div>卡布奇诺</div>
+                            <img src="{{$product->img}}" class="product-img-wAh">
+                        <div>{{$product->name}}</div>
                         <div class="price-info">
 
-                            <span class="f-left big-font">￥21.00</span>
-                            <i class="plus red icon circle big f-right addcart"></i>
+                            <span class="f-left big-font">￥{{$product->price}}</span>
+                            <!-- <i class="plus red icon circle big f-right addcart"></i> -->
 
                         </div>
                         </div>
                     </div>
-                    <div class="column">
-                        <div class="ui segment">
-                            <img src="../img/thumb_cake1.jpg">
-                        <div>卡布奇诺</div>
-                        <div class="price-info">
-
-                            <span class="f-left big-font">￥21.00</span>
-                            <i class="plus red icon circle big f-right addcart"></i>
-
-                        </div>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="ui segment">
-                            <img src="../img/thumb_cake1.jpg">
-                        <div>卡布奇诺</div>
-                        <div class="price-info">
-
-                            <span class="f-left big-font">￥21.00</span>
-                            <i class="plus red icon circle big f-right addcart"></i>
-
-                        </div>
-                        </div>
-                    </div>
+                    @endforeach
+                    
                 </div>
+
+                @endforeach
 
             </div>
 
@@ -210,41 +191,31 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function(){
-
             var clickable = true;
             var itemCount = 0;
             var offset = $('#cartIcon').offset();
-
             $('.owl-carousel').owlCarousel({
                 loop:true,
                 responsiveClass:true,
                 autoplay:true,
                 autoplayTimeout:3000,
                 autoHeight:true,
-
                 responsive:{
                     0:{
                         items:1,
-
                         loop:true
                     },
                     600:{
                         items:1,
-
                         loop:true
                     },
                     1000:{
                         items:1,
-
                         loop:false
                     }
                 }
             })
-
-
             $('.addcart').click(function(){
-
-
                 if(clickable == false)
                     return;
                 itemCount++;
@@ -280,4 +251,3 @@
         })
     </script>
 @stop
-
