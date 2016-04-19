@@ -127,21 +127,24 @@ font{
     height: 40px;
     line-height: 40px;
     text-align: center;
-    background-color: #00b5ad;
-    color:white;
+
 }
 .regular-btn{
     width: 120px!important;
     height: 40px;
     line-height: 40px;
     text-align: center;
-    background-color: #47A1B9;
-    color:white!important;
+
 }
 .red-btn{
+    color:white;
     background-color:#ff5856!important;
 }
 
+.blue-btn{
+    background-color: #00b5ad;
+    color:white;
+}
 
 .dark-bg{
     background-color:#43536D!important;
@@ -721,13 +724,18 @@ font{
 
 }
 
+
 .prod-spec {
 
     padding:5px 10px;
 }
 
+.prod-spec .price{
+    text-align: right;
+    padding:10px;
+    color: #ff5856;
+}
 .prod-spec .name{
-
     padding:5px 0;
 }
 
@@ -772,8 +780,8 @@ font{
 {
     display: block!important;
 
-    color: #6a6a6a !important;
-    background-color: #f2f2f2 !important;
+    color: rgba(89, 81, 79, 0.71) !important;
+    background-color: #eff4f0 !important;
 }
 .specs-level2 div i,.specs div i{
     color:#ff5856!important;
@@ -867,12 +875,13 @@ font{
 
 }
 .cart-item .product-price{
+    text-align: right;
     padding:5px 0;
+    clear:both;
 }
 .cart-item .product-price span,.cart-item .sub-product span,.cart-item .total-product-price span{
     color:#ff5856;
 }
-
 
 /*.cart-item .totalPrice i{*/
     /*margin-top:-5px;*/
@@ -907,12 +916,20 @@ font{
     border-radius: 5%;
 }
 
+.cart-item .opt-qty-btns{
+    clear:both;
+    padding:5px 0;
+    overflow: hidden;
+}
+
 .cart-item .opt-qty-btns .icon-count{
     border:1px solid lightgray;
     margin:0!important;
     height:28px;
     width:35px;
     line-height: 28px;
+    display:block;
+
 }
 
 .cart-item .opt-qty-btns input{
@@ -1043,6 +1060,13 @@ font{
     font-size:16px!important;
 
 }
+
+.order-total-amount{
+    text-align: center;
+    padding:5px;
+    color:#ff5856;
+}
+
 .menu-content{
     padding:5px;
     border:1px solid lightgray;
@@ -1201,6 +1225,7 @@ margin:10px 0 0 0 ;
 /*******************/
 
 
+
 /********门店列表*************/
 
 .store-box{
@@ -1289,3 +1314,26 @@ margin:10px 0 0 0 ;
 }
 
 /******************************/
+
+/***错误页面*****/
+
+
+.error-box{
+    text-align: center;
+    padding:30px 20px 0 20px;
+    color: #ff8715;
+}
+.error-box img{
+
+    width:250px;
+    height:300px;
+    margin:20px;
+
+}
+.error-box span{
+    display: block;
+}
+
+
+/***************/
+

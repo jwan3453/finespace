@@ -30,24 +30,19 @@
             </div>
         </div>
         <div class="prod-spec">
-            <div class="huge-font name">{{$product->name}}</div>
+            <div class="giant-font name">{{$product->name}}</div>
             <div class=" extra ">
 
                 <div class="product-tag">
+                    @foreach($product->keywords as $keyword)
+
                     <div >
-                        白兰地
+                        {{$keyword}}
                     </div>
-                    <div >
-                        巧克力
-                    </div>
-                    <div >
-                        樱桃
-                    </div>
-                    <div >
-                        白兰地
-                    </div>
+                    @endforeach
                 </div>
             </div>
+            <div class="price giant-font">￥<span id="unitPrice">{{$product->price}}</span></div>
 
             <div class="specs specs-level2 ">
                 @foreach( $product->spec as $spec)
@@ -89,7 +84,7 @@
             <input class="f-left  big-font quantity" type="text"  value="1"/>
             <i class="f-left  plus large icon red  icon-count"></i>
             <div class="f-right  total-price">
-                总计:<strong class="huge-font">￥{{$product->price}}</strong>
+                总计:<strong class="huge-font">￥<span id="totalPrice">{{$product->price}}</span></strong>
             </div>
         </div>
 
@@ -118,15 +113,12 @@
     <script type="text/javascript">
 
 
-
-        $(document).ready(function(){
-
-
+        $(window).load(function(){
             $('.owl-carousel').owlCarousel({
                 loop:true,
                 responsiveClass:true,
                 autoplay:true,
-                autoplayTimeout:3000,
+                autoplayTimeout:2000,
                 autoHeight:true,
 
                 responsive:{
@@ -141,12 +133,20 @@
                         loop:true
                     },
                     1000:{
-                        items:1,
+                        items:3,
 
                         loop:false
                     }
                 }
             })
+        })
+
+
+
+        $(document).ready(function(){
+
+
+            var unitPrice = parseInt($('#unitPrice').text());
 
             $('.add-to-cart,.prod-price').css('width',$('.prod-detail-box').width());
 
@@ -163,24 +163,17 @@
 
                 var itemCount =   parseInt(quantity.val());
                 quantity.val(itemCount+1);
-//                var itemCount = parseInt($('.icon-message-count').text());
-//                itemCount +=1;
-//                if(itemCount === 0)
-//                {
-//                    $('.icon-message-count').removeClass('none-display').fadeIn();
-//                    $('.icon-message-count').text(itemCount);
-//                }
-//                else{
-//                    $('.icon-message-count').text(itemCount);
-//                }
-
+                var totalPrice = unitPrice * (itemCount+1);
+                $('#totalPrice').text(totalPrice);
             })
 
             $('.minus').click(function(){
 
                 var itemCount =   parseInt($('.quantity').val());
-                if(itemCount >= 0){
+                if(itemCount > 0){
                     $('.quantity').val(itemCount-1);
+                    var totalPrice = unitPrice * (itemCount-1);
+                    $('#totalPrice').text(totalPrice);
                 }
             })
 

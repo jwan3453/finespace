@@ -44,58 +44,9 @@ class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
         //获得购物车商品清单 获得子商品
         $cartItemsArray = array();
         $cartItems = shoppingCart::where('user_id', Auth::user()->id)->get();
-        //循环 获得cartItemsArray()
-        foreach($cartItems as $cartValue)
-        {
 
-            $cartValue->product = Product::find($cartValue->product_id);
-            //array_push($cartItemsArray, => $cartValue);
-            if($cartValue->parent_product_id >0)
-            {
-                $cartItemsArray[uniqid()] = $cartValue;
-            }
-            else{
-                $cartItemsArray[$cartValue->product_id] = $cartValue;
-            }
-
-        }
-
-
-        foreach($cartItemsArray  as  $productId_key =>$cartValue)
-        {
-
-            //todo 完善child product 功能
-            if($cartValue->parent_product_id > 0 )
-            {
-                //id 为2 的是蛋糕餐具
-                if($cartValue->product_id == 2)
-                {
-                    if(isset( $cartItemsArray[$cartValue->parent_product_id]))
-                        $cartItemsArray[$cartValue->parent_product_id]['dinnerWareCount'] = $cartValue->count;
-                }
-                //id 为3 的是蛋糕蜡烛
-                else if($cartValue->product_id == 3){
-                    if(isset( $cartItemsArray[$cartValue->parent_product_id]))
-                        $cartItemsArray[$cartValue->parent_product_id]['candleCount'] = $cartValue->count;
-                }
-                unset($cartItemsArray[$productId_key]);
-            }
-            else
-            {
-                //找到商品的缩略图
-                //todo 附属商品的照片怎么办
-                if($cartValue->product->thumb != null)
-                {
-
-                    $cartValue->product->thumb =Image::find($cartValue->product->thumb)->link;
-                }
-                else{
-                    $cartValue->product->thumb = Image::where('type',1)->where( 'associateId',$cartValue->product->id)->first()->link;
-                }
-            }
-        }
-
-
+        $cartItemsArray = $this->setCartItemArray($cartItems,$cartItemsArray);
+        //dd($cartItemsArray);
         return $cartItemsArray;
     }
 
@@ -105,6 +56,8 @@ class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
 
         //根据cookie 获取相应的product
         $cartItemList =array();
+
+        $totalOrderAmount =  0;
         foreach($cartCookie  as $value)
         {
             $index = strpos($value, ':');
@@ -114,13 +67,12 @@ class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
             $newItem->product_sku = '12331231';
             $newItem->count =(int)substr($value, $index+1);
             $newItem->product = Product::find($newItem->product_id);
-
+            $newItem->totalAmount = $newItem->product->price *  $newItem->count;
 
 
             //获取商品封面图片
             if($newItem->product->thumb != null)
             {
-
                 $newItem->product->thumb =Image::find($newItem->product->thumb)->link;
             }
             else{
@@ -135,10 +87,15 @@ class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
 
             if($newItem->product != null)
             {
+                $totalOrderAmount += $newItem->totalAmount;
                 array_push($cartItemList,$newItem);
             }
 
+
         }
+
+        if($totalOrderAmount != 0)
+        $cartItemList['totalOrderAmount'] = $totalOrderAmount;
         return $cartItemList;
     }
     public function syncCart($cartArray)
@@ -165,7 +122,7 @@ class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
                 if ($cartValue->product_id == $productId) {
                     //如果购物车cookie 里的商品数量大于数据空中的购物车商品数量
                     if ($cartValue->count < $count) {
-                        $cartValue->count = $count;
+                        $cartValue->count =  $cartValue->count + $count;
                         $cartValue->save();
                     }
                     $exist = true;
@@ -193,62 +150,10 @@ class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
             }
         }
 
-
-        //循环 获得cartItemsArray()
-        foreach($cartItems as $cartValue)
-        {
-
-            $cartValue->product = Product::find($cartValue->product_id);
-            //array_push($cartItemsArray, => $cartValue);
-            if($cartValue->parent_product_id >0)
-            {
-                $cartItemsArray[uniqid()] = $cartValue;
-            }
-            else{
-                $cartItemsArray[$cartValue->product_id] = $cartValue;
-            }
-
-        }
-
-
-
-        foreach($cartItemsArray  as  $productId_key =>$cartValue)
-        {
-
-            //todo 完善child product 功能
-            if($cartValue->parent_product_id > 0 )
-            {
-                //id 为2 的是蛋糕餐具
-                if($cartValue->product_id == 2)
-                {
-                    if(isset( $cartItemsArray[$cartValue->parent_product_id]))
-                        $cartItemsArray[$cartValue->parent_product_id]['dinnerWareCount'] = $cartValue->count;
-                }
-
-                //id 为3 的是蜡烛
-                else if($cartValue->product_id == 3){
-                    if(isset( $cartItemsArray[$cartValue->parent_product_id]))
-                        $cartItemsArray[$cartValue->parent_product_id]['candleCount'] = $cartValue->count;
-                }
-                unset($cartItemsArray[$productId_key]);
-            }
-            else
-            {
-                //找到商品的缩略图
-                //todo 附属商品的照片怎么办
-                if($cartValue->product->thumb != null)
-                {
-
-                    $cartValue->product->thumb =Image::find($cartValue->product->thumb)->link;
-                }
-                else{
-                    $cartValue->product->thumb = Image::where('type',1)->where( 'associateId',$cartValue->product->id)->first()->link;
-                }
-            }
-        }
-
-
+        $cartItemsArray = $this->setCartItemArray($cartItems,$cartItemsArray);
         return $cartItemsArray;
+
+
 
     }
 
@@ -327,20 +232,21 @@ class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
         }
 
 
-        $count =1;
+         $exist = false;
         foreach($cartArray  as &$value)
         {
             $index = strpos($value, ':');
             if(substr($value, 0 , $index) == $productId){
-                $count = ((int) substr($value, $index+1) +$quantity);
-                $value = $productId.':'.$count;
+                $quantity = ((int) substr($value, $index+1) +$quantity);
+                $value = $productId.':'.$quantity;
+                $exist = true;
                 break;
             }
 
         }
 
-        if($count == 1){
-            array_push($cartArray,$productId.':'.$count );
+        if($exist == false){
+            array_push($cartArray,$productId.':'.$quantity );
         }
 
 
@@ -433,6 +339,122 @@ class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
             $totalItemCount += $cartItem->count;
         }
         return $totalItemCount;
+    }
+
+
+
+    public function setCartItemArray($cartItems,$cartItemsArray)
+    {
+        //循环 获得cartItemsArray()
+        foreach($cartItems as $cartValue)
+        {
+
+            $cartValue->product = Product::find($cartValue->product_id);
+            //array_push($cartItemsArray, => $cartValue);
+            if($cartValue->parent_product_id >0)
+            {
+                $cartItemsArray[uniqid()] = $cartValue;
+            }
+            else{
+                $cartItemsArray[$cartValue->product_id] = $cartValue;
+            }
+
+        }
+
+
+
+        foreach($cartItemsArray  as  $productId_key =>$cartValue)
+        {
+
+            //todo 完善child product 功能
+            if($cartValue->parent_product_id > 0 )
+            {
+                //id 为2 的是蛋糕餐具
+                if($cartValue->product_id == 2)
+                {
+                    if(isset( $cartItemsArray[$cartValue->parent_product_id]))
+                    {
+                        $optionProduct['name']=$cartValue->product->name;
+                        $optionProduct['price']=$cartValue->product->price;
+                        $optionProduct['count']=$cartValue->count;
+                        $optionProduct['totalAmount']=$cartValue->count * $cartValue->product->price;
+
+
+                        $cartItemsArray[$cartValue->parent_product_id][$cartValue->product_id]=$optionProduct;
+
+
+                    }
+                }
+
+                //id 为3 的是蜡烛
+                else if($cartValue->product_id == 3){
+                    if(isset( $cartItemsArray[$cartValue->parent_product_id]))
+                    {
+                        $optionProduct['name']=$cartValue->product->name;
+                        $optionProduct['price']=$cartValue->product->price;
+                        $optionProduct['count']=$cartValue->count;
+                        $optionProduct['totalAmount']=$cartValue->count * $cartValue->product->price;
+
+
+                        $cartItemsArray[$cartValue->parent_product_id][$cartValue->product_id]=$optionProduct;
+
+
+                    }
+                }
+                unset($cartItemsArray[$productId_key]);
+            }
+            else
+            {
+                //找到商品的缩略图
+                //todo 附属商品的照片怎么办
+                if($cartValue->product->thumb != null)
+                {
+
+                    $cartValue->product->thumb =Image::find($cartValue->product->thumb)->link;
+                }
+                else{
+
+                    $tmpThumb = Image::where('type',1)->where('associateId',$cartValue->product->id)->first();
+                    //todo 改成这种样式
+                    if($tmpThumb !=null)
+                    {
+                        $cartValue->product->thumb = $tmpThumb->link;
+                    }
+                }
+            }
+
+        }
+
+
+
+        //获取商品的总额
+
+        $totalAmount = 0;
+        $totalOrderAmount = 0;
+        foreach($cartItemsArray as $cartItem)
+        {
+            $totalAmount += $cartItem->count * $cartItem->product->price;
+
+            //加上蜡烛的总额
+            $totalAmount += $cartItem['2']['totalAmount'];
+
+            //加上餐具的总额
+            $totalAmount += $cartItem['3']['totalAmount'];
+
+            $cartItem->totalAmount = $totalAmount;
+            $totalOrderAmount += $totalAmount;
+            $totalAmount = 0;
+        }
+
+
+        if($totalOrderAmount != 0)
+            $cartItemsArray['totalOrderAmount'] = $totalOrderAmount;
+        return $cartItemsArray;
+    }
+
+    public function deleteCartItems($userId)
+    {
+        return ShoppingCart::where('user_id',$userId )->delete();
     }
 
 }

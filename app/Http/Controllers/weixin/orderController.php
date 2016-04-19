@@ -54,6 +54,8 @@ class orderController extends Controller
 
 
             if ($newOrder != null) {
+
+                $deleteResult = $this->shoppingCart->deleteCartItems(Auth::User()->id);
                 $jsonResult->statusMsg = '订单提交成功';
                 $jsonResult->statusCode = 1;
                 $jsonResult->extra = $newOrder->order_no;

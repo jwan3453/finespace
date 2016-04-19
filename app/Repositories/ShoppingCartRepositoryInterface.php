@@ -33,10 +33,19 @@ interface ShoppingCartRepositoryInterface{
 //    public function deleteWhere($column, $value);
 
     public function getCartItems();
+    //从cookie 中获取商品
     public function getCartItemsByCookie($cartCookie);
+    //同步数据库和cookie中的购物车商品
     public function syncCart($cartArray);
+    //加入购物车
     public function addToCart($request);
+    //从购物车中删除
     public function deleteFromCart($request);
+
+    //获取购物车商品数量
     public function getCartItemsCount();
+
+    //从数据库中删除整个购物车
+    public function deleteCartItems($userId);
 
 }

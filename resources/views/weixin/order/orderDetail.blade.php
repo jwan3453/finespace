@@ -77,42 +77,43 @@
             <div class="order-line-detail modify-order" style="text-align: center">
                 <i class="edit icon large circular"></i>
             </div>
+
+
             @foreach($orderDetail['orderItems'] as $orderItem)
-                <div class="cart-item">
-                    <img class="f-left" src ='{{$orderItem->product->thumb}}'>
-                    <div class="name ">{{$orderItem->product->name}}   </div>
-                    <div class="type">
-                        1.0磅 X 1
-                    </div>
-                    <div class="product-price">
-                        单价: <span class=" f-right">￥100</span>
+                @if( isset($orderItem->product) )
+                    <div class="cart-item">
+                        <img class="f-left" src ='{{$orderItem->product->thumb}}'>
+                        <div class="name ">{{$orderItem->product->name}}   </div>
+                        <div class="type">
+                            ￥<span class="unit-price">{{$orderItem->product->price}} x {{$orderItem->count}}</span>
 
-                    </div>
-                    @if($orderItem->dinnerWareCount>0)
-                        <div class="sub-product">
-                            餐具(￥5) x  {{$orderItem->dinnerWareCount}}
-                            <span class="sub-price f-right">￥20</span>
                         </div>
-                    @endif
-                    @if($orderItem->candleCount>0)
-                        <div class="sub-product ">
-                            蜡烛(￥5) x {{$orderItem->candleCount}}
-                            <span class="sub-price f-right">￥20</span>
-                        </div>
-                    @endif
-                    <div class="total-product-price">
-                        总计:
-                        <span class="sub-price f-right huge-font">￥140</span>
+                        @if($orderItem['2']['count']>0)
+                            <div class="sub-product">
+                                餐具(￥5) x  {{$orderItem['2']['count']}}
+                                <span class="sub-price f-right">￥{{sprintf("%.2f", $orderItem['2']['totalAmount'] ) }}</span>
+                            </div>
+                        @endif
+                        @if($orderItem['3']['count']>0)
+                            <div class="sub-product ">
+                                蜡烛(￥5) x {{$orderItem['3']['count']}}
+                                <span class="sub-price f-right">￥{{sprintf("%.2f", $orderItem['3']['totalAmount']  )}}</span>
+                            </div>
+                        @endif
+                        <div class="total-product-price">
+                            总计:
+                            <span class="sub-price f-right huge-font">￥{{ sprintf("%.2f", $orderItem->totalAmount)}}</span>
 
+                        </div>
                     </div>
-                </div>
+                @endif
             @endforeach
-
+            {{--<div class="order-total-amount huge-font" >订单总额:￥{{ sprintf("%.2f", $orderDetail['orderItems']['totalOrderAmount'])}}</div>--}}
         </div>
         <div class="pos-spacing ">
         </div>
         <div class="check-out-box stick-btom">
-            总计:<span >￥2000</span>
+            订单总额: <span >:￥{{ sprintf("%.2f", $orderDetail['orderItems']['totalOrderAmount'])}}</span>
             <a  class="confirm-btn f-right"><div>支付</div></a>
         </div>
     </div>

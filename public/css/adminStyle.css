@@ -456,6 +456,11 @@ color: #dbe4f0;
     color:#47A1B9;
 }
 
+.order-total-amount{
+    text-align: center;
+    padding:5px;
+    color:#ff5856;
+}
 .cart-item{
 
     overflow:hidden;

@@ -32,9 +32,13 @@ class checkoutController extends Controller
             //从数据库获得购物车商品
             $cartItems = $this->shoppingCart->getCartItems();
 
+            if(count($cartItems) == 0)
+            {
+                return redirect('weixin/cart');
+            }
             return view('weixin.checkout.checkout')->with('cartItems',$cartItems);
         } else {
-            return view('weixin.home');
+            return redirect('/auth/login');
         }
 
 

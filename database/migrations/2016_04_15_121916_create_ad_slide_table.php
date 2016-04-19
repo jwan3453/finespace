@@ -17,6 +17,7 @@ class CreateAdSlideTable extends Migration
             $table->integer('type');//1 封面
             $table->string('key',512);
             $table->string('link',512);
+            $table->string('ad_link',512);
             $table->timestamps();
         });
     }

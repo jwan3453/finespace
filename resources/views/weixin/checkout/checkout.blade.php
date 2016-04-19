@@ -121,36 +121,36 @@
             </div>
 
             @foreach($cartItems as $cartItem)
+                @if( isset($cartItem->product) )
                 <div class="cart-item">
                     <img class="f-left" src ='{{$cartItem->product->thumb}}'>
                     <div class="name ">{{$cartItem->product->name}}   </div>
                     <div class="type">
-                        1.0磅 X 1
-                    </div>
-                    <div class="product-price">
-                        单价: <span class=" f-right">￥100</span>
+                        ￥<span class="unit-price">{{$cartItem->product->price}} x {{$cartItem->count}}</span>
 
                     </div>
-                    @if($cartItem->dinnerWareCount>0)
+                    @if($cartItem['2']['count']>0)
                         <div class="sub-product">
-                            餐具(￥5) x  {{$cartItem->dinnerWareCount}}
-                            <span class="sub-price f-right">￥20</span>
+                            餐具(￥5) x  {{$cartItem['2']['count']}}
+                            <span class="sub-price f-right">￥{{sprintf("%.2f", $cartItem['2']['totalAmount'] ) }}</span>
                         </div>
                     @endif
-                    @if($cartItem->candleCount>0)
+                    @if($cartItem['3']['count']>0)
                         <div class="sub-product ">
-                            蜡烛(￥5) x {{$cartItem->candleCount}}
-                            <span class="sub-price f-right">￥20</span>
+                            蜡烛(￥5) x {{$cartItem['3']['count']}}
+                            <span class="sub-price f-right">￥{{sprintf("%.2f", $cartItem['3']['totalAmount']  )}}</span>
                         </div>
                     @endif
                     <div class="total-product-price">
                         总计:
-                        <span class="sub-price f-right huge-font">￥140</span>
+                        <span class="sub-price f-right huge-font">￥{{ sprintf("%.2f", $cartItem->totalAmount)}}</span>
 
                     </div>
                 </div>
+                @endif
             @endforeach
 
+            <div class="order-total-amount huge-font" >订单总额:￥{{ sprintf("%.2f", $cartItems['totalOrderAmount'])}}</div>
 
         </div>
 

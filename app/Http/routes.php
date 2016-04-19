@@ -29,6 +29,7 @@ Route::post('auth/setPassword','Auth\PasswordController@setPassword');
 
 Route::get('weixin','weixin\homeController@index');
 Route::get('/','weixin\homeController@index');
+Route::get('/home','weixin\homeController@index');
 
 
 

@@ -8,17 +8,13 @@
 
 
         @foreach ($cartItemList as $cartItem)
-
+            @if(isset($cartItem->product))
             <div class="cart-item">
                 <input class="hidden-id" type="hidden" value="{{$cartItem->product_id}}">
                 <img class="f-left" src ='{{$cartItem->product->thumb}}'>
                 <div class="name ">{{$cartItem->product->name}}   </div>
                 <div class="type">
-                    1.0磅 X 1
-
-                </div>
-                <div class="product-price">
-                    总价: <span class="huge-font">{{$cartItem->product->price}} </span>
+                    ￥<span class="unit-price">{{$cartItem->product->price}}</span>
 
                 </div>
 
@@ -35,9 +31,14 @@
                         <i class=" icon-count f-right minus large   icon teal "></i>
                 </div>
 
+
+                @if(Auth::check())
                 <div class="options">
 
-                    <div class="opt-dinnerware">
+                    <div class="opt-product">
+
+                        <input type="hidden" value="2"/>
+
                         <div class="opt-header">
                             餐具
                             <span class="f-right"><i class="pointing right icon"></i>长啥样？</span>
@@ -47,30 +48,32 @@
                         {{--<div class="right small-font">总量:1套</div>--}}
                         <div class="sub-header small-font">
                             <span class="f-left">请选择数量(赠送一套)</span>
-                            <span class="f-right">单价:￥5</span>
+                            <span class="f-right">单价:￥<span class="option-product-unit-price">5</span></span>
                         </div>
                         <div class="sub-header small-font">
                             <i class=" f-left minus big circle icon teal "></i>
-                            <input class="f-left  big-font " type="text" value="{{$cartItem->dinnerWareCount or 0}}"/>
+                            <input class="f-left  big-font " type="text" value="{{$cartItem['2']['count'] or 0}}"/>
                             <i class="f-left  plus big circle icon red "></i>
-                            <span class="f-right">总价:￥5</span>
+                            <span class="f-right">总价: ￥<span class="opt-product-total-price">{{  sprintf("%.2f", $cartItem['2']['totalAmount'])}}</span></span>
                         </div>
                     </div>
 
-                    <div class="opt-candle">
+                    <div class="opt-product">
+
+                        <input type="hidden" value="3"/>
                         <div class="opt-header">
                            蜡烛
                             <span class="f-right"><i class="pointing right icon"></i>长啥样？</span>
                         </div>
                         <div class="sub-header small-font">
                             <span class="f-left">请选择数量(赠送一套)</span>
-                            <span class="f-right">单价:￥5</span>
+                            <span class="f-right">单价:￥<span class="option-product-unit-price">5</span></span>
                         </div>
                         <div class="sub-header small-font">
                             <i class=" f-left minus big circle icon teal "></i>
-                            <input class="f-left  big-font " type="text" value="{{$cartItem->candleCount or 0}}"/>
+                            <input class="f-left  big-font " type="text" value="{{$cartItem['3']['count'] or 0}}"/>
                             <i class="f-left  plus big circle icon red "></i>
-                            <span class="f-right">总价:￥5</span>
+                            <span class="f-right">总价:￥<span class="opt-product-total-price">{{  sprintf("%.2f", $cartItem['3']['totalAmount'])}}</span> </span>
                         </div>
 
                     </div>
@@ -85,7 +88,14 @@
                     {{--</div>--}}
                 </div>
 
+                @endif
+                <div class="product-price">
+                    总价: <span class="huge-font">￥<span class="total-product-price">{{  sprintf("%.2f", $cartItem->totalAmount)}}</span> </span>
+
+                </div>
+
             </div>
+            @endif
         @endforeach
 
 
@@ -108,7 +118,7 @@
         <div class="pos-spacing ">
         </div>
         <div class="check-out-box stick-btom">
-            总计:<span class="giant-font">￥2000</span>
+            总计: <span class="giant-font ">￥<span class="total-cart-price">{{ $cartItemList['totalOrderAmount']}}</span></span>
             <a  class="confirm-btn f-right" href="/weixin/checkout/"><div>小二 · 买单</div></a>
         </div>
         @endif
@@ -177,15 +187,8 @@
 
             $('.opt-btn').click(function(){
                 var currentOption = $(this);
-                currentOption.parent().siblings('.options').transition('fly left');
-//                currentOption.parent().siblings('div').find('options').each(function(){
-//                    alert('test');
-//                    if($(this).css('display')!=='none')
-//                    {
-//                        alert("test");
-//                        $(this).transition('fly left');
-//                    }
-//                })
+                currentOption.parent().siblings('.options').transition('scale');
+
 
             })
 
@@ -201,27 +204,16 @@
                 var plusBtn =  $(this);
 
 
-
-
-
                 //添加产品到购物车
                 if(plusBtn.parent('.opt-qty-btns').length ===1 )
                 {
                     addToCart(plusBtn,0);
                 }
                 else{
-                    if(plusBtn.parents('.opt-dinnerware').length ===1)
-                    {
-                        //添加餐具到购物车
-                        addToCart(plusBtn,2);
-                    }
-                    else{
-                        //添加蜡烛到购物车
-                        addToCart(plusBtn,3);
-                    }
+
+                    var optProductId = plusBtn.parents('.opt-product').find('input[type=hidden]').val();
+                    addToCart(plusBtn,optProductId);
                 }
-
-
 
             });
 
@@ -266,9 +258,34 @@
                             itemCount +=1;
                             $('.cart').transition('jiggle');
                             itemCountMsgObj.text(itemCount);
+
+                            var cartItem = addItem.parents('.cart-item');
+                            var  unitPrice = 0;
+
+                            //添加主商品
+                            if(_subProductId == 0 )
+                            {
+
+                                  unitPrice = parseFloat(cartItem.find('.unit-price').text());
+                            }
+                            //添加附属商品
+                            else{
+
+                                unitPrice = parseFloat(addItem.parents('.opt-product').find('.option-product-unit-price').text());
+                                var optProductTotalPrice = addItem.parents('.opt-product').find('.opt-product-total-price');
+                                optProductTotalPrice.text(parseFloat(optProductTotalPrice.text()) + unitPrice);
+
+
+                            }
+                            var totalProductPrice = cartItem.find('.total-product-price');
+                            var totalCartPrice = $('.total-cart-price');
+                            totalProductPrice.text( parseFloat(totalProductPrice.text()) + unitPrice);
+                            totalCartPrice.text( parseFloat(totalCartPrice.text()) + unitPrice);
+
+
                         }
                         else{
-                            alert('失败了');
+                            alert('加入购物车失败');
                         }
 
                     },
@@ -284,7 +301,7 @@
             $('.minus').click(function(){
                 var minusBtn =  $(this);
 
-                    //添加产品到购物车
+                    //从购物车删除商品
                     if (minusBtn.parent('.opt-qty-btns').length === 1) {
 
 
@@ -300,16 +317,12 @@
                         }
                     }
                     else {
-                        if (minusBtn.parents('.opt-dinnerware').length === 1) {
-                            //删除一件子商品
-                            deleteFromCart(minusBtn, 2,2);
-                        }
-                        else {
-                            //删除一件子商品
-                            deleteFromCart(minusBtn, 3,2);
-                        }
-                    }
 
+                        var optProductId = minusBtn.parents('.opt-product').find('input[type=hidden]').val();
+                        //删除子商品
+                        deleteFromCart(minusBtn, optProductId, 2);
+
+                    }
 
             });
 
@@ -325,6 +338,8 @@
                     productId = _subProductId;
                 }
                 else{
+                    //type 1 删除整个商品 包括子商品
+                    //type 2 删除单个商品
                     if(type ==1)
                     {
                         productId = deleteItem.find('.hidden-id').val();
@@ -348,6 +363,7 @@
                     success: function(data)
                     {
                         var itemCount = 0;
+                        var totalCartPrice = $('.total-cart-price');
                         if(type == 2) {
                             if(data.statusCode === 1)
                             {
@@ -363,6 +379,29 @@
                                     itemCount -= 1;
                                     $('.cart').transition('jiggle');
                                     itemCountMsgObj.text(itemCount);
+
+                                    var cartItem = deleteItem.parents('.cart-item');
+                                    var  unitPrice = 0;
+
+                                    //添加主商品
+                                    if(_subProductId == 0 )
+                                    {
+
+                                        unitPrice = parseFloat(cartItem.find('.unit-price').text());
+                                    }
+                                    //添加附属商品
+                                    else{
+
+                                        unitPrice = parseFloat(deleteItem.parents('.opt-product').find('.option-product-unit-price').text());
+                                        var optProductTotalPrice = deleteItem.parents('.opt-product').find('.opt-product-total-price');
+                                        optProductTotalPrice.text(parseFloat(optProductTotalPrice.text()) - unitPrice);
+
+
+                                    }
+                                    var totalProductPrice = cartItem.find('.total-product-price');
+                                    var totalCartPrice = $('.total-cart-price');
+                                    totalProductPrice.text( parseFloat(totalProductPrice.text()) - unitPrice);
+                                    totalCartPrice.text( parseFloat(totalCartPrice.text()) - unitPrice);
                                 }
                             }
                         }
@@ -384,6 +423,12 @@
                                 {
                                     $('.cart').transition('jiggle');
                                     itemCountMsgObj.text(itemCount);
+                                    if(_subProductId == 0 )
+                                    {
+
+                                        var totalProductPrice = deleteItem.find('.total-product-price');
+                                        totalCartPrice.text( parseFloat(totalCartPrice.text()) - parseFloat(totalProductPrice.text()));
+                                    }
                                 }
                             }
                         }

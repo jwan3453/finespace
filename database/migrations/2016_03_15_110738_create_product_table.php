@@ -25,15 +25,16 @@ class CreateProductTable extends Migration
             $table->dateTime('promote_end_date');
             $table->integer('status');
             $table->integer('is_promote');
+            $table->integer('is_new');
+            $table->integer('is_hot');
+            $table->integer('is_recommend');
             $table->integer('stock_alarm');
             $table->string('keywords');
             $table->string('brief');
             $table->text('desc');
             $table->string('thumb');
             $table->string('img');
-            $table->string('is_new',2);
-            $table->string('is_hot',2);
-            $table->string('is_recommend',2);
+
 
 
         });

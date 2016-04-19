@@ -24,11 +24,7 @@ class ProductRepository implements  ProductRepositoryInterface{
         return Product::find($id);
     }
 
-//
-//    public function findBy($query){
-//
-//        return Product::where($query)->get();
-//    }
+
     public function save($obj){
 
 
@@ -99,6 +95,11 @@ class ProductRepository implements  ProductRepositoryInterface{
                 $imageLinks[] = $image->link;
             }
             $prod->img = $imageLinks;
+
+
+            //获得关键字数组
+            $prod->keywords=explode('|',$prod->keywords);
+
 
 
 
