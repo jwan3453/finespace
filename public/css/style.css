@@ -1,0 +1,88 @@
+body {
+  background: #2a2b30;
+}
+
+.menu {
+  width: 300px;
+  height: 200px;
+  margin: 0 auto 100px;
+  position: relative;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+.menu-wrapper {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+}
+.menu-toggle-button, .menu-item-bounce, .menu-item-button {
+  background: #4f4f64;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  margin-left: -40px;
+  margin-top: -40px;
+  height: 80px;
+  color: #fff;
+  border: none;
+  outline: none;
+  position: relative;
+}
+.menu-toggle-button {
+  background: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.menu-toggle-icon {
+  font-size: 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+}
+.menu-items {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.menu-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+}
+.menu-item-bounce {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.menu-item-button {
+  width: 60px;
+  height: 60px;
+  margin-left: -30px;
+  margin-top: -30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #AD4C4C;
+}
+.menu-item-button .fa {
+  font-size: 1.5rem;
+  color: #fff;
+}
+.menu-item-button .fa-inbox {
+  transform: rotate(182deg);
+}
+.menu-item-button .fa-reply-all {
+  transform: rotate(-120deg);
+}
+.menu-item-button .fa-trash {
+  transform: rotate(120deg);
+}

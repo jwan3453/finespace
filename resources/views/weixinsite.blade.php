@@ -38,6 +38,11 @@
             <i class="add to cart icon  icon"></i>
             购物车
         </a>
+
+        <a class="item "  href="/weixin/store">
+            <i class="grid layout icon"></i>
+            凡悦门店
+        </a>
     </div>
 
     <div class=" pusher ui container" >

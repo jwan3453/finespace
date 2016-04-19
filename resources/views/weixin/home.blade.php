@@ -4,9 +4,10 @@
 @section('resources')
     <script src={{ asset('js/jquery.fly.min.js') }}></script>
     <script src={{ asset('js/swiper/owl.carousel.min.js') }}></script>
+    <script src={{ asset('js/swiper/owl.carousel.min.js') }}></script>
+
     <link rel="stylesheet" type="text/css" href= {{ asset('js/swiper/owl.carousel.min.css') }}>
     <link rel="stylesheet" type="text/css" href= {{ asset('js/swiper/owl.theme.default.min.css') }}>
-
 
 @stop
 
@@ -126,13 +127,13 @@
                     @foreach($hotpro as $product)
                     <div class="column" id="touchArea">
                         <div class="ui segment">
-                            <img src="{{$product->img}}" class="product-img-wAh">
+                            <a href="/weixin/product/{{$product->id}}"><img src="{{$product->img}}" class="product-img-wAh"></a>
                         <div>{{$product->name}}</div>
                         <div class="price-info">
-
-                            <span class="f-left big-font">￥{{$product->price}}</span>
-                            <!-- <i class="plus red icon circle big f-right addcart"></i> -->
-
+                            <p class="text-algin big-font">￥{{$product->price}}</p>
+                            <!-- <span class="f-left big-font">￥{{$product->price}}</span> -->
+                            <!-- <i class="plus red icon circle big f-right addcart" onclick="Tomenu({{$product->id}})"></i> -->
+                           
                         </div>
                         </div>
                     </div>
@@ -144,6 +145,31 @@
 
             </div>
 
+        </div>
+
+        <div class="ui modal"> 
+            
+            <div class="image content">
+               
+                <div class="description menu-box-width">
+                    <div class="f-left width-3 text-algin">
+                        <a class="menu-icon-big"  href="javascript::void(0)">
+                            <i class="add to cart icon  icon"></i>
+                        </a>
+                    </div>
+                    <div class="width-3 f-left text-algin"> 
+                        <a class="menu-icon-big"  href="javascript::void(0)">
+                            <i class="heart icon"></i>
+                        </a>
+                    </div>
+                    <div class="f-right width-3 text-algin">
+                    <a class="menu-icon-big"  href="javascript::void(0)">
+                        <i class="share icon"></i>
+                    </a>
+                    </div>
+                </div>
+            </div>
+           
         </div>
 
         
@@ -190,64 +216,12 @@
 
 @section('script')
     <script type="text/javascript">
-        $(document).ready(function(){
-            var clickable = true;
-            var itemCount = 0;
-            var offset = $('#cartIcon').offset();
-            $('.owl-carousel').owlCarousel({
-                loop:true,
-                responsiveClass:true,
-                autoplay:true,
-                autoplayTimeout:3000,
-                autoHeight:true,
-                responsive:{
-                    0:{
-                        items:1,
-                        loop:true
-                    },
-                    600:{
-                        items:1,
-                        loop:true
-                    },
-                    1000:{
-                        items:1,
-                        loop:false
-                    }
-                }
-            })
-            $('.addcart').click(function(){
-                if(clickable == false)
-                    return;
-                itemCount++;
-                var addtoCar = $(this);
-                addtoCar.attr("disabled",true);
-                var img =  addtoCar.parent().siblings('img').attr('src');
-                var flyer = $('<img class="u-flyer" style="width:80px;height:80px;border-radius: 100%;" src="'+img+'">');
-                clickable = false;
-                flyer.fly({
-                    start: {
-                        left:0, //开始位置（必填）#fly元素会被设置成position: fixed
-                        top: 480 //开始位置（必填）
-                    },
-                    end: {
-                        left: offset.left+10, //结束位置（必填）
-                        top: offset.top+10, //结束位置（必填）
-                        width: 0, //结束时宽度
-                        height: 0 //结束时高度
-                    },
-                    onEnd: function(){ //结束回调
-                        clickable = true;
-                        if(itemCount > 0)
-                        {
-                            $('.icon-message-count').removeClass('none-display').fadeIn();
-                            $('.icon-message-count').text(itemCount);
-                        }
-//                        $("#msg").show().animate({width: '250px'}, 200).fadeOut(1000); //提示信息
-//                        addcar.css("cursor","default").removeClass('orange').unbind('click');
-//                        this.destory(); //移除dom
-                    }
-                });
-            })
-        })
+        function Tomenu(id) {
+
+            $('.ui.modal').modal('show');
+
+            // $(".ui.modal").parent(".dimmer").css('background-color' , "rgba(0,0,0,0)");
+        }
+       
     </script>
 @stop
