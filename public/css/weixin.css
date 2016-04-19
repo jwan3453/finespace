@@ -436,6 +436,23 @@ font{
 
 /***  微信首页*******/
 
+.menu-model{
+    width: 70%;
+}
+
+.menu-icon-big{
+    font-size: 3em;
+}
+
+.menu-box-width{
+    width: 100%
+}
+
+.width-3{
+    width: 33.333333%
+}
+
+
 .product-img-wAh{
     max-width: 200px;
     max-height: 200px;
@@ -555,6 +572,37 @@ font{
     margin: 3px auto;
 }
 
+.love{
+    background: url(../img/love.png) center no-repeat;
+    background-size: cover;
+    width: 32px;
+    height: 32px;
+    margin: 3px auto;
+}
+.Toshare{
+    background: url(../img/share.png) center no-repeat;
+    background-size: cover;
+    width: 32px;
+    height: 32px;
+    margin: 3px auto;
+}
+.addtocart{
+    background: url(../img/addtocart.png) center no-repeat;
+    background-size: cover;
+    width: 32px;
+    height: 32px;
+    margin: 3px auto;
+}
+
+.text-algin{
+    text-align: center;
+}
+
+.price-info .text-algin{
+    line-height:30px;
+    color: #ff5856;
+    font-weight: 600;
+}
 
 .recommend-header{
     margin: 5px 0 0 0 ;
@@ -1151,3 +1199,93 @@ margin:10px 0 0 0 ;
     border-radius: 0!important;
 }
 /*******************/
+
+
+/********门店列表*************/
+
+.store-box{
+    font-size: 1rem;
+    width: 95%;
+    
+    z-index: 1001;
+ 
+    text-align: left;
+    background: #ffffff;
+    border: none;
+    box-shadow: 1px 3px 3px 0px rgba(0, 0, 0, 0.2), 1px 3px 15px 2px rgba(0, 0, 0, 0.2);
+
+    -webkit-transform-origin: 50% 25%;
+    -ms-transform-origin: 50% 25%;
+    transform-origin: 50% 25%;
+    border-radius: 0.28571429rem;
+
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+    will-change: top, left, margin, transform, opacity;
+
+    overflow: hidden;
+
+    margin-bottom: 20px;
+
+}
+
+.store-box .box-header {
+    display: block;
+    font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    background: #ffffff;
+    margin: 0em;
+    padding: 0.3rem 1.5rem;
+    box-shadow: none;
+    color: rgba(0, 0, 0, 0.85);
+    border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+}
+
+.store-box .box-content{
+    display: block;
+    width: 100%;
+    /*height: 188px;*/
+    font-size: 1em;
+    line-height: 1.4;
+    padding: 1.5rem;
+    background: #ffffff;
+}
+
+.store-box .box-content .content-image{
+    width: 40%;
+    /*height: 150px;*/  
+    overflow: hidden;
+    float: left;
+}
+
+.store-box .box-content .content-image img{
+    width: 95%;
+    /*height: 150px;*/
+}
+
+.store-box .box-content .content-words{
+    width: 60%;
+    /*height: 100%;*/
+    min-height: 99.55px;
+    overflow: hidden;
+    float: right;
+}
+
+.store-box .box-content .content-words .words-address{
+    width: 100%;
+    height: 50%;
+    overflow: hidden;
+    float: left;
+    margin-bottom: 15px;
+    margin-top: 10px;
+
+}
+
+.store-box .box-content .content-words .words-phone{
+    width: 100%;
+    height: 50%;
+    overflow: hidden;
+    float: left;
+}
+
+/******************************/

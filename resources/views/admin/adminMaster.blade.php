@@ -122,6 +122,22 @@
 
                 </div>
             </div>
+
+
+            <div class="item ">
+                <i class=" f-left users icon"></i>
+                <div class=" f-left content">门店管理</div>
+                <i class="f-right  angle down icon"></i>
+                <div class="ui  middle aligned animated list sub-menu ">
+                    <div class="item ">
+                        <a href="{{url('/weixin/admin/store')}}"> <i class="f-left right triangle icon"></i>
+                        <div class="  f-left content">门店列表 </div></a>
+                    </div>
+
+
+                </div>
+            </div>
+
             <div class="item ">
                 <i class="  f-left linkify icon"></i>
                 <div class="  f-left content">
