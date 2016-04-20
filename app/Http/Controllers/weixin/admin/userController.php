@@ -54,27 +54,16 @@ class userController extends Controller
 
         if($user != null)
         {
-
-            $account =$this->userAccount->findBy(['user_id'=>$user->id])->first();
-            
-            $orders  =$this->order->findBy(['key'=> $user->id])->paginate(4);
-
-            $totalAmount = 0;
-            foreach($orders as $order)
-            {
-                $totalAmount = $totalAmount + $order->total_amount;
-            }
-
+            $userDetail = $this->user->getUserDetail($user);
             return view('admin.weixinAdmin.user.userDetail')->with('user',$user)
-                                                    ->with('account',$account)
-                                                    ->with('orders',$orders)
-                                                    ->with('totalAmount',$totalAmount   );
+                                                    ->with('account',$userDetail['account'])
+                                                    ->with('orders',$userDetail['orders'])
+                                                    ->with('totalAmount',$userDetail['totalAmount']);
         }
         else
         {
             //错误页面
             return '页面不存在';
-
         }
     }
 

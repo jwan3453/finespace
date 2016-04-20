@@ -1,25 +1,8 @@
-@extends('admin.adminMaster')
 
 
 
 
-@section('resources')
-    <script src={{ asset('js/webuploader/webuploader.js') }}></script>
-    <link rel="stylesheet" type="text/css"  href={{ asset('js/webuploader/webuploader.css') }}>
-@stop
 
-@section('content')
-
-
-    <div class="f-left right-side-panel">
-
-        <div class="breadcrumb-nav">
-            <div class="ui  large breadcrumb">
-                <a class="section">主页</a>
-                <i class="right angle icon divider"></i>
-                <a class="section">{{$nav}}</a>
-            </div>
-        </div>
 
 
         <div class="product-image-upload ">
@@ -45,7 +28,7 @@
             @endif
 
 
-            <label>新增产品图片</label>
+            <label>新增图片</label>
             <div>
                 <!--用来存放item-->
                 <div id="fileList" class="uploader-list" >
@@ -60,7 +43,7 @@
         </div>
 
 
-    </div>
+
     <div class="ui page dimmer confirmDimmer">
         <div class="  dimmer-box" >
             <h3>是否删除上传的照片</h3>
@@ -73,9 +56,8 @@
         </div>
     </div>
 
-@stop
 
-@section('script')
+
     <script type="text/javascript">
         $(document).ready(function() {
 
@@ -358,4 +340,3 @@
 
         })
     </script>
-@stop

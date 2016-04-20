@@ -121,7 +121,7 @@ class productController extends Controller
         {
             $productImages =  $this->productImage->findBy(['type'=>1,'associateId'=>$productId])->get();
 
-            return view('admin.weixinAdmin.common.addImage')->with('images',$productImages)
+            return view('admin.weixinAdmin.product.manageProductImage')->with('images',$productImages)
                 ->with('productThumbID',$product->thumb)
                 ->with('productId',$productId)->with('nav','编辑产品图片');
         }

@@ -162,6 +162,10 @@ Route::post('/weixin/admin/category/delCategory','weixin\admin\categoryControlle
 
 //首页幻灯片设置
 Route::get('/weixin/admin/manageHomeSlide','weixin\admin\settingController@manageHomeSlide');
+Route::get('/weixin/admin/editHomeSlide','weixin\admin\settingController@editHomeSlide');
+Route::post('/weixin/admin/setting/updateSlide','weixin\admin\settingController@updateSlide');
+Route::post('/weixin/admin/setting/deleteSlide','weixin\admin\settingController@deleteSlide');
+
 
 //门店列表
 Route::get('/weixin/store','weixin\storeController@index');

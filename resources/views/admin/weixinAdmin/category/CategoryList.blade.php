@@ -62,7 +62,7 @@
 
 <div class="ui modal" id="edit-model"> <i class="close icon" id="close-i"></i>
 <div class="header">编辑/添加 分类</div>
-<div id="category-form" class="image content">
+<div  class="image content edit-model-form">
     <div class="ui form">
         <div class="field">
             <label>名称</label>

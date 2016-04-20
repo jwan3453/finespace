@@ -187,7 +187,7 @@
 
             $('.opt-btn').click(function(){
                 var currentOption = $(this);
-                currentOption.parent().siblings('.options').transition('scale');
+                currentOption.parent().siblings('.options').transition('drop');
 
 
             })

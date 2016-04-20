@@ -254,7 +254,10 @@ color: #dbe4f0;
 
 /*******后台分类管理页面********/
 
-#category-form .ui{
+.edit-model-form{
+
+}
+.edit-model-form .ui{
     width: 100%
 }
 
@@ -383,7 +386,7 @@ color: #dbe4f0;
     height:25px;
     line-height:25px;
     text-align: center;
-    margin-top:-5px;
+
     width:200px;
     overflow:hidden;
 }
@@ -561,3 +564,16 @@ color: #dbe4f0;
 
 
 /*******************/
+
+/*****后台轮播图设置页面*****/
+.slide-table{
+
+}
+
+.slide-table img{
+    width:80px;
+    height:80px;
+    border-radius:10px;
+}
+
+/*************************/

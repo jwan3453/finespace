@@ -1,6 +1,8 @@
 <?php
 namespace App\Repositories;
 use App\User;
+use App\Models\UserAccount;
+use App\Models\Order;
 
 
 class UserRepository implements  UserRepositoryInterface
@@ -27,6 +29,26 @@ class UserRepository implements  UserRepositoryInterface
     {
         return User::where($request);
 
+    }
+
+
+    public function getUserDetail($user)
+    {
+
+        $account = userAccount::where('user_id',$user->id)->first();
+        $orders  = Order::where('user_id', $user->id)->paginate(4);
+
+        $userDetail['account'] = $account;
+        $userDetail['orders'] = $orders;
+
+        $totalAmount = 0;
+        foreach($orders as $order)
+        {
+            $totalAmount = $totalAmount + $order->total_amount;
+        }
+        $userDetail['totalAmount'] = $totalAmount;
+
+        return $userDetail;
     }
 
     public function setPassword($mobile,$newPassword)
