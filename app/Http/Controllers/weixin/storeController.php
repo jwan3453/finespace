@@ -29,6 +29,16 @@ class storeController extends Controller
         return view('weixin.store.StoreList')->with('StoreList',$StoreList);
     }
 
+    public function MapApi()
+    {
+        return view('weixin.store.Map');
+    }
+
+    public function getJW()
+    {
+        return view('weixin.store.getJW');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

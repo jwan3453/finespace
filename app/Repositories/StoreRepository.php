@@ -24,13 +24,15 @@ class StoreRepository implements  StoreRepositoryInterface{
         $editOradd = $request->input('editOradd');
         $is_distribution = $request->input('is_distribution');
         $is_display = $request->input('is_display');
+        $longitude = $request->input('longitude');
+        $latitude = $request->input('latitude');
 
         $datetime = date('Y-m-d H:i:s',time());
 
         if ($editOradd == 'edit') {
-            $isUpdateOrAdd = Store::where('id',$id)->update(['name'=>$name,'address'=>$address,'phone'=>$phone,'is_distribution'=>$is_distribution,'is_display'=>$is_display]);
+            $isUpdateOrAdd = Store::where('id',$id)->update(['name'=>$name,'address'=>$address,'phone'=>$phone,'is_distribution'=>$is_distribution,'is_display'=>$is_display,'longitude'=>$longitude,'latitude'=>$latitude]);
         }else if ($editOradd == 'add') {
-            $isUpdateOrAdd = Store::insert(['name'=>$name,'address'=>$address,'phone'=>$phone,'is_distribution'=>$is_distribution,'is_display'=>$is_display]);
+            $isUpdateOrAdd = Store::insert(['name'=>$name,'address'=>$address,'phone'=>$phone,'is_distribution'=>$is_distribution,'is_display'=>$is_display,'longitude'=>$longitude,'latitude'=>$latitude]);
         }
 
 
