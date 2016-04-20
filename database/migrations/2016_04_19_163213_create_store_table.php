@@ -21,6 +21,8 @@ class CreateStoreTable extends Migration
             $table->string('phone',25);
             $table->integer('is_distribution');
             $table->integer('is_display');
+            $table->string('longitude',20);
+            $table->string('latitude',20);
         });
     }
 

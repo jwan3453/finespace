@@ -170,3 +170,6 @@ Route::get('/weixin/store','weixin\storeController@index');
 Route::get('weixin/admin/store','weixin\admin\storeController@index');
 Route::post('/weixin/admin/store/updateOraddStore','weixin\admin\storeController@updateOraddStore');
 Route::post('/weixin/admin/category/delStore','weixin\admin\storeController@delStore');
+
+Route::get('/weixin/testMapApi','weixin\storeController@MapApi');
+Route::get('/weixin/getJW','weixin\storeController@getJW');
