@@ -49,8 +49,7 @@ class orderController extends Controller
         {
             $totalAmount = $totalAmount + $order->total_amount;
         }
-
-        return view('admin.weixinAdmin.order.manageOrder')->with('orders',$orders)->with('totalAmount',$totalAmount);
+        return view('admin.weixinAdmin.order.manageOrder')->with('orders',$orders)->with('totalAmount',$totalAmount)->with('seachData','');
     }
 
     public function orderDetail($orderNo){
@@ -83,5 +82,26 @@ class orderController extends Controller
 
         return view('admin.weixinAdmin.order.todayOrder')->with('orders',$orders)->with('totalAmount',$totalAmount);
 
+    }
+
+    public function seachOrder(Request $request)
+    {
+       // dd($request);
+        $orders = $this->order->seachOrder($request->input('seachData'),5);
+
+        $totalAmount = 0;
+        foreach($orders as $order)
+        {
+            $totalAmount = $totalAmount + $order->total_amount;
+        }
+
+        return view('admin.weixinAdmin.order.manageOrder')->with('orders',$orders)->with('totalAmount',$totalAmount)->with('seachData',$request->input('seachData'));
+
+
+    }
+
+    public function seachOrderforGet(Request $request)
+    {
+        dd($request->input('searchData'));
     }
 }

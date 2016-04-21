@@ -193,6 +193,18 @@ class OrderRepository implements  OrderRepositoryInterface{
 
 
     }
+
+    public function seachOrder($seachData,$paginate)
+    {
+        if (!empty($paginate)) {
+            $orderDetail = Order::where('order_no' , 'like' , "%".$seachData."%")->paginate($paginate);
+        }else{
+            $orderDetail = Order::where('order_no' , 'like' , "%".$seachData."%")->get();
+        }
+        
+        return $orderDetail;
+        
+    }
 }
 
 

@@ -400,7 +400,6 @@ class ProductRepository implements  ProductRepositoryInterface{
     {
         $Product = Product::where('is_hot',1)->get();
 
-
         $i = 0;
         $k = 1;
 
@@ -426,8 +425,75 @@ class ProductRepository implements  ProductRepositoryInterface{
         //--groupBy方法通过给定键分组集合数据项
         $HotProduct = $Product->groupBy('i');
 
-        // dd($HotProduct);
+     
         return $HotProduct;
+    }
+
+    public function searchProduct($searchArr,$paginate = 0)
+    {
+        switch ($searchArr['jxrc']) {
+            case '1'://推荐
+                $p = 'is_recommend';
+                $d = '1';
+                break;
+            case '2'://新品
+                $p = 'is_new';
+                $d = '1';
+                break;
+            case '3'://热销
+                $p = 'is_hot';
+                $d = '1';
+                break;
+            case '4'://促销
+                $p = 'is_promote';
+                $d = '1';
+                break;
+            default:
+                $p = 'is_promote';
+                $d = '';
+                break;
+            
+        }
+
+       
+        switch ($searchArr['status']) {
+            case '1':
+                $status = 'status';
+                $statusD = '1';
+                break;
+
+            case '2':
+                $status = 'status';
+                $statusD = '0';
+                break;
+            
+            default:
+                $status = 'status';
+                $statusD = '';
+                break;
+        }
+
+        if ($searchArr['searchData'] == '') {
+            $search = 'name';
+            $searchData = '';
+        }else{
+            $search = 'name';
+            $searchData = $searchArr['searchData'];
+        }
+
+        if ($searchArr['category'] == 0) {
+            $categoty = 'category_id';
+            $category_id = '';
+        }else{
+            $categoty = 'category_id';
+            $category_id = $searchArr['category'];
+        }
+
+        // $query = ['status'=>1,'category'=>$category];
+         // $products = Product::where($query)
+        $products = Product::where($p,$d)->Where($status,$statusD)->Where($categoty,$category_id)->Where($search,$searchData)->paginate($paginate);
+
+        return $products;
     }
 }
 

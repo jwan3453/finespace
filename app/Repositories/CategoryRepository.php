@@ -38,6 +38,12 @@ class CategoryRepository implements  CategoryRepositoryInterface{
     	// dd($AllName);
     }
 
+    public function getCateNameInfo()
+    {
+        return Category::select('id','name')->get();
+        // dd($AllName);
+    }
+
     public function updateOraddCategory($request)
     {
     	$name = $request->input('name');

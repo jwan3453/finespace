@@ -24,6 +24,46 @@
 
 
         <div class="product-table">
+
+            <form method="get" action="/weixin/admin/product/seachProduct">
+                <div class="ui icon input search-bar">
+
+                    <div class="field">
+
+                        <select class="ui fluid dropdown" name="category">
+                            <option value="0">选择分类</option>
+                            @foreach($category as $cate)
+                            <option value="{{$cate->id}}">{{$cate->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="field">
+
+                        <select class="ui fluid dropdown" name="jxrc">
+                            <option value="0">全部</option>
+                            <option value="1">推荐</option>
+                            <option value="2">新品</option>
+                            <option value="3">热销</option>
+                            <option value="4">促销</option>
+                        </select>
+                    </div>
+                    <div class="field">
+
+                        <select class="ui fluid dropdown" name="status">
+                            <option value="0">全部</option>
+                            <option value="1">上架</option>
+                            <option value="2">下架</option>
+                        </select>
+                    </div>
+
+                    <input type="text" placeholder="请输入..." id="seachData" name="searchData" >                
+                    
+                    <button class="ui circular search link icon button submit-btn" type="submit">
+                        <i class="search link icon"></i>
+                    </button>
+                </div>
+            </form>
+
             <table class="ui primary striped selectable table ">
             <thead>
             <tr>
