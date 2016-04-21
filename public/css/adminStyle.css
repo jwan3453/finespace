@@ -517,6 +517,13 @@ color: #dbe4f0;
     right:5px;
     font-size:20px!important;
 }
+
+
+.order-table .search-bar .submit-btn{
+    margin-left: 5px;
+}
+
+
 /*****************/
 
 /****后台用户页面*****/

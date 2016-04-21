@@ -84,6 +84,8 @@ Route::get('/weixin/order/all/{status}','weixin\orderController@getAllOrder');
 Route::get('/weixin/order/{orderNo}','weixin\orderController@orderDetail');
 
 
+
+
 //后台管理
 Route::get('/weixin/admin','weixin\admin\productController@index');
 
@@ -117,6 +119,9 @@ Route::post('/weixin/admin/loadSpecs','weixin\admin\productController@loadSpecs'
 
 Route::post('/weixin/admin/product/changeStatus','weixin\admin\productController@changeStatus');
 
+//搜索产品
+Route::get('/weixin/admin/product/seachProduct','weixin\admin\productController@seachProduct');
+
 
 
 //上传图片
@@ -133,6 +138,10 @@ Route::post('/weixin/setImageCover','Service\CommonController@setImageCover');
 ///后台订单管理//////
 Route::get('/weixin/admin/order','weixin\admin\orderController@manageOrder');
 Route::get('/weixin/admin/order/today','weixin\admin\orderController@todayOrder');
+
+
+//Route::post('/weixin/admin/order/seachOrder','weixin\admin\orderController@seachOrder');
+Route::get('/weixin/admin/order/seachOrder','weixin\admin\orderController@seachOrder');
 Route::get('/weixin/admin/order/{orderNo}','weixin\admin\orderController@orderDetail');
 
 
@@ -157,6 +166,8 @@ Route::post('/weixin/admin/category/updateOraddCategory','weixin\admin\categoryC
 Route::get('/weixin/admin/category/add','weixin\admin\categoryController@add');
 
 Route::post('/weixin/admin/category/delCategory','weixin\admin\categoryController@del');
+
+
 
 
 

@@ -1,7 +1,7 @@
 
 
 
-<table class="ui primary striped selectable table ">
+<table class="ui primary striped selectable table " id="orderTable">
     <thead>
     <tr>
         <th>订单ID</th>
@@ -50,5 +50,5 @@
         </th>
         <th></th>
     </tr>
-
+    </tbody>
 </table>

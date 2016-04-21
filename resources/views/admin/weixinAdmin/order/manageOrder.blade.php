@@ -24,11 +24,15 @@
 
 
         <div class="order-table">
-
-            <div class="ui icon input search-bar">
-                <input type="text" placeholder="请输入单号...">
-                <i class="circular search link icon"></i>
-            </div>
+            <form method="get" action="/weixin/admin/order/seachOrder">
+                <div class="ui icon input search-bar">
+                    <input type="text" placeholder="请输入单号..." id="seachData" name="seachData" value="{{$seachData}}">
+                    <!-- <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> -->
+                    <button class="ui circular search link icon button submit-btn" type="submit">
+                        <i class="search link icon"></i>
+                    </button>
+                </div>
+            </form>
 
 
 
@@ -52,6 +56,54 @@
         $(document).ready(function(){
 
 
+        })
+
+        $("#ToSeach").click(function(){
+
+
+
+
+            var seachData = $("#seachData").val();
+            $.ajax({
+                type: 'POST',
+                url: '/weixin/admin/order/seachOrder',
+                data: {seachData : seachData},
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                },
+                success: function(data){
+                    $("#orderTable tbody").html("");
+                    var a = '';
+                    if (data.length > 0) {
+                        for (var i = 0; i < data.length; i++) {
+                            // console.log(data[i]);
+                            var tr = '';
+                            tr += "<tr>";
+                            tr += "<td>"+data[i].id+"</td>";
+                            tr += "<td>"+data[i].order_no+"</td>";
+                            tr += "<td>"+data[i].user_id+"</td>";
+                            tr += "<td>"+data[i].total_amount+"</td>";
+                            tr += "<td>"+data[i].payment_id+"</td>";
+                            tr += "<td>"+data[i].pay_status+"</td>";
+                            tr += "<td>"+data[i].status+"</td>";
+                            tr += "<td>"+data[i].updated_at+"</td>";
+                            tr += "<td><a href='{{url('/weixin/admin/order/')}}/"+data[i].order_no+"' class='ui basic  button '>详情</a></td>";
+
+                            a += tr;
+                        }
+                    }else{
+                        a += "查不到数据.............";
+
+                    }
+                    
+                    
+                    $("#orderTable tbody").html(a);
+                },
+                error: function(xhr, type){
+                    alert('Ajax error!')
+                }
+            });
         })
     </script>
 @stop

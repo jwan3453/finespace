@@ -38,4 +38,6 @@ interface OrderRepositoryInterface {
 
     public function getAllOrder($paymentStatus);
 
+    public function seachOrder($seachData,$paginate);
+
 }
