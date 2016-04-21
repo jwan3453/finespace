@@ -127,6 +127,7 @@
                 <th></th>
                 <th></th>
                 <th></th>
+                <th></th>
                 <th colspan="3" style="padding:2px;">
                     <div>
                         {!! $products->render() !!}

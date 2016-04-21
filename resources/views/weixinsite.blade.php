@@ -26,10 +26,6 @@
             <i class="home icon"></i>
             凡悦
         </a>
-        <a class="item "  href="/weixin/order/all">
-            <i class="gift icon"></i>
-            订单中心
-        </a>
         <a class="item"  href="/weixin/member">
             <i class="user icon"></i>
             个人中心

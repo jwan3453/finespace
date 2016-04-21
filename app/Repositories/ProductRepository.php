@@ -398,35 +398,74 @@ class ProductRepository implements  ProductRepositoryInterface{
 
     public function getHotProduct()
     {
-        $Product = Product::where('is_hot',1)->get();
 
-        $i = 0;
-        $k = 1;
-
-        //---每三组给一个标记 i
-        foreach ($Product as $product) {
-           
-            $product->i = $i;
-
+//        $Product = Product::where('is_hot',1)->get();
+//
+//
+//        $i = 0;
+//        $k = 1;
+//
+//        //---每三组给一个标记 i
+//        foreach ($Product as $product) {
+//
+//            $product->i = $i;
+//
+//            $img_link = Image::where('id',$product->thumb)->select('link')->first();
+//
+//            if ($img_link != null) {
+//                $product->img = $img_link->link;
+//            }
+//
+//            if ($k % 3 == 0) {
+//
+//                $i++;
+//            }
+//
+//            $k++;
+//        }
+//
+//        //--groupBy方法通过给定键分组集合数据项
+//        $HotProduct = $Product->groupBy('i');
+//
+//        // dd($HotProduct);
+//        return $HotProduct;
+        $products = Product::where('is_hot',1)->take(3)->get();
+        foreach ($products as $product) {
             $img_link = Image::where('id',$product->thumb)->select('link')->first();
 
             if ($img_link != null) {
                 $product->img = $img_link->link;
             }
-
-            if ($k % 3 == 0) {
-                
-                $i++;
-            }
-
-            $k++;
         }
+        return  $products;
+    }
 
-        //--groupBy方法通过给定键分组集合数据项
-        $HotProduct = $Product->groupBy('i');
 
-     
-        return $HotProduct;
+
+    public function getRecomProduct()
+    {
+        $products = Product::where('is_recommend',1)->take(4)->get();
+        foreach ($products as $product) {
+            $img_link = Image::where('id',$product->thumb)->select('link')->first();
+
+            if ($img_link != null) {
+                $product->img = $img_link->link;
+            }
+        }
+        return  $products;
+    }
+
+    public function getNewProduct()
+    {
+        $products = Product::where('is_new',1)->take(3)->get();
+        foreach ($products as $product) {
+            $img_link = Image::where('id',$product->thumb)->select('link')->first();
+
+            if ($img_link != null) {
+                $product->img = $img_link->link;
+            }
+        }
+        return  $products;
     }
 
     public function searchProduct($searchArr,$paginate = 0)

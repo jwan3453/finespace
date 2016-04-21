@@ -43,7 +43,7 @@
                 </div>
                 <div class="column" style="text-align: center;">
                     <a class="ui label a-width" href="/weixin/CateProList/3"><div class="icon-three"></div>
-                        <span class="big-font">穆斯</span> </a>
+                        <span class="big-font">慕斯</span> </a>
                 </div>
                 <div class="column" style="text-align: center;">
                     <a class="ui label a-width " href="/weixin/CateProList/4"><div class="icon-four"></div>
@@ -57,95 +57,115 @@
             </div>
         </div>
 
-        <!-- 热门推荐-->
+
+
+
+
+
+        <!-- 精品推荐-->
         <div class="white-background recommend-sect">
-            <div class="recommend-header">
-                <h5><i class="heartbeat icon red"></i>热门推荐</h5>
+            <div class="sect-header">
+                <h4><i class="heartbeat icon "></i>精品推荐</h4>
             </div>
 
-            <div class="ui equal width center aligned padded grid">
-                <div class="row">
-                    <div class="column item-left " >
-                        <a href="/weixin/product/1"><img src="../img/thumb_cake1.jpg"></a>
-                        <div >凡悦私享空间</div>
-                        <div class="price-info">
+            <div class="recommend-products">
 
-                            <span class="f-left big-font">￥123.00</span>
-                            <i class="plus red icon circle big f-right addcart"></i>
+                @foreach($recomProducts as $recomProduct)
 
+                        <div class="item " >
+                            <a href="/weixin/product/{{$recomProduct->id }}"><img src="{{$recomProduct->img }}"></a>
+                            <div class="product-name auto-margin">{{$recomProduct->name }}</div>
+                            {{--<div class="price-info">--}}
+                                {{--<span class="f-left big-font">￥{{$recomProduct->price }}</span>--}}
+                            {{--</div>--}}
                         </div>
-                    </div>
-                    <div class="column item-right ">
-                        <img src="../img/thumb_cake1.jpg">
-                        <div>卡布奇诺</div>
-                        <div class="price-info">
-
-                            <span class="f-left big-font">￥21.00</span>
-                            <i class="plus red icon circle big f-right addcart"></i>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="column item-left " >
-                        <img src="../img/thumb_cake1.jpg">
-                        <div >凡悦私享空间</div>
-                        <div class="price-info">
-
-                            <span class="f-left big-font">￥123.00</span>
-                            <i class="plus red icon circle big f-right addcart"></i>
-
-                        </div>
-                    </div>
-                    <div class="column item-right ">
-                        <img src="../img/thumb_cake1.jpg">
-                        <div>卡布奇诺</div>
-                        <div class="price-info">
-
-                            <span class="f-left big-font">￥21.00</span>
-                            <i class="plus red icon circle big f-right addcart"></i>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="white-background recommend-sect">
-            <div class="recommend-header">
-                <h5> <i class="heartbeat icon red"></i>
-                    精品促销
-                </h5>
-            </div>
-
-            <div class="ui equal width center aligned padded grid">
-                @foreach($hotProduct as $hotpro)
-                    <div class="row">
-
-                        @foreach($hotpro as $product)
-                            <div class="column" id="touchArea">
-                                <div class="ui segment">
-                                    <a href="/weixin/product/{{$product->id}}"><img src="{{$product->img}}" class="product-img-wAh"></a>
-                                    <div>{{$product->name}}</div>
-                                    <div class="price-info">
-                                        <p class="text-algin big-font">￥{{$product->price}}</p>
-                                        <!-- <span class="f-left big-font">￥{{$product->price}}</span> -->
-                                        <!-- <i class="plus red icon circle big f-right addcart" onclick="Tomenu({{$product->id}})"></i> -->
-
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-
-                    </div>
-
                 @endforeach
+                </div>
+        </div>
 
+        <!-- 最热单品-->
+        <div class="white-background hot-sect">
+            <div class="sect-header">
+                <h4><i class="heartbeat icon "></i>最热单品</h4>
+            </div>
+
+            <div class="hot-products">
+
+                @foreach($hotProducts as $hotProduct)
+
+                    <div class="item " >
+                        <a href="/weixin/product/{{$hotProduct->id }}"><img src="{{$hotProduct->img }}"></a>
+                        <div class="product-name auto-margin">{{$hotProduct->name }}</div>
+                        {{--<div class="price-info">--}}
+                        {{--<span class="f-left big-font">￥{{$recomProduct->price }}</span>--}}
+                        {{--</div>--}}
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
+        <!-- 新品-->
+        <div class="white-background new-sect">
+            <div class="sect-header">
+                <h4><i class="heartbeat icon "></i>最近新品</h4>
+            </div>
+
+            <div class="new-products">
+                @foreach($newProducts as $newProduct)
+
+                    <div class="item " >
+                        <a href="/weixin/product/{{$newProduct->id }}"><img src="{{$newProduct->img }}"></a>
+                        <div class="product-name auto-margin">{{$newProduct->name }}</div>
+                        {{--<div class="price-info">--}}
+                        {{--<span class="f-left big-font">￥{{$recomProduct->price }}</span>--}}
+                        {{--</div>--}}
+                    </div>
+                @endforeach
             </div>
 
         </div>
+
+
+        {{--<div class="white-background recommend-sect">--}}
+            {{--<div class="recommend-header">--}}
+                {{--<h5> <i class="heartbeat icon red"></i>--}}
+                    {{--精品促销--}}
+                {{--</h5>--}}
+            {{--</div>--}}
+
+            {{--<div class="ui equal width center aligned padded grid">--}}
+                {{--@foreach($hotProduct as $hotpro)--}}
+                    {{--<div class="row">--}}
+
+                        {{--@foreach($hotpro as $product)--}}
+                            {{--<div class="column" id="touchArea">--}}
+                                {{--<div class="ui segment">--}}
+                                    {{--<a href="/weixin/product/{{$product->id}}"><img src="{{$product->img}}" class="product-img-wAh"></a>--}}
+                                    {{--<div>{{$product->name}}</div>--}}
+                                    {{--<div class="price-info">--}}
+                                        {{--<p class="text-algin big-font">￥{{$product->price}}</p>--}}
+                                        {{--<!-- <span class="f-left big-font">￥{{$product->price}}</span> -->--}}
+                                        {{--<!-- <i class="plus red icon circle big f-right addcart" onclick="Tomenu({{$product->id}})"></i> -->--}}
+
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--@endforeach--}}
+
+                    {{--</div>--}}
+
+                {{--@endforeach--}}
+
+            {{--</div>--}}
+
+        {{--</div>--}}
+
+
+
+
+
+
+
 
         <div class="ui modal">
 

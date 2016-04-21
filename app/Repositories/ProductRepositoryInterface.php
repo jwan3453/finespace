@@ -35,7 +35,8 @@ interface ProductRepositoryInterface{
     public function changeStatus($productId,$StatusName,$status);
 
     public function getHotProduct();
-
+    public function getRecomProduct();
+    public function getNewProduct();
 //    public function errors();
 //
 //    public function all(array $related = null);

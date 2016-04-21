@@ -27,8 +27,13 @@ class homeController extends Controller
     public function index()
     {
         $images =  $this->setting->getHomeSlides();
-        $hotProduct = $this->product->getHotProduct();
-        return view('weixin.home')->with('images',$images)->with('hotProduct',$hotProduct);
+        $hotProducts = $this->product->getHotProduct();
+        $recomProducts = $this->product->getRecomProduct();
+        $newProducts = $this->product->getNewProduct();
+
+
+        return view('weixin.home')->with('images',$images)->with('hotProducts',$hotProducts)->with('recomProducts',$recomProducts)
+                                  ->with('newProducts',$newProducts);
     }
 }
 

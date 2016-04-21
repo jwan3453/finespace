@@ -541,6 +541,7 @@ font{
     width: 32px;
     height: 32px;
     margin: 3px auto;
+
 }
 
 .icon-two{
@@ -607,39 +608,86 @@ font{
     font-weight: 600;
 }
 
-.recommend-header{
-    margin: 5px 0 0 0 ;
-}
 
-.recommend-sect{
-
+.hot-sect,.new-sect,.recommend-sect {
     margin: 5px 0;
+    overflow: hidden;
 }
-.recommend-sect .column{
-    padding:0!important;
-}
-.recommend-sect img{
 
+.sect-header{
+    margin: 5px 0 5px 0 ;
+    clear:both;
+}
+.sect-header .icon{
+    color:#ff5856;
+}
+
+.hot-products{
+
+}
+
+.hot-products .item{
+    float:left;
+    width:100%;
+    text-align: center;
+    padding:5px 0;
+
+}
+.hot-products img{
+    width:97%;
+    border-radius: 5px;
+}
+
+
+
+
+.recommend-products{
+
+}
+.recommend-products img{
+    width:97%;
+    border-radius: 5px;
+}
+.recommend-products .item{
+    float:left;
+    width:50%;
+    text-align: center;
+    padding:5px 0;
+
+}
+
+.new-products{
+
+}
+
+.new-products .item{
+    float:left;
+    width:33%;
+    text-align: center;
+    padding:5px 0;
+}
+.new-products img{
+    width:97%;
+    border-radius: 10px;
+}
+
+
+
+.product-name
+{
+    height:20px;
     width:95%;
-}
-.item-left{
-
-    border-right:1px solid #bbbbbb;
-    border-bottom: 1px solid #bbbbbb;
-}
-.item-right{
-
-    border-bottom: 1px solid #bbbbbb;
+    overflow: hidden;
 }
 .price-info{
     padding:0 10px 3px 10px;
-    overflow:hidden;
 }
 
 .price-info span{
     line-height:30px;
     color: #ff5856;
     font-weight: 600;
+    text-align: center;
 }
 
 .price-info .plus-icon{
@@ -690,6 +738,19 @@ font{
 
 
 /******产品分类****/
+
+.category-header{
+    text-align: center;
+    border-bottom: 1px dashed grey;
+    width:95%;
+    overflow: hidden;
+}
+.category-name{
+    width:80px;
+    height:32px;
+    line-height:38px;
+    font-weight: 600;
+}
 
 .product-text{
     text-align: center;
