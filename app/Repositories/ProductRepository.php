@@ -116,6 +116,7 @@ class ProductRepository implements  ProductRepositoryInterface{
                 $specInfo = $spec->specInfo()->get()->first();
 
                 if($specInfo != null)
+                {
                     $specArray['content']['name'] =$specInfo->name;
                     $specArray['content']['value'] =$spec->value;
                     $specArray['level'] =$specInfo->spec_level;
@@ -123,7 +124,7 @@ class ProductRepository implements  ProductRepositoryInterface{
                 }
             }
             $prod->spec = $specInfos;
-        
+
             //获取门店信息
             $prod->store = Store::select('id','name')->get();
 
