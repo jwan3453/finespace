@@ -4,6 +4,7 @@ use App\Models\Product;
 use App\Models\Image;
 use App\Models\SpecInfo;
 use App\Models\ProductSpec;
+use App\Models\Store;
 
 use App\Tool\MessageResult;
 
@@ -107,20 +108,24 @@ class ProductRepository implements  ProductRepositoryInterface{
 
             $specs = $prod->specifications()->get();
 
+
+
             foreach( $specs as $spec)
             {
                 $specArray=array();
                 $specInfo = $spec->specInfo()->get()->first();
-                if ($specInfo != null) {
+
+                if($specInfo != null)
                     $specArray['content']['name'] =$specInfo->name;
                     $specArray['content']['value'] =$spec->value;
                     $specArray['level'] =$specInfo->spec_level;
                     $specInfos[] = $specArray;
                 }
-
             }
             $prod->spec = $specInfos;
-
+        
+            //获取门店信息
+            $prod->store = Store::select('id','name')->get();
 
            return $prod;
         }

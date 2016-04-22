@@ -494,8 +494,7 @@ font{
     line-height: 40px;
     color:#47A1B9;
     margin-right:6px;
-
-
+    margin-top:6px;
 }
 
 .pos-spacing{
@@ -715,6 +714,7 @@ font{
     top: 30%;
     position: fixed;
     text-align:center;
+    z-index:10000;
 
 }
 
@@ -800,6 +800,18 @@ font{
     padding:5px 0;
 }
 
+.prod-spec .order-date-time{
+
+}
+.prod-spec .order-date-time input{
+    border-radius: 0!important;
+}
+
+.prod-spec .select-store{
+
+    margin:5px 0;
+    border-radius: 0!important;
+}
 
 .product-tag{
 
@@ -831,6 +843,7 @@ font{
     margin:10px 0 ;
     padding:5px 0;
     border-top:1px solid lightgray;
+
 }
 .specs div
 {
@@ -840,7 +853,7 @@ font{
 .specs-level2 div
 {
     display: block!important;
-
+    margin: 0 0 0 -5px;!important;
     color: rgba(89, 81, 79, 0.71) !important;
     background-color: #eff4f0 !important;
 }

@@ -1,7 +1,4 @@
 @extends('weixinsite')
-
-
-
 @section('resources')
 
     <script src={{ asset('js/swiper/owl.carousel.min.js') }}></script>
@@ -9,10 +6,10 @@
     <link rel="stylesheet" type="text/css" href= {{ asset('js/swiper/owl.theme.default.min.css') }}>
 
 
-
+    <script src={{ asset('js/dateTime/mobiscroll.custom-2.17.0.min.js') }}></script>
+    <link rel="stylesheet" type="text/css" href= {{ asset('js/dateTime/mobiscroll.custom-2.17.0.min.css') }}>
 
 @stop
-
 
 
 
@@ -44,13 +41,19 @@
             </div>
             <div class="price giant-font">￥<span id="unitPrice">{{$product->price}}</span></div>
 
-            <div class="specs specs-level2 ">
-                @foreach( $product->spec as $spec)
-                    @if($spec['level'] == 2)
-                        <div class="ui big-font  tag label"><i class="selected radio icon" ></i>{{$spec['content']['name']}}:{{$spec['content']['value']}}</div>
-                    @endif
-                @endforeach
+            <div class="order-date-time ui left icon  fluid input huge-font">
+                <i class=" calendar icon "></i> <input type="text" class="" id="deliveryDatetime" placeholder="预定时间" />
             </div>
+
+            <select class="ui fluid dropdown select-store huge-font">
+                <option value="">选择取货门店</option>
+                @foreach($product->store  as $category)
+                    <option value="{{$category->id}}">{{$category->name}}</option>
+                @endforeach
+
+            </select>
+
+
             <div class="specs">
                 @foreach( $product->spec as $spec)
                     @if($spec['level'] == 1)
@@ -71,8 +74,13 @@
                 @endforeach
             </div>
 
-
-
+            <div class="specs specs-level2 ">
+                @foreach( $product->spec as $spec)
+                    @if($spec['level'] == 2)
+                        <div class="ui big-font  tag label"><i class="selected radio icon" ></i>{{$spec['content']['name']}}:{{$spec['content']['value']}}</div>
+                    @endif
+                @endforeach
+            </div>
 
         </div>
 
@@ -141,12 +149,39 @@
             })
         })
 
+        $('#deliveryDatetime').mobiscroll().datetime({
+            theme: 'Mobiscroll',     // Specify theme like: theme: 'ios' or omit setting to use default
+            display: 'bottom', // Specify display mode like: display: 'bottom' or omit setting to use default
+            lang: 'ZH',     // Specify language like: lang: 'pl' or omit setting to use default
+                // stepMinute: ,  // More info about stepMinute: http://docs.mobiscroll.com/2-17-0/datetime#!opt-stepMinute
+
+            dateOrder:'ymmdd',
+            cancelText:'取消',
+            setText:'设置',
+            yearText:'年份',
+            monthText:'月份',
+            dayText:'天',
+            hourText:'小时',
+            timeWheels:'HH',
+            timeFormat:'HH:ii',
+            dateFormat:'yy-mm-dd'
+        });
+
+
 
 
         $(document).ready(function(){
 
 
+
             var unitPrice = parseInt($('#unitPrice').text());
+
+            $(' .select-store').dropdown({
+                onChange: function(value, text, $selectedItem) {
+                    //$('#selectBrand').val(value);
+                }
+            })
+
 
             $('.add-to-cart,.prod-price').css('width',$('.prod-detail-box').width());
 
@@ -178,49 +213,69 @@
             })
 
             $('.add-to-cart').click(function (){
-                $.ajax({
-                    type: 'POST',
-                    async : false,
-                    url: '/weixin/addToCart',
-                    dataType: 'json',
-                    data:{productId:'{{$product->id}}',parentProductId:0,quantity:$('.quantity').val()},
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                    },
-                    success: function(data)
-                    {
-                        var status  = data.statusCode;
-                        var messageCount = $('.icon-message-count');
 
-                        if(status ==1 )
+                var valid = true;
+
+                @if(!Auth::check())
+                {
+                    location.href = '{{url('auth/login')}}';
+                    return;
+                }
+                @endif
+
+                if($('#deliveryDatetime').val() =='' )
+                {
+                    _showToaster('请选择取货时间');
+                    valid=false;
+                }
+
+                if(valid == true)
+                {
+                    $.ajax({
+                        type: 'POST',
+                        async : false,
+                        url: '/weixin/addToCart',
+                        dataType: 'json',
+                        data:{productId:'{{$product->id}}',parentProductId:0,quantity:$('.quantity').val()},
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                        },
+                        success: function(data)
                         {
-                            var newitemCount =   parseInt($('.quantity').val());
+                            var status  = data.statusCode;
+                            var messageCount = $('.icon-message-count');
 
-                            var itemCount = parseInt(messageCount.text());
-
-                            if(itemCount === 0)
+                            if(status ==1 )
                             {
-                                messageCount.removeClass('none-display').fadeIn();
-                                messageCount.text(itemCount+newitemCount);
+                                var newitemCount =   parseInt($('.quantity').val());
+
+                                var itemCount = parseInt(messageCount.text());
+
+                                if(itemCount === 0)
+                                {
+                                    messageCount.removeClass('none-display').fadeIn();
+                                    messageCount.text(itemCount+newitemCount);
+                                }
+                                else{
+                                    messageCount.text(itemCount+newitemCount);
+                                }
+
+                                $('.dimmer')
+                                        .dimmer('show',{closable:'false'})
+                                ;
                             }
                             else{
-                                messageCount.text(itemCount+newitemCount);
+                                alert('失败了');
                             }
 
-                            $('.dimmer')
-                                    .dimmer('show',{closable:'false'})
-                            ;
-                        }
-                        else{
-                            alert('失败了');
+                        },
+                        error: function(xhr, type){
+                            alert('Ajax error!')
                         }
 
-                    },
-                    error: function(xhr, type){
-                        alert('Ajax error!')
-                    }
+                    });
+                }
 
-                });
             })
 
         })

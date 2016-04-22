@@ -4,7 +4,7 @@
     <script src={{ asset('js/calendar.js') }}></script>
 
     <link rel="stylesheet" type="text/css" href={{ asset('js/datetime_picker/DateTimePicker.css') }} />
-    <script src={{ asset('js/datetime_picker/DateTimePicker.js') }}></script>
+    <script src={{ asset('js/datetime_picker/DatetimePicker-i18n-zh-CN.js') }}></script>
 
 @stop
 
@@ -150,7 +150,7 @@
                 @endif
             @endforeach
 
-            <div class="order-total-amount huge-font" >订单总额:￥{{ sprintf("%.2f", $cartItems['totalOrderAmount'])}}</div>
+
 
         </div>
 
@@ -259,7 +259,9 @@
 
 
 
-            $("#dtBox").DateTimePicker();
+            $("#dtBox").DateTimePicker({
+                language:'zh-Ch'
+            });
 
             $('.menu-item').click(function(){
 

@@ -1,5 +1,6 @@
-<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
-<html lang="en">
+
+<!DOCTYPE html/>
+<html>
 <head>
     <meta charset="utf-8">
     <meta name=”viewport” content=”width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;” />
@@ -14,13 +15,11 @@
     <script src={{ asset('semantic/dist/semantic.js') }}></script>
 
     @yield('resources')
+
 </head>
 
+
 <body>
-
-
-
-
     <div class="ui bottom  demo vertical  sidebar labeled icon menu side-menu " >
         <a class="item "  href="/weixin">
             <i class="home icon"></i>
@@ -75,6 +74,7 @@
         <div class="toaster "></div>
     </div>
 </body>
+
 
 @yield('script')
 
