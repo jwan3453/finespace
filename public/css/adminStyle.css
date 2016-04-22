@@ -24,7 +24,7 @@ color: #dbe4f0;
     height:100%;
     position:fixed;
     z-index:-2;
-    background:url('../img/admin_bg.jpg') no-repeat;
+    /*background:url('../img/admin_bg.jpg') no-repeat;*/
     background-position: center;
     background-size: 100%
 }
@@ -33,7 +33,7 @@ color: #dbe4f0;
     height:100%;
     position:fixed;
     z-index:-1;
-    background: rgba(0, 0, 0, 0.16);
+    /*background: rgba(0, 0, 0, 0.16);*/
 
 }
 .transparent-input{
@@ -212,7 +212,19 @@ color: #dbe4f0;
     padding: 0 10px;
     position:absolute;
     min-width:600px;
+    /*min-height: 400px;*/
 }
+
+.right-side-panel-Chart{
+
+    margin-left: 250px;
+    padding: 0 10px;
+    position:absolute;
+    min-width:600px;
+    margin-top: 200px;
+    /*top: 200px;*/
+}
+
 .sub-menu .item{
     padding:10px 15px!important;
     cursor: pointer;
@@ -220,7 +232,7 @@ color: #dbe4f0;
 }
 
 .statistic-box{
-    border:1px solid lightgray;
+    /*border:1px solid lightgray;*/
     width:180px;
     height:80px;
     float:left;
@@ -228,11 +240,51 @@ color: #dbe4f0;
 
     color: rgba(34, 0, 29, 0.58);
 
+    /*filter:alpha(opacity=90); /*IE滤镜，透明度50%*/
+    /*-moz-opacity:0.9; Firefox私有，透明度50%*/
+    /*opacity:0.9;其他，透明度50%*/
+
 }
+
+.statistic-box .icon-report{
+    width: 33.333333%;
+    height: 70px;
+    float: left;
+}
+
+.statistic-box .icon-report .icon-big{
+    font-size: 3em;
+    margin: 0.3em;
+    color: #FFFFFF;
+}
+
+.blue-27a9e3{
+    background-color: #27a9e3;
+}
+
+.green-28b779{
+    background-color: #28b779;
+}
+
+.purple-852b99{
+    background-color: #852b99;
+}
+
+.yellow-ffb848{
+    background-color: #ffb848;
+}
+
+.chart-main{
+    height: 400px;
+    width: 800px;
+}
+
 .statistic-box .title{
     font-size:14px;
     padding:10px;
     font-weight: 600;
+    width: 66.666666%;
+    float: right;
 
 }
 .statistic-box .content{
