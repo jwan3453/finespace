@@ -82,7 +82,7 @@
 
 </div>
 <div class="actions">
-    <input type="hidden" name="specId" id="specId" value=""  />
+    <input type="hidden" name="editSpecId" id="editSpecId" value=""  />
     <input type="hidden" name="editOradd" id="editOradd" value="">
     <div class="ui black deny button" id="close">关闭</div>
     <div class="ui positive right  button" id="submit">提交</div>
@@ -105,7 +105,7 @@
 <div class="header">删除属性</div>
 <div class="content">
     <p>你确定删除该属性吗？</p>
-    <input type="hidden" id="specId" value=""></div>
+    <input type="hidden" id="deletespecId" value=""></div>
 <div class="actions">
     <div class="ui negative button">取消</div>
     <div class="ui positive right button" id="delCategoryTrue">确定</div>
@@ -149,7 +149,7 @@
                 }
             });
             $("#editOradd").val("edit");
-            $("#specId").val(_this.id);
+            $("#editSpecId").val(_this.id);
             $("#name").val(_this.name);
             $("#spec_level").val(_this.spec_level);
             $('#edit-model').modal('setting', 'closable', false).modal('show');
@@ -159,7 +159,7 @@
         $("#close").click(function(){
             $("#editOradd").val("");
             $("#name").val("");
-            $("#specId").val("");
+            $("#editSpecId").val("");
             $("#selectcategory").empty();
             $("#spec_level").val("");
         })
@@ -167,7 +167,7 @@
         $("#close-i").click(function(){
             $("#editOradd").val("");
             $("#name").val("");
-            $("#specId").val("");
+            $("#editSpecId").val("");
             $("#selectcategory").empty();
             $("#spec_level").val("");
         })
@@ -175,8 +175,9 @@
         $("#submit").click(function(){
             var name = $("#name").val();
             var categoryid = $("#selectcategory").val();
-            var specId = $("#specId").val();
+            var specId = $("#editSpecId").val();
             var spec_level = $("#spec_level").val();
+            alert(specId);
             var editOradd = $("#editOradd").val();
 
             $.ajax({
@@ -218,13 +219,13 @@
             });
             $("#editOradd").val("add");
             $("#name").val("");
-            $("#specId").val("");
+            $("#editSpecId").val("");
             $("#spec_level").val("");
             $('#edit-model').modal('show');
         })
 
         function delSpec(id){
-            $("#specId").val(id);
+            $("#deletespecId").val(id);
             $("#delSpec").modal('show');
         }
 

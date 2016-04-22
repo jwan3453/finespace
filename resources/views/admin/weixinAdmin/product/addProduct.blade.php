@@ -11,7 +11,8 @@
 @section('content')
 
 
-    <div class="f-left right-side-panel" >
+    <div class="f-left right-side-panel " >
+
 
         <div class="breadcrumb-nav">
             <div class="ui  large breadcrumb">

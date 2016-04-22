@@ -192,13 +192,19 @@ font{
 
 .vertical-list-menu i{
     color: #86d6dd;
+    margin-top:15px;
 }
 
 
 .vertical-list-menu .menu-icon{
 
     padding: 0 7px;
+
+
 }
+
+
+
 .vertical-list-menu .menu-text{
     line-height: 55px;
     padding: 0 10px;
@@ -800,14 +806,16 @@ font{
     padding:5px 0;
 }
 
-.prod-spec .order-date-time{
+.order-date-time{
+    clear:both;
+    padding-top:5px;
 
 }
-.prod-spec .order-date-time input{
+ .order-date-time input{
     border-radius: 0!important;
 }
 
-.prod-spec .select-store{
+ .select-store{
 
     margin:5px 0;
     border-radius: 0!important;
@@ -986,7 +994,6 @@ font{
     background-color: #47A1B9;
     display:inline-block;
     color:white;
-    margin-left:5px;
     border-radius: 5%;
 }
 

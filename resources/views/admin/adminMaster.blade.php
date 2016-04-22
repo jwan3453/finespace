@@ -17,7 +17,9 @@
     @yield('resources')
 </head>
 
-<body>
+<body style="background-color: rgba(129, 13, 119, 0.75)"   >
+
+
 
 <div class="screen-bg blur">
 </div>
@@ -32,7 +34,7 @@
 
 </div>
 
-<div>
+<div >
     <div class="f-left left-side-panel">
         <div class="ui  middle aligned animated list admin-menu ">
             <div class="item ">
@@ -199,7 +201,7 @@
                 $('.angle.down').click(function(){
 
 
-                    $(this).siblings('.sub-menu').slideToggle(300);
+
                 })
             })
             function _showToaster($message){

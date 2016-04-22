@@ -37,8 +37,6 @@ class cartController extends Controller
 
             //如果登录 同步cookie 和数据库里面的购物车数据
             $cartItems =  $this->syncCart($cartCookie);
-
-
             return response()->view('weixin.cart.showAll', ['cartItemList' => $cartItems])->withCookie('cart', null);
         }
 
@@ -158,4 +156,35 @@ class cartController extends Controller
         $cartItemsArray = $this->shoppingCart->syncCart($cartArray);
         return $cartItemsArray;
     }
+
+    public function  updateOrderDateTime( Request $request)
+    {
+        $JsonResult = new MessageResult();
+        if($this->shoppingCart->updateOrderDateTime($request))
+        {
+            $JsonResult->statusCode = 1;
+            $JsonResult->statusMsg = '更新成功';
+        }
+        else{
+            $JsonResult->statusCode = 2;
+            $JsonResult->statusMsg = '更新失败';
+        }
+        return response($JsonResult->toJson());
+    }
+
+    public function  updateSelectedStore( Request $request)
+    {
+        $JsonResult = new MessageResult();
+        if($this->shoppingCart->updateSelectedStore($request))
+        {
+            $JsonResult->statusCode = 1;
+            $JsonResult->statusMsg = '更新成功';
+        }
+        else{
+            $JsonResult->statusCode = 2;
+            $JsonResult->statusMsg = '更新失败';
+        }
+        return response($JsonResult->toJson());
+    }
+
 }

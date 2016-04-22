@@ -1,11 +1,16 @@
 @extends('weixinsite')
 
+
+@section('resources')
+    <script src={{ asset('js/dateTime/mobiscroll.custom-2.17.0.min.js') }}></script>
+    <link rel="stylesheet" type="text/css" href= {{ asset('js/dateTime/mobiscroll.custom-2.17.0.min.css') }}>
+
+@stop
 @section('content')
 
     <div class=" ui container cart-box ">
 
         <div >
-
 
         @foreach ($cartItemList as $cartItem)
             @if(isset($cartItem->product))
@@ -20,8 +25,25 @@
 
                 <i class=" remove big  icon red delete-item "></i>
 
+                <div class="order-date-time ui left icon  fluid input ">
+                    <i class=" calendar icon "></i> <input type="text" class="order-datetime"  id="orderDatetime_{{$cartItem->product->id}}" placeholder="预定时间" value="取货时间: {{$cartItem->order_dateTime}}"/>
+                </div>
+
+                <select class="ui fluid dropdown select-store ">
+
+                    <option value="">选择取货门店</option>
+                    @foreach($cartItemList['store']  as $store)
+                        @if($store->id === $cartItem->selected_store)
+                            <option value="{{$store->id}}" selected>{{$store->name}}</option>
+                        @else
+                            <option value="{{$store->id}}" >{{$store->name}}</option>
+                        @endif
+                    @endforeach
+
+                </select>
+
                 <div class="opt-qty-btns">
-                    @if(auth::check())
+                    @if(auth::check() && $cartItem->product->category_id == 1)
                     <div class="opt-btn">
                         选项配置<i class="arrow circle down icon"></i>
                     </div>
@@ -89,6 +111,8 @@
                 </div>
 
                 @endif
+
+
                 <div class="product-price">
                     总价: <span class="huge-font">￥<span class="total-product-price">{{  sprintf("%.2f", $cartItem->totalAmount)}}</span> </span>
 
@@ -154,6 +178,61 @@
             var needDeleteItem;
 
 
+            $('[id^=orderDatetime_]').mobiscroll().datetime({
+                theme: 'Mobiscroll',
+                display: 'bottom',
+                lang: 'ZH',
+                dateOrder:'ymmdd',
+                cancelText:'取消',
+                setText:'设置',
+                yearText:'年份',
+                monthText:'月份',
+                dayText:'天',
+                hourText:'小时',
+                timeWheels:'HH',
+                timeFormat:'HH:ii',
+                dateFormat:'yy-mm-dd'
+            });
+
+            $(' .select-store').dropdown({
+                onChange: function(value, text, $selectedItem) {
+                    //$('#selectBrand').val(value);
+
+
+
+                    //更改就餐或取货门店
+                    $.ajax({
+                        type: 'POST',
+                        async : false,
+                        url: '/weixin/updateSelectedStore',
+                        dataType: 'json',
+                        data:{productId:$(this).parent().siblings('.hidden-id').val(), newSelectedStore:value},
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                        },
+                        success: function(data)
+                        {
+                            var status  = data.statusCode;
+                            if(status ==1 )
+                            {
+                                //时间跟新成功
+                            }
+                            else{
+                                //时间跟新失败
+                                _showToaster(data.statusMsg);
+                            }
+
+                        },
+                        error: function(xhr, type){
+                            alert('Ajax error!')
+                        }
+
+                    });
+
+
+                }
+            })
+
             $('.check-out-box').css('width',$('.cart-box').width());
 
             $('.delete-item').click(function(){
@@ -217,6 +296,36 @@
 
             });
 
+
+            $('.order-datetime').change(function(){
+                $.ajax({
+                    type: 'POST',
+                    async : false,
+                    url: '/weixin/updateOrderDateTime',
+                    dataType: 'json',
+                    data:{productId:$(this).parent().siblings('.hidden-id').val(), newOrderDateTime:$(this).val()},
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    },
+                    success: function(data)
+                    {
+                        var status  = data.statusCode;
+                        if(status ==1 )
+                        {
+                            //时间跟新成功
+                        }
+                        else{
+                            //时间跟新失败
+                            _showToaster(data.statusMsg);
+                        }
+
+                    },
+                    error: function(xhr, type){
+                        alert('Ajax error!')
+                    }
+
+                });
+            })
 
             function addToCart(addItem,_subProductId)
             {
@@ -285,7 +394,7 @@
 
                         }
                         else{
-                            alert('加入购物车失败');
+                            _showToaster('加入购物车失败');
                         }
 
                     },

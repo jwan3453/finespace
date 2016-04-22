@@ -19,6 +19,8 @@ class CreateOrderItemTable extends Migration
             $table->integer('parent_product_id');
             $table->integer('count');
             $table->text('product_detail');
+            $table->datetime('order_dateTime');
+            $table->integer('selected_store');
             $table->timestamps();
         });
     }

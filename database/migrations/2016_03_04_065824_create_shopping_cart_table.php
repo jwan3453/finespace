@@ -21,6 +21,8 @@ class CreateShoppingCartTable extends Migration
             $table->integer('has_child_product');
             $table->string('product_sku',60);
             $table->integer('count');
+            $table->datetime('order_dateTime');
+            $table->integer('selected_store');
             $table->timestamps();
         });
     }

@@ -99,7 +99,18 @@ class ProductRepository implements  ProductRepositoryInterface{
 
 
             //获得关键字数组
-            $prod->keywords=explode('|',$prod->keywords);
+
+            $keywords=explode('|',$prod->keywords);
+            if(count($keywords) == 1)
+            {
+                if($keywords[0] != '')
+                {
+                    $prod->keywords = $keywords;
+                }
+            }
+            else{
+                $prod->keywords = $keywords;
+            }
 
 
 

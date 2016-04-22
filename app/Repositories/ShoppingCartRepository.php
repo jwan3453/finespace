@@ -4,6 +4,7 @@ namespace App\Repositories;
 use App\Models\ShoppingCart;
 use App\Models\Product;
 use App\Models\Image;
+use App\Models\Store;
 use App\Tool\MessageResult;
 use Auth;
 
@@ -151,6 +152,7 @@ class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
         }
 
         $cartItemsArray = $this->setCartItemArray($cartItems,$cartItemsArray);
+
         return $cartItemsArray;
 
 
@@ -167,6 +169,8 @@ class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
 
         $cart = $request->cookie('cart');
         $productId = $request->input('productId');
+        $orderDateTime= $request->input('orderDateTime');
+        $selectedStore = $request->input('selectedStore');
         $quantity = 0;
         $addResult['status'] = 0;
 
@@ -219,7 +223,9 @@ class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
                     'parent_product_id'=>$parentProductId,
                     'has_child_product'=>0,
                     'product_sku' => 'testSku',
-                    'count' => $quantity
+                    'count' => $quantity,
+                    'order_dateTime' => $orderDateTime,
+                    'selected_store' => $selectedStore
                 ];
                 $cartItem = ShoppingCart::create($cartItem);
                 if($cartItem != null)
@@ -448,13 +454,48 @@ class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
 
 
         if($totalOrderAmount != 0)
+        {
             $cartItemsArray['totalOrderAmount'] = $totalOrderAmount;
+            //传入门店信息
+            $cartItemsArray['store'] =Store::select('id','name')->get();
+        }
+
+
+
         return $cartItemsArray;
     }
+
+    public function  updateOrderDateTime( $request)
+    {
+
+        $productId  = $request->input('productId');
+        $newOrderDateTime  = $request->input('newOrderDateTime');
+        if(Auth::check())
+        {
+            return  ShoppingCart::where(['user_id'=>Auth::user()->id,
+                                 'product_id' => $productId])->update(['order_dateTime'=>$newOrderDateTime]);
+        }
+        return false;
+    }
+
+    public function  updateSelectedStore( $request)
+    {
+
+        $productId  = $request->input('productId');
+        $newSelectedStore  = $request->input('newSelectedStore');
+        if(Auth::check())
+        {
+            return  ShoppingCart::where(['user_id'=>Auth::user()->id,
+                'product_id' => $productId])->update(['selected_store'=>$newSelectedStore]);
+        }
+        return false;
+    }
+
 
     public function deleteCartItems($userId)
     {
         return ShoppingCart::where('user_id',$userId )->delete();
+
     }
 
 }

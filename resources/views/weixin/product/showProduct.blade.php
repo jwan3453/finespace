@@ -31,12 +31,16 @@
             <div class=" extra ">
 
                 <div class="product-tag">
-                    @foreach($product->keywords as $keyword)
 
-                    <div >
-                        {{$keyword}}
-                    </div>
-                    @endforeach
+                    @if($product->keywords !='')
+
+                        @foreach($product->keywords as $keyword)
+
+                        <div >
+                            {{$keyword}}
+                        </div>
+                        @endforeach
+                    @endif
                 </div>
             </div>
             <div class="price giant-font">￥<span id="unitPrice">{{$product->price}}</span></div>
@@ -47,8 +51,8 @@
 
             <select class="ui fluid dropdown select-store huge-font">
                 <option value="">选择取货门店</option>
-                @foreach($product->store  as $category)
-                    <option value="{{$category->id}}">{{$category->name}}</option>
+                @foreach($product->store  as $store)
+                    <option value="{{$store->id}}">{{$store->name}}</option>
                 @endforeach
 
             </select>
@@ -215,20 +219,27 @@
             $('.add-to-cart').click(function (){
 
                 var valid = true;
-
-                @if(!Auth::check())
                 {
-                    location.href = '{{url('auth/login')}}';
-                    return;
-                }
-                @endif
+                    @if(!Auth::check())
 
+                        location.href = '{{url('auth/login')}}';
+                        return;
+
+                    @endif
+                }
                 if($('#deliveryDatetime').val() =='' )
                 {
                     _showToaster('请选择取货时间');
                     valid=false;
                 }
-
+                else
+                {
+                    if($('.select-store option:selected').val()=='')
+                    {
+                        _showToaster('请选择预约门店');
+                        valid=false;
+                    }
+                }
                 if(valid == true)
                 {
                     $.ajax({
@@ -236,7 +247,13 @@
                         async : false,
                         url: '/weixin/addToCart',
                         dataType: 'json',
-                        data:{productId:'{{$product->id}}',parentProductId:0,quantity:$('.quantity').val()},
+                        data:{
+                                productId:'{{$product->id}}',
+                                parentProductId:0,
+                                quantity:$('.quantity').val(),
+                                orderDateTime:$('#deliveryDatetime').val(),
+                                selectedStore:$('.select-store option:selected').val()
+                        },
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                         },

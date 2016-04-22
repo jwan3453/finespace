@@ -189,7 +189,7 @@ color: #dbe4f0;
     min-width:250px;
 
     font-size:16px;
-    min-height: 1600px;
+    min-height:100%;
 }
 
 
@@ -198,7 +198,7 @@ color: #dbe4f0;
     margin-top:-2px!important;
 }
 .admin-menu .item{
-    padding:15px!important;
+    padding:10px 5px!important;
     cursor: pointer;
 
 }
@@ -226,7 +226,7 @@ color: #dbe4f0;
 }
 
 .sub-menu .item{
-    padding:10px 15px!important;
+    padding:5px 15px!important;
     cursor: pointer;
     font-size:14px;
 }
@@ -359,7 +359,8 @@ color: #dbe4f0;
     padding:5px 0;
     height:38px;
     width:300px;
-    color: #24296d;
+    color: #white;
+
 }
 .common-input-box textarea{
     padding:5px 0;

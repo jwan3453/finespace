@@ -48,4 +48,9 @@ interface ShoppingCartRepositoryInterface{
     //从数据库中删除整个购物车
     public function deleteCartItems($userId);
 
+    //跟新取货时间
+    public function  updateOrderDateTime( $requst);
+
+    //更新取货门店
+    public function  updateSelectedStore( $request);
 }

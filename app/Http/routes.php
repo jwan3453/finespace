@@ -56,6 +56,10 @@ Route::get('weixin/cart','weixin\cartController@show');// ['middleware' => '','u
 Route::post('weixin/addToCart/', 'weixin\cartController@addToCart');
 Route::any('weixin/getCartCookie', 'weixin\cartController@getCartCookie');
 Route::post('weixin/deleteFromCart',  'weixin\cartController@deleteFromCart');
+Route::post('weixin/updateOrderDateTime',  'weixin\cartController@updateOrderDateTime');
+Route::post('weixin/updateSelectedStore',  'weixin\cartController@updateSelectedStore');
+
+
 
 //手机站结算
 Route::get('weixin/checkout','weixin\checkoutController@checkout');
