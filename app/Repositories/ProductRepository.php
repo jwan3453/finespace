@@ -111,10 +111,13 @@ class ProductRepository implements  ProductRepositoryInterface{
             {
                 $specArray=array();
                 $specInfo = $spec->specInfo()->get()->first();
-                $specArray['content']['name'] =$specInfo->name;
-                $specArray['content']['value'] =$spec->value;
-                $specArray['level'] =$specInfo->spec_level;
-                $specInfos[] = $specArray;
+                if ($specInfo != null) {
+                    $specArray['content']['name'] =$specInfo->name;
+                    $specArray['content']['value'] =$spec->value;
+                    $specArray['level'] =$specInfo->spec_level;
+                    $specInfos[] = $specArray;
+                }
+
             }
             $prod->spec = $specInfos;
 
@@ -530,7 +533,7 @@ class ProductRepository implements  ProductRepositoryInterface{
 
         // $query = ['status'=>1,'category'=>$category];
          // $products = Product::where($query)
-        $products = Product::where($p,$d)->Where($status,$statusD)->Where($categoty,$category_id)->Where($search,$searchData)->paginate($paginate);
+        $products = Product::where($p,$d)->Where($status,$statusD)->Where($categoty,$category_id)->Where($search,'like',"%".$searchData."%")->paginate($paginate);
 
         return $products;
     }

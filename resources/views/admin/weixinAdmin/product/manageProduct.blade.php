@@ -120,10 +120,8 @@
 
                 @endforeach
             </tbody>
-                <th >
-                </th>
-                <th >
-                </th>
+                <th ></th>
+                <th ></th>
                 <th></th>
                 <th></th>
                 <th></th>

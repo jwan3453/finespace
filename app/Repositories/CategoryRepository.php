@@ -2,7 +2,6 @@
 namespace App\Repositories;
 use App\Models\Category;
 
-
 class CategoryRepository implements  CategoryRepositoryInterface{
 
     public function selectAll()
@@ -83,6 +82,12 @@ class CategoryRepository implements  CategoryRepositoryInterface{
         }
     }
 
+    public function getAllCategoryNameInfo()
+    {
+        $list = Category::where('parent_id',0)->select('id','name')->get();
+
+        return $list;
+    }
 
 
 

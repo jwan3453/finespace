@@ -59,6 +59,11 @@
                         <div class="  f-left content">分类管理 </div></a>
                     </div>
 
+                    <div class="item ">
+                        <a href="{{url('/weixin/admin/categorySpec')}}"> <i class="f-left right triangle icon"></i>
+                        <div class="  f-left content">属性管理 </div></a>
+                    </div>
+
 
                 </div>
             </div>

@@ -167,6 +167,14 @@ Route::get('/weixin/admin/category/add','weixin\admin\categoryController@add');
 
 Route::post('/weixin/admin/category/delCategory','weixin\admin\categoryController@del');
 
+Route::get('/weixin/admin/categorySpec','weixin\admin\categoryController@categorySpecList');
+
+Route::post('/weixin/admin/category/getAllCategoryNameInfo','weixin\admin\categoryController@getAllCategoryNameInfo');
+
+Route::post('/weixin/admin/category/updateOraddSpecInfo','weixin\admin\categoryController@updateOraddSpecInfo');
+
+Route::post('/weixin/admin/category/delSpecInfo','weixin\admin\categoryController@delSpecInfo');
+
 
 
 
