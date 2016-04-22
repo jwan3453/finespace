@@ -87,7 +87,13 @@ Route::get('/weixin/order/{orderNo}','weixin\orderController@orderDetail');
 
 
 //后台管理
-Route::get('/weixin/admin','weixin\admin\productController@index');
+Route::get('/weixin/admin','weixin\admin\homeController@index');
+
+Route::post('/weixin/admin/homeController/getChartData','weixin\admin\homeController@getChartData');
+
+Route::get('/weixin/admin/DataFill','weixin\admin\DataFillController@index');
+
+Route::post('/weixin/admin/datafill/getTableStructure','weixin\admin\DataFillController@getTableStructure');
 
 
 //后台商品管理////

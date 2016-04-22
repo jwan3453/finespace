@@ -62,6 +62,55 @@ class UserRepository implements  UserRepositoryInterface
         }
         return $status;
     }
+
+
+    public function TodayUserCount()
+    {
+        $date = date('Y-m-d');
+        // $date = '2016-04-14';
+        $count = User::where('created_at' , 'like' , $date."%")->select('id')->count();
+       
+        return $count;
+    }
+
+    public function SevenDayUser()
+    {
+        $timeNow = time();
+
+        $SevenDayUser = array();
+        for ($i=6; $i > 0; $i--) { 
+            $time = $timeNow;
+            $time = $time - (3600 * 24 * $i);
+
+            $today = date('Y-m-d' , $time);
+
+            $count = User::where('created_at' , 'like' , $today."%")->select('id')->count();
+            
+            $SevenDayUser[$i]['count'] = $count;
+            $SevenDayUser[$i]['date'] = $today;
+        }
+        return $SevenDayUser;
+        // dd($SevenDayUser);
+    }
+
+    public function SevenDay()
+    {
+        $timeNow = time();
+
+        $SevenDay = array();
+        for ($i=6; $i > 0; $i--) { 
+            $time = $timeNow;
+            $time = $time - (3600 * 24 * $i);
+
+            $today = date('Y-m-d' , $time);
+
+            $SevenDay[$i] = $today;
+        }
+        return $SevenDay;
+    }
+
+    
+
 }
 
 
