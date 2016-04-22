@@ -27,7 +27,7 @@
                 今日订单总数
             </div>
             <div class="content">
-                224
+                {{$todayordercount}}
             </div>
         </div>
         <div class="statistic-box blue-27a9e3">
@@ -40,7 +40,7 @@
                 今日新增用户
             </div>
             <div class="content">
-                100
+                {{$todayusercount}}
             </div>
         </div>
         <div class="statistic-box purple-852b99">
@@ -66,7 +66,7 @@
                 总流水
             </div>
             <div class="content">
-                200234+
+                {{$todayincomesum}}
             </div>
         </div>
 
@@ -84,91 +84,112 @@
 
 @section('script')
     <script type="text/javascript">
-        // $(document).ready(function(){
+        $.ajax({
+            type: 'POST',
+            url: '/weixin/admin/homeController/getChartData',
+            data: {},
+            dataType: 'json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            },
+            success: function(data){
+                var date = [];
+                var SevenDayIncome = [];
+                var SevenDayOrder = [];
+                var SevenDayUser = [];
+                for (var i = 0; i < data['SevenDay'].length; i++) {
+                    // console.log(data['SevenDay'][i]);
+                    date.push(data['SevenDay'][i]);
+                }
+                
+                for (var i = 0; i < data['SevenDayIncome'].length; i++) {
+                    // console.log(data['SevenDayIncome'][i].sum);
+                    SevenDayIncome.push(data['SevenDayIncome'][i].sum);
+                }
 
-        //     $('.angle.down').click(function(){
-        //         $(this).siblings('.sub-menu').slideToggle(300);
-        //     })
-        // })
+                for (var i = 0; i < data['SevenDayOrder'].length; i++) {
+                    // console.log(data['SevenDayOrder'][i].count);
+                    SevenDayOrder.push(data['SevenDayOrder'][i].count);
+                }
 
+                for (var i = 0; i < data['SevenDayUser'].length; i++) {
+                    SevenDayUser.push(data['SevenDayUser'][i].count)
+                }
+
+                require(
+                [
+                    'echarts',
+                    'echarts/chart/line',
+                    'echarts/chart/bar'
+                       // 按需加载所需图表，如需动态类型切换功能，别忘了同时加载相应图表
+                ],
+                function (ec) {
+                    var myChart = ec.init(document.getElementById('main'));
+                    var option = {
+                        tooltip : {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            data:['订单','用户','收入']
+                        },
+                        toolbox: {
+                            show : true,
+                            feature : {
+                                mark : {show: true},
+                                dataView : {show: true,    readOnly : false},
+                                magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                                restore : {show: true},
+                                saveAsImage : {show: true}
+                            }
+                        },
+                        calculable : true,
+                        xAxis : [
+                            {
+                                type : 'category',
+                                boundaryGap : false,
+                                data : date
+                            }
+                        ],
+                        yAxis : [
+                            {
+                                type : 'value'
+                            }
+                        ],
+                        series : [
+                            {
+                                name:'订单',
+                                type:'line',
+                                stack: '总量',
+                                data:SevenDayOrder
+                            },
+                            {
+                                name:'用户',
+                                type:'line',
+                                stack: '总量',
+                                data:SevenDayUser
+                            },
+                            {
+                                name:'收入',
+                                type:'line',
+                                stack: '总量',
+                                data:SevenDayIncome
+                            }
+                        ]
+                    };
+                    myChart.setOption(option);
+                }
+            );
+            },
+            error: function(xhr, type){
+                alert('Ajax error!')
+            }
+        });
         require.config({
             paths: {
                 echarts: 'http://echarts.baidu.com/build/dist'
             }
         });
-        require(
-            [
-                'echarts',
-                'echarts/chart/line',   // 按需加载所需图表，如需动态类型切换功能，别忘了同时加载相应图表
-            ],
-            function (ec) {
-                var myChart = ec.init(document.getElementById('main'));
-                var option = {
-                    tooltip : {
-                        trigger: 'axis'
-                    },
-                    legend: {
-                        data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
-                    },
-                    toolbox: {
-                        show : true,
-                        feature : {
-                            mark : {show: true},
-                            dataView : {show: true, readOnly: false},
-                            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
-                            restore : {show: true},
-                            saveAsImage : {show: true}
-                        }
-                    },
-                    calculable : true,
-                    xAxis : [
-                        {
-                            type : 'category',
-                            boundaryGap : false,
-                            data : ['1','2','3','4','5','6','7','8','9','10']
-                        }
-                    ],
-                    yAxis : [
-                        {
-                            type : 'value'
-                        }
-                    ],
-                    series : [
-                        {
-                            name:'邮件营销',
-                            type:'line',
-                            stack: '总量',
-                            data:[120, 132, 101, 134, 90, 230, 210,180,175,140]
-                        },
-                        {
-                            name:'联盟广告',
-                            type:'line',
-                            stack: '总量',
-                            data:[220, 182, 191, 234, 290, 330, 310,274,190,312]
-                        },
-                        {
-                            name:'视频广告',
-                            type:'line',
-                            stack: '总量',
-                            data:[150, 232, 201, 154, 190, 330, 410,222,298,453]
-                        },
-                        {
-                            name:'直接访问',
-                            type:'line',
-                            stack: '总量',
-                            data:[320, 332, 301, 334, 390, 330, 320]
-                        },
-                        {
-                            name:'搜索引擎',
-                            type:'line',
-                            stack: '总量',
-                            data:[820, 932, 901, 934, 1290, 1330, 1320]
-                        }
-                    ]
-                };
-                myChart.setOption(option);
-            }
-        );
+        
 
         
     </script>

@@ -65,7 +65,7 @@
 </div>
 
 <div class="ui modal" id="edit-model"> <i class="close icon" id="close-i"></i>
-<div class="header">编辑/添加 分类</div>
+<div class="header">编辑/添加 属性</div>
 <div  class="image content edit-model-form">
     <div class="ui form">
         <div class="field">
@@ -102,9 +102,9 @@
 </div>
 
 <div class="ui modal" id="delSpec" >
-<div class="header">删除分类</div>
+<div class="header">删除属性</div>
 <div class="content">
-    <p>你确定删除该分类吗？</p>
+    <p>你确定删除该属性吗？</p>
     <input type="hidden" id="specId" value=""></div>
 <div class="actions">
     <div class="ui negative button">取消</div>

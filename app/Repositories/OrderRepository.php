@@ -206,6 +206,63 @@ class OrderRepository implements  OrderRepositoryInterface{
         return $orderDetail;
         
     }
+
+    public function TodayOrderCount()
+    {
+        $date = date('Y-m-d');
+        // $date = '2016-03-17';
+        $count = Order::where('created_at' , 'like' , $date."%")->select('id')->count();
+       
+        return $count;
+    }
+
+    public function SevenDayOrder()
+    {
+        $timeNow = time();
+        
+        $SevenDayOrder = array();
+        for ($i=6; $i > 0; $i--) { 
+            $time = $timeNow;
+            $time = $time - (3600 * 24 * $i);
+
+            $today = date('Y-m-d' , $time);
+
+            $count = Order::where('created_at' , 'like' , $today."%")->select('id')->count();
+            
+            $SevenDayOrder[$i]['count'] = $count;
+            $SevenDayOrder[$i]['date'] = $today;
+        }
+        return $SevenDayOrder;
+        // dd($SevenDayOrder);
+    }
+
+    public function TodayIncomeSum()
+    {
+        // $date = date('Y-m-d');
+        $date = '2016-03-17';
+        $sum = Order::where('created_at' , 'like' , $date."%")->where('pay_status' , 1)->select('id')->sum('total_amount');
+        // dd($sum);
+        return $sum;
+    }
+
+    public function SevenDayIncome($value='')
+    {
+        $timeNow = time();
+        
+        $SevenDayIncome = array();
+        for ($i=6; $i > 0; $i--) { 
+            $time = $timeNow;
+            $time = $time - (3600 * 24 * $i);
+
+            $today = date('Y-m-d' , $time);
+
+            $sum = Order::where('created_at' , 'like' , $today."%")->where('pay_status' , 1)->select('id')->sum('total_amount');
+            
+            $SevenDayIncome[$i]['sum'] = $sum;
+            $SevenDayIncome[$i]['date'] = $today;
+        }
+        return $SevenDayIncome;
+    }
 }
 
 

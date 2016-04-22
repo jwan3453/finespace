@@ -285,13 +285,14 @@ color: #dbe4f0;
     font-weight: 600;
     width: 66.666666%;
     float: right;
+    color: #FFFFFF;
 
 }
 .statistic-box .content{
     font-size:20px;
     padding:10px;
     text-align:right;
-    color: #ff665f;
+    color: #FFFFFF;
     font-weight: 700;
 }
 
