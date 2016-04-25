@@ -99,6 +99,8 @@ Route::get('/weixin/admin/DataFill','weixin\admin\DataFillController@index');
 
 Route::post('/weixin/admin/datafill/getTableStructure','weixin\admin\DataFillController@getTableStructure');
 
+Route::post('/weixin/admin/datafill/submitTableStructure','weixin\admin\DataFillController@submitTableStructure');
+
 
 //后台商品管理////
 Route::get('/weixin/admin/product','weixin\admin\productController@manageProduct');
@@ -130,7 +132,7 @@ Route::post('/weixin/admin/loadSpecs','weixin\admin\productController@loadSpecs'
 Route::post('/weixin/admin/product/changeStatus','weixin\admin\productController@changeStatus');
 
 //搜索产品
-Route::get('/weixin/admin/product/seachProduct','weixin\admin\productController@seachProduct');
+Route::post('/weixin/admin/product/seachProduct','weixin\admin\productController@seachProduct');
 
 
 
@@ -206,3 +208,10 @@ Route::post('/weixin/admin/category/delStore','weixin\admin\storeController@delS
 
 Route::get('/weixin/testMapApi','weixin\storeController@MapApi');
 Route::get('/weixin/getJW','weixin\storeController@getJW');
+
+
+//权限管理
+
+Route::get('/weixin/admin/Permission','weixin\admin\PermissionController@index');
+
+Route::post('weixin/admin/Addpermission','weixin\admin\PermissionController@AddPermission');

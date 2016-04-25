@@ -7,18 +7,21 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Repositories\DataFillRepositoryInterface;
+use App\Repositories\PermissionRepositoryInterface;
 
-use App\Tool\MessageResult;
 
-class DataFillController extends Controller
+
+class PermissionController extends Controller
 {
-    private $datafill;
 
-    function __construct(DataFillRepositoryInterface $datafill)
+    private $permission;
+
+    function __construct(PermissionRepositoryInterface $permission)
     {
-        $this->datafill = $datafill;
+        $this->permission = $permission;
     }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -26,33 +29,12 @@ class DataFillController extends Controller
      */
     public function index()
     {
-        $table = $this->datafill->getTable();
-        // dd($table);
-        return view('admin.weixinAdmin.database.DataFill')->with('table',$table);
+        return view('admin.weixinAdmin.permission.Permission');
     }
 
-    public function getTableStructure(Request $request)
+    public function AddPermission()
     {
-        $table = $request->input('table');
-        // $Structure = new MessageResult;
-        $Structure = $this->datafill->getTableStructure($table);
-        return $Structure;
-    }
-
-    public function submitTableStructure(Request $request)
-    {
-        $df = $this->datafill->DataFill($request->input());
-
-        $jsonResult = new MessageResult();
-        if ($df) {
-            $jsonResult->statusCode=1;
-            $jsonResult->statusMsg= "批量插入成功";
-        }else{
-            $jsonResult->statusCode=0;
-            $jsonResult->statusMsg= "批量插入失败";
-        }
-        // dd($request->input());
-        return response($jsonResult->toJson());
+        $this->permission->testPermission();
     }
 
     /**

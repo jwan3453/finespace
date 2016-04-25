@@ -490,22 +490,19 @@ class ProductRepository implements  ProductRepositoryInterface{
 
     public function searchProduct($searchArr,$paginate = 0)
     {
+        $selectArr = array();
         switch ($searchArr['jxrc']) {
             case '1'://推荐
-                $p = 'is_recommend';
-                $d = '1';
+                $selectArr['is_recommend'] = 1;
                 break;
             case '2'://新品
-                $p = 'is_new';
-                $d = '1';
+                $selectArr['is_new'] = 1;
                 break;
             case '3'://热销
-                $p = 'is_hot';
-                $d = '1';
+                $selectArr['is_hot'] = 1;
                 break;
             case '4'://促销
-                $p = 'is_promote';
-                $d = '1';
+                $selectArr['is_promote'] = 1;
                 break;
             default:
                 $p = 'is_promote';
@@ -517,43 +514,44 @@ class ProductRepository implements  ProductRepositoryInterface{
        
         switch ($searchArr['status']) {
             case '1':
-                $status = 'status';
-                $statusD = '1';
+                $selectArr['status'] = 1;
                 break;
 
             case '2':
-                $status = 'status';
-                $statusD = '0';
+                $selectArr['status'] = 0;
                 break;
             
             default:
-                $status = 'status';
-                $statusD = '';
                 break;
         }
 
-        if ($searchArr['searchData'] == '') {
-            $search = 'name';
-            $searchData = '';
-        }else{
-            $search = 'name';
-            $searchData = $searchArr['searchData'];
+        if ($searchArr['category'] != 0) {
+            $selectArr['category_id'] = $searchArr['category'];
         }
 
-        if ($searchArr['category'] == 0) {
-            $categoty = 'category_id';
-            $category_id = '';
-        }else{
-            $categoty = 'category_id';
-            $category_id = $searchArr['category'];
-        }
 
-        // $query = ['status'=>1,'category'=>$category];
-         // $products = Product::where($query)
-        $products = Product::where($p,$d)->Where($status,$statusD)->Where($categoty,$category_id)->Where($search,'like',"%".$searchData."%")->paginate($paginate);
+        if (count($selectArr) != 0) {
+        
+            $products = Product::where($selectArr)->where('name','like',"%".$searchArr['searchData']."%")->paginate($paginate);
+        }
+        else{
+           
+            $products = Product::paginate(6);
+        }
+        
 
         return $products;
     }
+
+
+    public function getProductCount()
+    {
+        $count = Product::select('id')->get()->count();
+
+        return $count;
+    }
+
+
 }
 
 

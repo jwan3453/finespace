@@ -165,6 +165,23 @@
             <div class="item ">
                 <i class="  f-left linkify icon"></i>
                 <div class="  f-left content">
+                    权限管理
+                </div>
+                <i class="f-right angle down icon"></i>
+                <div class="ui  middle aligned animated list sub-menu ">
+                    <div class="item ">
+                        <a href="/weixin/admin/Permission">
+                            <i class="f-left right triangle icon"></i>
+                            <div class="  f-left content">权限管理</div>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="item ">
+                <i class="  f-left linkify icon"></i>
+                <div class="  f-left content">
                     数据填充
                 </div>
                 <i class="f-right angle down icon"></i>

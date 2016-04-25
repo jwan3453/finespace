@@ -212,16 +212,16 @@ class productController extends Controller
 
     public function seachProduct(Request $request)
     {
-        // dd($request);
+        
         $category = $request->input('category') ? $request->input('category') : '';
         $jxrc = $request->input('jxrc') ? $request->input('jxrc') : '';
         $status = $request->input('status') ? $request->input('status') : '';
         $searchData = $request->input('searchData') ? $request->input('searchData') : '';
 
         $searchArr = array('category'=>$category,'jxrc'=>$jxrc,'status'=>$status,'searchData'=>$searchData);
-
+       
         $products  = $this->product->searchProduct($searchArr,6);
-        // dd($products);
+        
         $cata = $this->category->getCateNameInfo();
         return view('admin.weixinAdmin.product.manageProduct')->with('products',$products)->with('category',$cata);
     }

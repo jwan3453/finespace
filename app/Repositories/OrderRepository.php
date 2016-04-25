@@ -238,8 +238,8 @@ class OrderRepository implements  OrderRepositoryInterface{
 
     public function TodayIncomeSum()
     {
-        // $date = date('Y-m-d');
-        $date = '2016-03-17';
+        $date = date('Y-m-d');
+        // $date = '2016-03-17';
         $sum = Order::where('created_at' , 'like' , $date."%")->where('pay_status' , 1)->select('id')->sum('total_amount');
         // dd($sum);
         return $sum;

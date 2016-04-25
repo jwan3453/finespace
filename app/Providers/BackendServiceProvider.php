@@ -38,5 +38,6 @@ class BackendServiceProvider extends ServiceProvider
         $this->app->bind('App\Repositories\StoreRepositoryInterface', 'App\Repositories\StoreRepository');
         $this->app->bind('App\Repositories\SpecInfoRepositoryInterface','App\Repositories\SpecInfoRepository');
         $this->app->bind('App\Repositories\DataFillRepositoryInterface','App\Repositories\DataFillRepository');
+        $this->app->bind('App\Repositories\PermissionRepositoryInterface','App\Repositories\PermissionRepository');
     }
 }

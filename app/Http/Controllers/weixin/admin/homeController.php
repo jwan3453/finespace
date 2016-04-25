@@ -38,8 +38,9 @@ class homeController extends Controller
         $todayusercount = $this->user->TodayUserCount();
         $todayordercount = $this->order->TodayOrderCount();
         $todayincomesum = $this->order->TodayIncomeSum();
+        $productcount = $this->product->getProductCount();
 
-        return view('admin.weixinAdmin.home')->with('todayusercount',$todayusercount)->with('todayordercount',$todayordercount)->with('todayincomesum',$todayincomesum);
+        return view('admin.weixinAdmin.home')->with('todayusercount',$todayusercount)->with('todayordercount',$todayordercount)->with('todayincomesum',$todayincomesum)->with('productcount',$productcount);
     }
 
     public function getChartData()
@@ -51,7 +52,8 @@ class homeController extends Controller
         $resultjson->SevenDayIncome = $this->order->SevenDayIncome();
 
         // dd($resultjson->toJson());
-        return $resultjson->toJson();
+
+        return response($resultjson->toJson());
     }
 
     /**

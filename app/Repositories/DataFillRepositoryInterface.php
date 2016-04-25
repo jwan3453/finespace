@@ -8,4 +8,8 @@ interface DataFillRepositoryInterface{
 
     public function getTableStructure($table);
 
+    public function random($length,$isNum);
+
+    public function DataFill($request);
+
 }
