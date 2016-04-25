@@ -25,7 +25,7 @@
 
         <div class="product-table">
 
-            <form method="get" action="/weixin/admin/product/seachProduct">
+            <form method="post" action="/weixin/admin/product/seachProduct">
                 <div class="ui icon input search-bar">
 
                     <div class="field">
@@ -57,7 +57,7 @@
                     </div>
 
                     <input type="text" placeholder="请输入..." id="seachData" name="searchData" >                
-                    
+                    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                     <button class="ui circular search link icon button submit-btn" type="submit">
                         <i class="search link icon"></i>
                     </button>

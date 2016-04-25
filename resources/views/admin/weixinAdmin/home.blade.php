@@ -53,7 +53,7 @@
                 产品总数
             </div>
             <div class="content">
-                123
+                {{$productcount}}
             </div>
         </div>
         <div class="statistic-box yellow-ffb848">
@@ -97,24 +97,41 @@
                 var SevenDayIncome = [];
                 var SevenDayOrder = [];
                 var SevenDayUser = [];
-                for (var i = 0; i < data['SevenDay'].length; i++) {
-                    // console.log(data['SevenDay'][i]);
-                    date.push(data['SevenDay'][i]);
-                }
+                console.log(data);
+                // for (var i = 0; i < data['SevenDay'].length; i++) {
+                //     // console.log(data['SevenDay'][i]);
+                //     date.push(data['SevenDay'][i]);
+                // }
+
+                $.each(data.SevenDay, function(i, item){     
+                    date.push(item);
+                });
                 
-                for (var i = 0; i < data['SevenDayIncome'].length; i++) {
-                    // console.log(data['SevenDayIncome'][i].sum);
-                    SevenDayIncome.push(data['SevenDayIncome'][i].sum);
-                }
+                // for (var i = 0; i < data['SevenDayIncome'].length; i++) {
+                //     // console.log(data['SevenDayIncome'][i].sum);
+                //     SevenDayIncome.push(data['SevenDayIncome'][i].sum);
+                // }
 
-                for (var i = 0; i < data['SevenDayOrder'].length; i++) {
-                    // console.log(data['SevenDayOrder'][i].count);
-                    SevenDayOrder.push(data['SevenDayOrder'][i].count);
-                }
+                // for (var i = 0; i < data['SevenDayOrder'].length; i++) {
+                //     // console.log(data['SevenDayOrder'][i].count);
+                //     SevenDayOrder.push(data['SevenDayOrder'][i].count);
+                // }
 
-                for (var i = 0; i < data['SevenDayUser'].length; i++) {
-                    SevenDayUser.push(data['SevenDayUser'][i].count)
-                }
+                // for (var i = 0; i < data['SevenDayUser'].length; i++) {
+                //     SevenDayUser.push(data['SevenDayUser'][i].count)
+                // }
+
+                $.each(data.SevenDayIncome, function(i, item){     
+                    SevenDayIncome.push(item.sum);
+                });
+
+                $.each(data.SevenDayOrder, function(i, item){     
+                    SevenDayOrder.push(item.count);
+                });
+
+                $.each(data.SevenDayUser, function(i, item){     
+                    SevenDayUser.push(item.count);
+                });
 
                 require(
                 [
@@ -126,6 +143,7 @@
                 function (ec) {
                     var myChart = ec.init(document.getElementById('main'));
                     var option = {
+                        backgroundColor: '#FFFFFF',
                         tooltip : {
                             trigger: 'axis'
                         },

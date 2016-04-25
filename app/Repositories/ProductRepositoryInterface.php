@@ -37,6 +37,8 @@ interface ProductRepositoryInterface{
     public function getHotProduct();
     public function getRecomProduct();
     public function getNewProduct();
+
+    public function getProductCount();
 //    public function errors();
 //
 //    public function all(array $related = null);

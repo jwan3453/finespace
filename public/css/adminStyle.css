@@ -638,3 +638,11 @@ color: #dbe4f0;
 }
 
 /*************************/
+
+/*********数据填充**************/
+
+.product-table .form form .fields .field .field-num {
+    width: inherit;
+}
+
+/*********************************/
