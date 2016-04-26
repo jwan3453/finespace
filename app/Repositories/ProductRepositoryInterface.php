@@ -32,6 +32,8 @@ interface ProductRepositoryInterface{
 
     public function getCategoryProduct($category_id);
 
+    public function checkProductLimit($request);
+
     public function changeStatus($productId,$StatusName,$status);
 
     public function getHotProduct();
@@ -39,6 +41,9 @@ interface ProductRepositoryInterface{
     public function getNewProduct();
 
     public function getProductCount();
+    public function getComboProduct();
+
+    public function getSellCategory($type);
 //    public function errors();
 //
 //    public function all(array $related = null);

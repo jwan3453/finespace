@@ -485,7 +485,7 @@ color: #dbe4f0;
 .order-detail-box .header{
 
     text-align: center;
-    color: #ffffff;
+    color: lightgray;
     padding:2px;
     font-weight:500;
     font-size:16px!important;
@@ -497,7 +497,7 @@ color: #dbe4f0;
     padding:5px 0 5px 5px;
     clear:both;
     overflow: hidden;
-    border-bottom: 1px solid #ffffff;
+    border-bottom: 1px solid lightgray;
 }
 .order-line-detail span{
     text-align:right;
@@ -522,7 +522,7 @@ color: #dbe4f0;
 
     overflow:hidden;
     padding: 5px;
-    border: 1px solid #ffffff;
+    border: 1px solid lightgray;
     position: relative;
     margin:2px;
     clear:both;

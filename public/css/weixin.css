@@ -23,16 +23,12 @@ html.ios body {
 
 body{
 
-
     font-family: "Microsoft YaHei" ;
-
-
-
 }
 
-a{
+.black-anchor{
     /*color: #dd8176;*/
-
+    color:black!important;
 }
 
 
@@ -269,10 +265,10 @@ font{
 .blur {
     filter: url(blur.svg#blur); /* FireFox, Chrome, Opera */
 
-    -webkit-filter: blur(1px); /* Chrome, Opera */
-    -moz-filter: blur(1px);
-    -ms-filter: blur(1px);
-    filter: blur(1px);
+    -webkit-filter: blur(2px); /* Chrome, Opera */
+    -moz-filter: blur(2px);
+    -ms-filter: blur(2px);
+    filter: blur(2 px);
 
     filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=10, MakeShadow=false); /* IE6~IE9 */
 
@@ -309,7 +305,7 @@ font{
     width:100%;
     top:0;
     right:0;
-    background: rgba(0, 0, 0, 0.42);
+    background: rgba(111, 111, 111, 0.42);
 
     text-align:center;
     font-weight:500;
@@ -540,6 +536,29 @@ font{
     border: 1px;
 }
 
+
+.product-cate{
+    margin-top:5px;
+}
+
+.product-cate div{
+    width:32%;
+    height:35px;
+    text-align: center;
+    line-height: 35px;
+    color:white;
+    background: #ff5856;
+    margin:0 2px ;
+
+}
+.product-cate .active{
+    background: #249fb9;
+}
+
+.product-sub-cate{
+
+}
+
 .icon-one{
     background: url(../img/icon-1460364405555.png) center no-repeat;
     background-size: cover;
@@ -620,11 +639,13 @@ font{
 }
 
 .sect-header{
-    margin: 5px 0 5px 0 ;
+    margin: 7px 0 7px 0 ;
     clear:both;
+    padding:0 5px;
 }
 .sect-header .icon{
     color:#ff5856;
+    margin-top:-3px;
 }
 
 .hot-products{
@@ -661,22 +682,33 @@ font{
 
 }
 
-.new-products{
+.combo-products{
 
 }
 
-.new-products .item{
+.combo-products .item{
     float:left;
     width:33%;
     text-align: center;
     padding:5px 0;
 }
-.new-products img{
+.combo-products img{
     width:97%;
     border-radius: 10px;
 }
 
+.see-all{
+    width: 100%;
+    display: block;
+    clear: both;
+}
+.see-all span{
+    color:#ff5856;
+}
+.see-all i{
 
+    margin-top:-4px;
+}
 
 .product-name
 {
@@ -706,6 +738,16 @@ font{
 .nav-menu a{
     text-align: center;
 }
+
+.tech-support{
+    text-align: center;
+    color: #d3d3d3;
+}
+.copy-right{
+    width:90%;
+    text-align: center;
+}
+
 .home-footer{
     bottom: 0;
     position: fixed;
@@ -726,18 +768,19 @@ font{
 
 .toaster{
 
-    width:180px;
 
+    width:180px;
     margin-left: auto;
     margin-right:auto;
     background-color: #b53849;
     opacity: 0.9;
     color:white;
     text-align: center;
-    line-height:30px;
+    line-height:40px;
     font-weight: 600;
     z-index: 1001;
     display: none;
+    border-radius: 5px;
 
 }
 /***********/
@@ -747,15 +790,16 @@ font{
 
 .category-header{
     text-align: center;
-    border-bottom: 1px dashed grey;
     width:95%;
     overflow: hidden;
+
 }
 .category-name{
     width:80px;
     height:32px;
     line-height:38px;
     font-weight: 600;
+
 }
 
 .product-text{
@@ -775,8 +819,14 @@ font{
     margin: auto;
 }
 
+#my-divided{
+
+    margin-top:5px!important;
+    margin-bottom:10px!important;
+}
 #my-divided .title-pro{
     margin: auto;
+
 }
 
 
@@ -849,21 +899,30 @@ font{
 
 .specs{
     margin:10px 0 ;
-    padding:5px 0;
+    padding:5px;
     border-top:1px solid lightgray;
 
 }
 .specs div
 {
-    margin:3px 0!important;
+    padding:5px 0!important;
+}
+
+.specs-level2{
+    margin:10px 0;
+
 }
 
 .specs-level2 div
 {
+
+    box-shadow: 0 0 2px rgba(200, 207, 206, 0.57);
     display: block!important;
-    margin: 0 0 0 -5px;!important;
-    color: rgba(89, 81, 79, 0.71) !important;
-    background-color: #eff4f0 !important;
+    margin-top:10px;
+    margin-bottom: 10px;
+    padding:5px;
+    color: rgba(7, 4, 4, 0.71) !important;
+    background-color: #e4e9e5 !important;
 }
 .specs-level2 div i,.specs div i{
     color:#ff5856!important;
@@ -939,6 +998,7 @@ font{
     position: relative;
     margin:2px;
     clear:both;
+    margin-bottom: 10px;
 }
 
 .cart-item img{

@@ -29,7 +29,7 @@ class homeController extends Controller
         $images =  $this->setting->getHomeSlides();
         $hotProducts = $this->product->getHotProduct();
         $recomProducts = $this->product->getRecomProduct();
-        $newProducts = $this->product->getNewProduct();
+        $newProducts = $this->product->getComboProduct();
 
 
         return view('weixin.home')->with('images',$images)->with('hotProducts',$hotProducts)->with('recomProducts',$recomProducts)

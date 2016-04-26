@@ -18,7 +18,7 @@
                 <a class="section">订单详情</a>
             </div>
         </div>
-        <div class="order-detail-box">
+        <div class="order-detail-box" style="background-color: rgba(255, 255, 255, 0.9);border-radius: 10px;">
             <div class="ui horizontal divider header .huge-font">订单详情</div>
             <div class="order-line-detail">
                 订单号：<span class="f-right">{{$orderDetail['order']->order_no}}</span>

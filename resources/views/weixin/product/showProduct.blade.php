@@ -26,8 +26,12 @@
                 @endforeach
             </div>
         </div>
+
+        <input type="hidden" id="limitPerday" value="{{$product->limit_per_day}}">
+
         <div class="prod-spec">
             <div class="giant-font name">{{$product->name}}</div>
+
             <div class=" extra ">
 
                 <div class="product-tag">
@@ -57,6 +61,13 @@
 
             </select>
 
+            <div class="  specs-level2 ">
+                @foreach( $product->spec as $spec)
+                    @if($spec['level'] == 2)
+                        <div class="big-font  "><i class="selected radio icon" ></i>{{$spec['content']['name']}}:{{$spec['content']['value']}}</div>
+                    @endif
+                @endforeach
+            </div>
 
             <div class="specs">
                 @foreach( $product->spec as $spec)
@@ -73,19 +84,15 @@
 
                         </div>
 
-
                     @endif
                 @endforeach
             </div>
 
-            <div class="specs specs-level2 ">
-                @foreach( $product->spec as $spec)
-                    @if($spec['level'] == 2)
-                        <div class="ui big-font  tag label"><i class="selected radio icon" ></i>{{$spec['content']['name']}}:{{$spec['content']['value']}}</div>
-                    @endif
-                @endforeach
-            </div>
 
+
+
+
+            <div class="specs"> {{$product->brief}}</div>
         </div>
 
 
@@ -227,18 +234,72 @@
 
                     @endif
                 }
+
+
+                //是否选择了到店取货时间
                 if($('#deliveryDatetime').val() =='' )
                 {
+
                     _showToaster('请选择取货时间');
                     valid=false;
                 }
                 else
                 {
-                    if($('.select-store option:selected').val()=='')
-                    {
+
+                   var dateTime =new Date($('#deliveryDatetime').val());
+                   var hour = dateTime.getHours();
+                    //取货时间是否在范围内
+                   if( hour < 10 || hour > 22)
+                   {
+                       _showToaster('门店取货时间 10:00-22:00');
+                       valid=false;
+                   }
+                   else if(parseInt($('#limitPerday').val()) > 0)
+                   {
+                       //该商品是否限量(套餐)
+                       //todo 完善 计算限量剩余逻辑
+                       $.ajax({
+                           type: 'POST',
+                           async : false,
+                           url: '/weixin/checkProductLimit',
+                           dataType: 'json',
+                           data:{
+                               productId:'{{$product->id}}',
+                               orderDateTime:$('#deliveryDatetime').val()
+                           },
+                           headers: {
+                               'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                           },
+                           success: function(data)
+                           {
+                               var status  = data.statusCode;
+
+                               if(status ==1 )
+                               {
+                                    if(parseInt(quantity.val()) > parseInt( data.extra))
+                                    {
+                                        _showToaster('当日可定数量只剩'+data.extra+'套');
+                                        valid=false;
+                                    }
+                               }
+                               else{
+                                   alert('失败了');
+                               }
+
+                           },
+                           error: function(xhr, type){
+                               alert('Ajax error!')
+                           }
+
+                       });
+
+                   }
+                   //是否选择了取货门店
+                   else if($('.select-store option:selected').val()=='')
+                   {
                         _showToaster('请选择预约门店');
                         valid=false;
-                    }
+                   }
                 }
                 if(valid == true)
                 {

@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\weixin;
 
-use App\Models\Category;
+use App\Tool\MessageResult;
 use App\Repositories\CategoryRepositoryInterface;
 use App\Repositories\ProductRepositoryInterface;
-use App\Repositories\ImageRepositoryInterface;
+
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Models\Product;
+
 
 class productController extends Controller
 {
@@ -46,6 +46,23 @@ class productController extends Controller
     {
         $product = $this->product->getCategoryProduct($id);
         return view('weixin.product.CateProList')->with('product',$product)->with('id',$id);
+    }
+
+    public function getSellCategory($type)
+    {
+
+        $product = $this->product->getSellCategory($type);
+        return view('weixin.product.sellCateProds')->with('product',$product)->with('type',$type);
+    }
+
+    public function checkProductLimit(Request $request)
+    {
+        $jsonResult = new MessageResult();
+        $result = $this->product->checkProductLimit($request);
+        $jsonResult->statusCode = 1;
+        $jsonResult->extra = $result;
+        return response($jsonResult->toJson());
+
     }
 
 

@@ -48,8 +48,8 @@
 			<div class="txt-length meta">
 				<span class="cinema">{{ $spc->desc }}</span>
 			</div>
-			
-			
+
+
 		</div>
 	</div>
 

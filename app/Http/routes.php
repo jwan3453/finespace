@@ -43,11 +43,13 @@ Route::post('/weixin/member/DelUserHeadImg','weixin\memberController@DelUserHead
 
 //手机站产品分类
 
-Route::get('weixin/category','weixin\productController@toCategory');
+Route::get('weixin/product/sellCategory/{type}','weixin\productController@getSellCategory');
+//Route::get('weixin/category','weixin\productController@toCategory');
 
 //手机站产品中心
 
 Route::get('weixin/product/{productId}','weixin\productController@showProduct');
+Route::post('/weixin/checkProductLimit','weixin\productController@checkProductLimit');
 
 
 

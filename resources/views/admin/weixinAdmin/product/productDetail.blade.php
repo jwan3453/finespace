@@ -35,6 +35,11 @@
             <input class="transparent-input" type="text" name="inventory" id="inventory" value="{{$product->inventory}}"/>
         </div>
         <div class="common-input-box">
+            <label>每日限量:</label>
+            <input class="transparent-input" type="text" name="limitPerDay" id="limitPerDay" value="{{$product->limit_per_day}}"/>
+        </div>
+
+        <div class="common-input-box">
             <label>库存警报:</label>
             <input class="transparent-input" type="text" name="stockAlarm" id="stockAlarm" value="{{$product->inventory}}"/>
         </div>

@@ -1,5 +1,6 @@
 <?php
 namespace App\Repositories;
+use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\Image;
 use App\Models\SpecInfo;
@@ -91,6 +92,8 @@ class ProductRepository implements  ProductRepositoryInterface{
         {
             //获得图片的缩略图
             $images= Image::where('type',1)->where('associateId',$productId)->get();
+
+            //if()
             foreach($images  as $image)
             {
                 $imageLinks[] = $image->link;
@@ -168,6 +171,7 @@ class ProductRepository implements  ProductRepositoryInterface{
         $sku = $request->input('sku');
         $name = $request->input('name');
         $inventory = $request->input('inventory');
+        $limitPerDay = $request->input('limitPerDay');
         $stockAlarm = $request->input('stockAlarm');
         $price = $request->input('price');
         $promotePrice = $request->input('promotePrice');
@@ -223,6 +227,7 @@ class ProductRepository implements  ProductRepositoryInterface{
             'sku'=> $sku,
             'name'=> $name,
             'inventory' =>$inventory,
+            'limit_per_day'=>$limitPerDay,
             'stock_alarm'=> $stockAlarm,
             'price' => $price,
             'promote_price' =>$promotePrice,
@@ -279,6 +284,7 @@ class ProductRepository implements  ProductRepositoryInterface{
 
     }
 
+    //编辑产品属性
     public function editProductSpecs($productId)
     {
 //        $categoryId = 0;
@@ -287,20 +293,38 @@ class ProductRepository implements  ProductRepositoryInterface{
 //            $categoryId = $product->category_id;
 //
 //        $specs = $this->product->loadSpecs($categoryId);
+        $product = Product::where('id',$productId)->first();
+        $specs =  SpecInfo::where('category_id', $product->category_id)->get();
+        foreach($specs as $spec)
+        {
 
-        $productSpecs = ProductSpec::where('product_id',$productId)->select('spec_info_id','value')->get();
+            $productSpec = ProductSpec::where(['product_id'=>$productId,
+                                        'spec_info_id'=>$spec->id])->first();
 
-            //如果有记录 返回属性列表和属性值让用户更新
-            foreach( $productSpecs as $productSpec)
+            if($productSpec!=null)
             {
-                $specInfo = $productSpec->specInfo()->select('id','name')->first();
-                $productSpec->id = $specInfo->id;
-                $productSpec->name = $specInfo->name;
+                $spec->value=$productSpec->value;
             }
+            else
+                $spec->value = '';
+        }
 
-        return $productSpecs;
+
+//        $productSpecs = ProductSpec::where('product_id',$productId)->select('spec_info_id','value')->get();
+//       // dd($productSpecs);
+//            //如果有记录 返回属性列表和属性值让用户更新
+//            foreach( $productSpecs as $productSpec)
+//            {
+//                $specInfo = $productSpec->specInfo()->select('id','name')->first();
+//                $productSpec->id = $specInfo->id;
+//                $productSpec->name = $specInfo->name;
+//            }
+//
+//        dd($productSpecs);
+        return $specs;
     }
 
+    //跟新产品属性
     public function updateProductSpecs($request)
     {
 
@@ -308,20 +332,39 @@ class ProductRepository implements  ProductRepositoryInterface{
         $specs = ProductSpec::where('product_id',$productId)->get();
         $specArray = $request->all();
 
-        foreach($specs as $spec )
-        {
 
-            foreach($specArray as $key=> $specInputValue)
-            {
+
+        $exist = false;
+        foreach($specArray as $key=> $specInputValue)
+        {
+             foreach($specs as $spec )
+             {
                 //如果key 是spec info 的id
-                if(is_numeric($key) && $spec->spec_info_id == (int)$key )
+                if(is_numeric($key)   )
                 {
-                    $spec->value = $specInputValue;
-                    $spec->save();
+                    if($spec->spec_info_id == (int)$key) {
+                        $spec->value = $specInputValue;
+                        $spec->save();
+                        $exist = true;
+                    }
+
+
                 }
             }
 
+            if($exist ==false && is_numeric($key) )
+            {
+
+                $newProductSpec = [
+                    'product_id' =>$productId,
+                    'spec_info_id' =>(int)$key,
+                    'value'=>$specInputValue
+                ];
+                ProductSpec::create($newProductSpec);
+            }
+            $exist = false;
         }
+
     }
 
     public function loadSpecs($categoryId)
@@ -334,6 +377,22 @@ class ProductRepository implements  ProductRepositoryInterface{
         return $specs;
     }
 
+
+    public function checkProductLimit($request)
+    {
+        $productId = $request->input('productId');
+
+        $orderDateTime = $request->input('orderDateTime');
+        $orderDate =  date('y-m-d',strtotime($orderDateTime));
+        $orderDateRange= date('y-m-d',strtotime($orderDateTime.'+1 day'));
+        $totalOrderCount = OrderItem::where('product_id',$productId)
+                                        ->where('order_dateTime','>',$orderDate)
+                                        ->where('order_dateTime','<',$orderDateRange)->sum('count');
+
+        $product =  Product::find($productId);
+        return ($product->limit_per_day)-$totalOrderCount;
+
+    }
 
     //----获取分类下的产品-------
     public function getCategoryProduct($category_id)
@@ -457,6 +516,7 @@ class ProductRepository implements  ProductRepositoryInterface{
                 $product->img = $img_link->link;
             }
         }
+
         return  $products;
     }
 
@@ -475,9 +535,9 @@ class ProductRepository implements  ProductRepositoryInterface{
         return  $products;
     }
 
-    public function getNewProduct()
+    public function getComboProduct()
     {
-        $products = Product::where('is_new',1)->take(3)->get();
+        $products = Product::where('category_id',4)->take(3)->get();
         foreach ($products as $product) {
             $img_link = Image::where('id',$product->thumb)->select('link')->first();
 
@@ -486,6 +546,39 @@ class ProductRepository implements  ProductRepositoryInterface{
             }
         }
         return  $products;
+    }
+
+    public function getSellCategory($type)
+    {
+        $products = null;
+        //精品推荐
+        if($type == 1)
+        {
+            $products = Product::where('is_recommend',1)->get();
+
+        }
+           //热销商品
+        else if($type == 2)
+        {
+            $products = Product::where('is_hot',1)->get();
+        }
+        //套餐组合
+        else if($type == 3)
+        {
+            $products = Product::where('category_id',4)->get();
+        }
+        if($products!=null)
+        {
+            foreach ($products as $product) {
+                $img_link = Image::where('id',$product->thumb)->select('link')->first();
+
+                if ($img_link != null) {
+                    $product->img = $img_link->link;
+                }
+            }
+        }
+
+        return $products;
     }
 
     public function searchProduct($searchArr,$paginate = 0)

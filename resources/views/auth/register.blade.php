@@ -13,6 +13,7 @@
     <div class="ui  container login-box " style=" overflow:hidden;" >
 
         {{--<img  src="../img/bg.jpg" style="width:100%;" class="bg-img">--}}
+        <img  src="../img/login_cover.jpg " class="blur" style="width:100%; height:700px;">
         <form method="POST"  action="{{url('auth/register')}}" id="registerForm">
 
             <div class="reg-box-mask big-font">
@@ -57,7 +58,7 @@
 
                     <div class="ui input reg-input-box">
                         <input class="login-reg-input transparent-input" name="verifySmsCode" id="verifySmsCode" type="text" placeholder=" 验证码">
-                        <div class="long-btn " id="sendVerifySmsCode">
+                        <div class="long-btn blue-btn" id="sendVerifySmsCode">
                             发送验证码
                         </div>
                     </div>

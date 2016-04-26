@@ -19,6 +19,7 @@ class CreateProductTable extends Migration
             $table->string('name',120);
             $table->integer('brand_id');
             $table->integer('inventory');
+            $table->integer('limit_per_day');
             $table->decimal('price',10,2);
             $table->decimal('promote_price',10,2);
             $table->dateTime('promote_start_date');

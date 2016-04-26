@@ -31,8 +31,13 @@
             </div>
         </div>
 
-        <div class="ui grid">
-            <div class="five column row cat_mar">
+        <div class="product-cate">
+            <div class="f-left active">凡悦蛋糕</div>
+            <div class="f-left">凡悦咖啡</div>
+            <div class="f-left">凡悦套餐</div>
+        </div>
+        <div class="ui grid product-sub-cate" >
+            <div class="five column row cat_mar" style="border:1px solid red;">
                 <div class="column cat_border" style="text-align: center;">
                     <a class="ui label a-width " href="/weixin/CateProList/1"><div class="icon-one"></div>
                         <span class="big-font">布丁</span> </a>
@@ -65,7 +70,11 @@
         <!-- 精品推荐-->
         <div class="white-background recommend-sect">
             <div class="sect-header">
-                <h4><i class="heartbeat icon "></i>精品推荐</h4>
+
+                    <h4>精品推荐
+
+                    </h4>
+
             </div>
 
             <div class="recommend-products">
@@ -80,15 +89,22 @@
                             {{--</div>--}}
                         </div>
                 @endforeach
+            </div>
+            <a href="weixin/product/sellCategory/1" class="black-anchor see-all">
+                <div >
+                    <span class="f-right">查看全部<i class="chevron circle right icon large "></i>
+                    </span>
                 </div>
+            </a>
         </div>
 
         <!-- 最热单品-->
         <div class="white-background hot-sect">
             <div class="sect-header">
-                <h4><i class="heartbeat icon "></i>最热单品</h4>
-            </div>
 
+                <h4>最热单品
+                </h4>
+            </div>
             <div class="hot-products">
 
                 @foreach($hotProducts as $hotProduct)
@@ -102,15 +118,25 @@
                     </div>
                 @endforeach
             </div>
+
+            <a href="weixin/product/sellCategory/2" class="black-anchor see-all">
+                <div >
+                    <span class="f-right">查看全部<i class="chevron circle right icon large "></i>
+                    </span>
+                </div>
+            </a>
         </div>
 
         <!-- 新品-->
         <div class="white-background new-sect">
             <div class="sect-header">
-                <h4><i class="heartbeat icon "></i>最近新品</h4>
+
+                    <h4>精品套餐
+                    </h4>
+
             </div>
 
-            <div class="new-products">
+            <div class="combo-products">
                 @foreach($newProducts as $newProduct)
 
                     <div class="item " >
@@ -122,7 +148,12 @@
                     </div>
                 @endforeach
             </div>
-
+            <a href="weixin/product/sellCategory/3" class="black-anchor see-all">
+                <div >
+                    <span class="f-right">查看全部<i class="chevron circle right icon large "></i>
+                    </span>
+                </div>
+            </a>
         </div>
 
 
@@ -221,10 +252,12 @@
         {{--</a>--}}
         {{--</div>--}}
         {{--</div>--}}
-        <hr/>
+
     </div>
 
 
+    <div class="tech-support">技术支持:勤儿行之科技</div>
+    <div class="copy-right auto-margin small-font">Copyright©2012-2016 1Cake.com All Rights Reserved.闽ICP备12025135号-1</div>
 
     {{--<div class="slogan">--}}
     {{--<p class="huge-font">凡之悦 Fine space</p>--}}
@@ -265,7 +298,7 @@
                         loop:true
                     },
                     1000:{
-                        items:3,
+                        items:1,
 
                         loop:false
                     }

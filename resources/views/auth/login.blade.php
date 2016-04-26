@@ -15,7 +15,7 @@
 
     <div class="ui  container login-box" style=" overflow:hidden;" id="homepage">
 
-        <img  src="../img/login_cover.jpg " style="width:100%; height:700px;">
+        <img  src="../img/login_cover.jpg " class="blur" style="width:100%; height:700px;">
 
         <form method="POST" action="{{url('auth/login')}}" onsubmit=" return checkLogin()">
             {!! csrf_field() !!}
@@ -48,7 +48,7 @@
 
                     <div class="ui buttons login-btn-box" >
                         <button type="submit"   class="ui teal button">登录</button>
-                        <a class="or" data-text="<->"></a>
+                        <a class="or" data-text="-"></a>
                         <a class="ui black  basic button" href="/auth/register">注册</a>
                     </div>
                 </div>
