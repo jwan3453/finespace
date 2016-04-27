@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
     class Permission extends EntrustPermission
 {
         protected $table = 'permissions';
+        
 }

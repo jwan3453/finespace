@@ -109,6 +109,11 @@ class UserRepository implements  UserRepositoryInterface
         return $SevenDay;
     }
 
+    // public function findByUP($reque)
+    // {
+    //     # code...
+    // }
+
     
 
 }

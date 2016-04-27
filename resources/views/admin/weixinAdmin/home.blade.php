@@ -86,7 +86,7 @@
     <script type="text/javascript">
         $.ajax({
             type: 'POST',
-            url: '/weixin/admin/homeController/getChartData',
+            url: '/weixin/admin/getChartData',
             data: {},
             dataType: 'json',
             headers: {
