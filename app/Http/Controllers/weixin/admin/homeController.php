@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\weixin\admin;
 
+use Crypt;
+
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -10,6 +12,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\UserRepositoryInterface;
 use App\Repositories\ProductRepositoryInterface;
 use App\Repositories\OrderRepositoryInterface;
+use App\Repositories\UserAdminRepositoryInterface;
 
 use App\Tool\MessageResult;
 
@@ -19,13 +22,24 @@ class homeController extends Controller
     private $order;
     private $product;
     private $user;
+    private $useradmin;
 
 
-    function __construct(UserRepositoryInterface $user , ProductRepositoryInterface $product ,OrderRepositoryInterface $order)
+    function __construct(UserRepositoryInterface $user , ProductRepositoryInterface $product ,OrderRepositoryInterface $order , UserAdminRepositoryInterface $useradmin , Request $request)
     {
         $this->user = $user;
         $this->product = $product;
         $this->order = $order;
+        $this->useradmin = $useradmin;
+
+
+        if (!$request->session()->has('username')) {
+        // dd($request->session()->has('username'));
+
+            
+            return view('admin.weixinAdmin.auth.login');
+
+        }
     }
 
     /**
@@ -54,6 +68,44 @@ class homeController extends Controller
         // dd($resultjson->toJson());
 
         return response($resultjson->toJson());
+    }
+
+    public function loginPage()
+    {
+        return view('admin.weixinAdmin.auth.login');
+    }
+
+    public function Logout(Request $request)
+    {
+        $request->session()->forget('adminusername');
+        $request->session()->forget('adminstatus');
+    }
+
+    public function login(Request $request)
+    {
+        $resultjson = new MessageResult();
+        $adminSuccess = false;
+        $useradmin = $this->useradmin->isAdmin($request->input());
+
+        if ($useradmin) {
+            $adminInfo = $this->useradmin->getAdminInfo($request->input('username'));
+            $request->session()->put('adminusername',$adminInfo->username);
+            $request->session()->put('adminstatus',$adminInfo->status);
+            
+            $adminSuccess = true;
+        }
+
+
+        if ($adminSuccess) {
+            $resultjson->status = 1;
+            $resultjson->Msg = "验证成功！";
+        }else{
+            $resultjson->status = 0;
+            $resultjson->Msg = "验证失败！";
+        }
+
+        return response($resultjson->toJson());
+        
     }
 
     /**

@@ -19,7 +19,7 @@
 
     <div class="product-table">
         
-        <form method="post" action="weixin/admin/Addpermission">
+        <form method="post" action="Addpermission">
             <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
         <input type="submit" value="确定" />
         </form>
@@ -33,6 +33,8 @@
 
 @section('script')
 <script type="text/javascript">
-        
+        // $(function(){
+        //     $("ul[class=sub-menu] > li").eq(0).attr('style',"XXXXX");
+        // })
 </script>
 @stop

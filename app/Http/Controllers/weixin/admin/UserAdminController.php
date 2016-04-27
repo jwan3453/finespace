@@ -6,21 +6,18 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Repositories\UserAdminRepositoryInterface;
 
-use App\Repositories\PermissionRepositoryInterface;
+use App\Tool\MessageResult;
 
-
-
-class PermissionController extends Controller
+class UserAdminController extends Controller
 {
+    private $useradmin;
 
-    private $permission;
-
-    function __construct(PermissionRepositoryInterface $permission)
+    function __construct(UserAdminRepositoryInterface $useradmin)
     {
-        $this->permission = $permission;
+        $this->useradmin = $useradmin;
     }
-
 
     /**
      * Display a listing of the resource.
@@ -29,13 +26,32 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        return view('admin.weixinAdmin.permission.Permission');
+        $list = $this->useradmin->getAllUserAdmin(6);
+        return view('admin.weixinAdmin.useradmin.UserAdmin')->with('list',$list);
     }
 
-    public function AddPermission()
+    public function getRole()
     {
-        
-        $this->permission->testPermission();
+        $roleList = new MessageResult();
+        $roleList = $this->useradmin->getRole();
+        return response($roleList->toJson());
+    }
+
+    public function editOraddUserAdmin(Request $request)
+    {
+        $isEditOrAdd = $this->useradmin->editOradd($request->input());
+
+        $result_msg = $request->input('editOradd') == "add" ? "添加" : "更新";
+        $jsonResult = new MessageResult();
+        if ($isEditOrAdd) {
+            $jsonResult->statusCode=1;
+            $jsonResult->statusMsg= $result_msg . "成功";
+        }else{
+            $jsonResult->statusCode=2;
+            $jsonResult->statusMsg= $result_msg . "失败";
+        }
+
+        return response($jsonResult->toJson());
     }
 
     /**

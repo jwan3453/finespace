@@ -93,9 +93,24 @@ Route::get('/weixin/order/{orderNo}','weixin\orderController@orderDetail');
 
 
 //后台管理
-Route::get('/weixin/admin','weixin\admin\homeController@index');
 
-Route::post('/weixin/admin/homeController/getChartData','weixin\admin\homeController@getChartData');
+Route::group(['prefix' => '/weixin/admin/', 'middleware' => 'App\Http\Middleware\AdminAuthenticate'], function() {
+
+    Route::get('','weixin\admin\homeController@index' );
+
+    Route::get('userAdmin','weixin\admin\UserAdminController@index');
+
+    Route::post('useradmin/getRole','weixin\admin\UserAdminController@getRole');
+
+    Route::post('useradmin/editOraddUserAdmin','weixin\admin\UserAdminController@editOraddUserAdmin');
+});
+
+
+
+
+
+// Route::get('/weixin/admin', ['middleware'=>'App\Http\Middleware\AdminAuthenticate'] ,'weixin\admin\homeController@index');
+Route::post('/weixin/admin/getChartData','weixin\admin\homeController@getChartData');
 
 Route::get('/weixin/admin/DataFill','weixin\admin\DataFillController@index');
 
@@ -217,3 +232,9 @@ Route::get('/weixin/getJW','weixin\storeController@getJW');
 Route::get('/weixin/admin/Permission','weixin\admin\PermissionController@index');
 
 Route::post('weixin/admin/Addpermission','weixin\admin\PermissionController@AddPermission');
+
+Route::get('weixin/admin/login','weixin\admin\homeController@loginPage');
+
+Route::post('/weixin/admin/Sign','weixin\admin\homeController@login');
+
+Route::get('/weixin/admin/logout','weixin\admin\homeController@Logout');

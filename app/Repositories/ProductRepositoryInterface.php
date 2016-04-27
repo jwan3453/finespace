@@ -38,7 +38,7 @@ interface ProductRepositoryInterface{
 
     public function getHotProduct();
     public function getRecomProduct();
-    public function getNewProduct();
+    // public function getNewProduct();
 
     public function getProductCount();
     public function getComboProduct();
