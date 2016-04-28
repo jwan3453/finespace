@@ -51,7 +51,7 @@ class OrderRepository implements  OrderRepositoryInterface{
        return $obj;
     }
 
-    public function update($request)
+    public function updatePaymentMethod($request)
     {
         $where['order_no']= $request->input('orderNo');
         $update['payment_id'] = $request->input('paymentMethod');
@@ -60,6 +60,10 @@ class OrderRepository implements  OrderRepositoryInterface{
         return Order::where($query['where'])->update($query['update']);
     }
 
+    public function cancelOrder($orderNo)
+    {
+        return Order::where('order_no',$orderNo)->update(['status'=> 0] );
+    }
 //    public function save($obj)
 //    {
 //
@@ -113,6 +117,7 @@ class OrderRepository implements  OrderRepositoryInterface{
 
     public function generateOrder( $request)
     {
+
         $payMethod =  $request->input('payMethod');
         $deliveryAddr = $request->input('deliveryAddr');
         $totalPrice = 0.0;
@@ -149,9 +154,11 @@ class OrderRepository implements  OrderRepositoryInterface{
                     'product_id' => $cartValue->product->id,
                     'parent_product_id' => $cartValue->parent_product_id,
                     'count' => $cartValue->count,
-                    'product_detail' => json_encode($cartValue->product)
-
+                    'product_detail' => json_encode($cartValue->product),
+                    'order_dateTime' =>$cartValue->order_dateTime,
+                    'selected_store' => $cartValue->selected_store
                 ];
+
                 OrderItem::create($newOrderItem);
             }
 

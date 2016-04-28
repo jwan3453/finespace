@@ -82,8 +82,8 @@ font{
 .auto-margin{
     margin-left: auto;
     margin-right:auto;
-    margin-top:5px;
-    margin-bottom: 5px;
+    /*margin-top:5px;*/
+    /*margin-bottom: 5px;*/
 }
 
 .white-background{
@@ -539,6 +539,7 @@ font{
 
 .product-cate{
     margin-top:5px;
+    overflow: hidden;
 }
 
 .product-cate div{
@@ -555,8 +556,31 @@ font{
     background: #249fb9;
 }
 
-.product-sub-cate{
 
+
+
+.product-sub-cate{
+    margin:5px;
+    overflow: hidden;
+    display:none;
+}
+.product-sub-cate .column{
+    background: #249fb9;
+    text-align: center;
+    margin:2px 0 ;
+
+    width:19%;
+    margin-left:1px;
+    margin-right:2px;
+}
+.product-sub-cate .column a{
+    height:35px;
+    color:white;
+    width:100%;
+
+    display:block;
+    line-height: 35px;
+    text-align: center;
 }
 
 .icon-one{
@@ -790,16 +814,21 @@ font{
 
 .category-header{
     text-align: center;
-    width:95%;
+    width:98%;
     overflow: hidden;
-
+    margin:5px 0 ;
 }
-.category-name{
-    width:80px;
-    height:32px;
-    line-height:38px;
-    font-weight: 600;
 
+.category-header i{
+    color:#ff5856;
+}
+
+.category-name{
+    font-weight: 600;
+    width: 80px;
+    display:inline-block;
+    height:32px;
+    line-height:32px;
 }
 
 .product-text{
@@ -829,7 +858,11 @@ font{
 
 }
 
-
+.no-products{
+    padding:50px 0 10px 0 ;
+    text-align: center;
+    color:#ff5856;
+}
 /*****************/
 
 /******产品详细****/
@@ -838,7 +871,6 @@ font{
 
 .owl-dots{
     margin-top:0!important;
-
 }
 
 
@@ -1360,8 +1392,26 @@ margin:10px 0 0 0 ;
 
 }
 
+.modify-actions{
+    padding-top:40px;
+}
+
+.modify-actions .inverted{
+    width:80%!important;
+}
+
+
+.cancel-modify{
+
+}
+
 .new-recipient input{
     border-radius: 0!important;
+}
+
+
+.qr-code-image{
+    text-align: center;
 }
 /*******************/
 

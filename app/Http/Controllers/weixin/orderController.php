@@ -5,6 +5,7 @@ namespace App\Http\Controllers\weixin;
 
 use App\Repositories\OrderItemRepositoryInterface;
 use App\Tool\MessageResult;
+use BaconQrCode\Encoder\QrCode;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -13,8 +14,8 @@ use App\Repositories\ShoppingCartRepositoryInterface;
 use App\Repositories\ProductRepositoryInterface;
 use App\Repositories\ImageRepositoryInterface;
 use Auth;
-use Illuminate\Mail\Message;
 
+use SimpleSoftwareIO\QrCode\BaconQrCodeGenerator;
 
 class orderController extends Controller
 {
@@ -41,6 +42,7 @@ class orderController extends Controller
     {
 
         $orderDetail = $this->order->getOrderDetail($orderNo);
+
         return view('weixin.order.orderDetail')->with('orderDetail',$orderDetail);
     }
 
@@ -91,7 +93,7 @@ class orderController extends Controller
     {
 
         $jsonResult = new MessageResult();
-        $jsonResult->statusCode = $this->order->update($request);
+        $jsonResult->statusCode = $this->order->updatePaymentMethod($request);
         //是否更新成功 返回1说明成功
         if($jsonResult->statusCode == 1)
         {
@@ -101,6 +103,14 @@ class orderController extends Controller
             $jsonResult->statusMsg='更新失败';
         }
         return response($jsonResult->toJson());
+    }
+
+    public function cancelOrder(Request $request)
+    {
+
+        $orderNumber = $request->input('orderNo');
+        $this->order->cancelOrder($orderNumber);
+        return redirect('weixin/order/'.$orderNumber);
     }
 }
 

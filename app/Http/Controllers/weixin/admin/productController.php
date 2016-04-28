@@ -171,7 +171,6 @@ class productController extends Controller
         if(count($productSpecs) == 0)
             return redirect('/weixin/admin/product/addProductSpec/'.$productId);
 
-       
         return view('admin.weixinAdmin.product.editProductSpecs')->with('specs',$productSpecs)
                                                                  ->with('productId',$productId);
     }

@@ -5,6 +5,7 @@ use App\Models\ShoppingCart;
 use App\Models\Product;
 use App\Models\Image;
 use App\Models\Store;
+use App\Models\Category;
 use App\Tool\MessageResult;
 use Auth;
 
@@ -145,7 +146,6 @@ class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
 
                 $cartItem = ShoppingCart::create($cartItem);
                 $cartItem->product = Product::find($productId);
-
                 $cartItemsArray[$cartItem->product_id] = $cartItem;
 
             }
@@ -154,19 +154,12 @@ class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
         $cartItemsArray = $this->setCartItemArray($cartItems,$cartItemsArray);
 
         return $cartItemsArray;
-
-
-
     }
 
 
     public function addToCart($request)
     {
         //重cookie 里面获取product id
-
-
-
-
         $cart = $request->cookie('cart');
         $productId = $request->input('productId');
         $orderDateTime= $request->input('orderDateTime');
@@ -178,8 +171,6 @@ class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
         $parentProductId = $request->input('parentProductId');
 
         $cartArray = ($cart!=null ? explode(',', $cart):array());
-
-
         if($request->input('quantity') != null)
         {
             $quantity = (int)$request->input('quantity');
@@ -375,6 +366,8 @@ class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
             //todo 完善child product 功能
             if($cartValue->parent_product_id > 0 )
             {
+
+
                 //id 为2 的是蛋糕餐具
                 if($cartValue->product_id == 2)
                 {
@@ -431,14 +424,13 @@ class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
 
         }
 
-
+        //商品是否为蛋糕
+        $isCake = false;
 
         //获取商品的总额
-
         $totalAmount = 0;
         $totalOrderAmount = 0;
-        foreach($cartItemsArray as $cartItem)
-        {
+        foreach($cartItemsArray as $cartItem) {
             $totalAmount += $cartItem->count * $cartItem->product->price;
 
             //加上蜡烛的总额
@@ -450,6 +442,18 @@ class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
             $cartItem->totalAmount = $totalAmount;
             $totalOrderAmount += $totalAmount;
             $totalAmount = 0;
+
+            //查看商品的种类
+            $category = Category::where('id',$cartItem->product->category_id)->first();
+            if($category!= null)
+            {
+                $cartItem->rootCategory = Category::where('id', $category->parent_id)->first();
+                //如果产品是面包的
+                if($cartItem->rootCategory !=null && $cartItem->rootCategory->name=='蛋糕')
+                {
+                    $isCake = true;
+                }
+            }
         }
 
 
@@ -460,6 +464,40 @@ class ShoppingCartRepository implements  ShoppingCartRepositoryInterface{
             $cartItemsArray['store'] =Store::select('id','name')->get();
         }
 
+        //如果产品中有蛋糕类 那要显示蛋糕的餐具 蜡烛 选项
+        if($isCake == true)
+        {
+            $optionProductList = [];
+            $optionProductList['dinnerWare']= Product::where('name','餐具')->first();
+            $optionProductList['candle'] = Product::where('name','蜡烛')->first();
+
+            foreach ( $optionProductList as $type => $optionProduct)
+            {
+                if($optionProduct->thumb != null)
+                {
+
+                    $optionProduct->thumb =Image::find($optionProduct->thumb)->link;
+                }
+                else{
+
+                    $tmpThumb = Image::where('type',1)->where('associateId',$optionProduct->id)->first();
+                    //todo 改成这种样式
+                    if($tmpThumb !=null)
+                    {
+                        $optionProduct->thumb = $tmpThumb->link;
+                    }
+                }
+                if($type == 'dinnerWare' )
+                {
+                    $cartItemsArray['dinnerImageLink'] = $optionProduct->thumb;
+                }
+                else{
+                    $cartItemsArray['candleImageLink'] = $optionProduct->thumb;
+                }
+            }
+
+
+        }
 
 
         return $cartItemsArray;

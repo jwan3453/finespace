@@ -92,7 +92,7 @@
 
 
 
-            <div class="specs"> {{$product->brief}}</div>
+            <p class="specs"> {{$product->brief}}</p>
         </div>
 
 

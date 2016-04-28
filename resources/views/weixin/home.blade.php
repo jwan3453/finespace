@@ -13,16 +13,7 @@
 
 @section('content')
 
-
-
-
-
-
     <div class="ui  container" style=" overflow:hidden;" id="homepage">
-
-
-
-
         <div >
             <div class="owl-carousel owl-theme">
                 @foreach($images as $img)
@@ -32,36 +23,40 @@
         </div>
 
         <div class="product-cate">
-            <div class="f-left active">凡悦蛋糕</div>
-            <div class="f-left">凡悦咖啡</div>
-            <div class="f-left">凡悦套餐</div>
+            <div class="f-left  cake ">凡悦蛋糕</div>
+            <div class="f-left coffee">凡悦下午茶</div>
+            <div class="f-left combo">凡悦套餐</div>
         </div>
-        <div class="ui grid product-sub-cate" >
-            <div class="five column row cat_mar" style="border:1px solid red;">
-                <div class="column cat_border" style="text-align: center;">
-                    <a class="ui label a-width " href="/weixin/CateProList/1"><div class="icon-one"></div>
-                        <span class="big-font">布丁</span> </a>
-                </div>
-                <div class="column cat_border" style="text-align: center;">
-                    <a class="ui label a-width" href="/weixin/CateProList/2"><div class="icon-two"></div>
-                        <span class="big-font">乳脂</span> </a>
-                </div>
-                <div class="column" style="text-align: center;">
-                    <a class="ui label a-width" href="/weixin/CateProList/3"><div class="icon-three"></div>
-                        <span class="big-font">慕斯</span> </a>
-                </div>
-                <div class="column" style="text-align: center;">
-                    <a class="ui label a-width " href="/weixin/CateProList/4"><div class="icon-four"></div>
-                        <span class="big-font">巧克力</span>  </a>
-                </div>
-                <div class="column" style="text-align: center;">
-                    <a class="ui label a-width" href="/weixin/CateProList/5"><div class="icon-five"></div>
-                        <span class="big-font">芝士</span> </a>
-                </div>
 
+            <div class="product-sub-cate " id="cake">
+                @foreach($categoryList['蛋糕'] as $category)
+                    <div class="column cat_border f-left" >
+                        <a  href="/weixin/CateProList/{{$category->id}}">
+                            <span class="big-font">{{$category->name}}</span>
+                        </a>
+                    </div>
+                @endforeach
             </div>
+
+        <div class="product-sub-cate " id="coffee">
+            @foreach($categoryList['咖啡'] as $category)
+                <div class="column cat_border " >
+                    <a  href="/weixin/CateProList/{{$category->id}}">
+                        <span class="big-font">{{$category->name}}</span>
+                    </a>
+                </div>
+            @endforeach
         </div>
 
+        <div class="product-sub-cate " id="combo">
+            @foreach($categoryList['套餐'] as $category)
+                <div class="column cat_border " >
+                    <a  href="/weixin/CateProList/{{$category->id}}">
+                        <span class="big-font">{{$category->name}}</span>
+                    </a>
+                </div>
+            @endforeach
+        </div>
 
 
 
@@ -257,7 +252,7 @@
 
 
     <div class="tech-support">技术支持:勤儿行之科技</div>
-    <div class="copy-right auto-margin small-font">Copyright©2012-2016 1Cake.com All Rights Reserved.闽ICP备12025135号-1</div>
+    <div class="copy-right auto-margin small-font">Copyright©2012-2016 finespace.com All Rights Reserved.闽ICP备12032325号-1</div>
 
     {{--<div class="slogan">--}}
     {{--<p class="huge-font">凡之悦 Fine space</p>--}}
@@ -305,6 +300,32 @@
                 }
             })
         })
+
+        $(document).ready(function(){
+            $('.product-cate div').click(function(){
+
+                if(!$(this).hasClass('active'))
+                {
+                    $(this).addClass('active');
+                    $(this).siblings('div').removeClass('active');
+                }
+                if($(this).hasClass('cake'))
+                {
+                    $('#cake').slideToggle().siblings('.product-sub-cate').hide();
+                }
+                if($(this).hasClass('coffee'))
+                {
+                    $('#coffee').slideToggle().siblings('.product-sub-cate').hide();
+                }
+                if($(this).hasClass('combo'))
+                {
+                    $('#combo').slideToggle().siblings('.product-sub-cate').hide();
+                }
+
+            })
+
+        })
+
 
     </script>
 @stop

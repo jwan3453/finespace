@@ -25,7 +25,7 @@ interface OrderRepositoryInterface {
 //
 //    public function create(array $data);
 //
-    public function update( $request);
+    public function updatePaymentMethod( $request);
 //
 //    public function delete($id);
 //

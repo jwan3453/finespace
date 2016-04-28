@@ -16,7 +16,8 @@
         "phpunit/phpunit": "~4.0",
         "phpspec/phpspec": "~2.1",
         "zizaco/entrust": "dev-laravel-5",
-        "qiniu/php-sdk": "7.*"
+        "qiniu/php-sdk": "7.*",
+        "simplesoftwareio/simple-qrcode":"1.4.*"
 
     },
     "autoload": {

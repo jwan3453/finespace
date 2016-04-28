@@ -240,7 +240,9 @@
 
 
             $('#submit').click(function (){
-                $.ajax({
+               $status =  checkReset();
+                if($status){
+                    $.ajax({
                     url:"/auth/setPassword",
                     data:$("#resetPasswordForm").serialize(),
                     type:"post",
@@ -259,6 +261,7 @@
                     error: function (xhr, type) {
                     }
                 });
+                }
             });
 
         })

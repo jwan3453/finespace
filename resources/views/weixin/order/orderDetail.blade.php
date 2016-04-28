@@ -74,9 +74,14 @@
                                 </span>
             </div>
 
-            <div class="order-line-detail modify-order" style="text-align: center">
-                <i class="edit icon large circular"></i>
-            </div>
+
+                <div class="order-line-detail modify-order" style="text-align: center">
+                    @if($orderDetail['order']->status != 0)
+                        <i class="payment icon large circular"></i>
+                        <i class="trash icon large circular"></i>
+                    @endif
+
+                </div>
 
 
             @foreach($orderDetail['orderItems'] as $orderItem)
@@ -88,6 +93,25 @@
                             ￥<span class="unit-price">{{$orderItem->product->price}} x {{$orderItem->count}}</span>
 
                         </div>
+
+                        <div class="order-date-time ui left icon  fluid input ">
+                            <i class=" calendar icon "></i> <input type="text" disabled class="order-datetime"  id="orderDatetime_{{$orderItem->product->id}}" placeholder="预定时间" value="取货时间: {{$orderItem->order_dateTime}}"/>
+                        </div>
+
+                        <select class="ui fluid dropdown select-store " disabled>
+
+                            <option value="">选择取货门店</option>
+                            @foreach($orderDetail['orderItems']['store']  as $store)
+                                @if($store->id === $orderItem->selected_store)
+                                    <option value="{{$store->id}}" selected>{{$store->name}}</option>
+                                @else
+                                    <option value="{{$store->id}}" >{{$store->name}}</option>
+                                @endif
+                            @endforeach
+
+                        </select>
+
+
                         @if($orderItem['2']['count']>0)
                             <div class="sub-product">
                                 餐具(￥5) x  {{$orderItem['2']['count']}}
@@ -110,6 +134,14 @@
             @endforeach
             {{--<div class="order-total-amount huge-font" >订单总额:￥{{ sprintf("%.2f", $orderDetail['orderItems']['totalOrderAmount'])}}</div>--}}
         </div>
+
+
+
+        <div class="qr-code-image">
+            {!!  \SimpleSoftwareIO\QrCode\Facades\QrCode::size(250)->generate(url('weixin/order/'.$orderDetail['order']->order_no)); !!}
+            <p>扫描二维码获取订单详情</p>
+        </div>
+
         <div class="pos-spacing ">
         </div>
         <div class="check-out-box stick-btom">
@@ -120,27 +152,27 @@
 
     <div class="ui page dimmer modify-order-box">
 
+        {{--<div  class=" modify-actions ">--}}
 
-        <h3>修改订单</h3>
-        <div  class=" modify-actions ">
+            {{--<div class="three fluid ui inverted buttons">--}}
+                {{--@if($orderDetail['order']->shipping_id != 1)--}}
 
-            <div class="three fluid ui inverted buttons">
-                @if($orderDetail['order']->shipping_id != 1)
+                {{--<div class="ui red basic inverted button modify-recipient">--}}
+                    {{--联系人--}}
+                {{--</div>--}}
+                {{--<div class="ui green basic inverted button modify-addr">--}}
 
-                <div class="ui red basic inverted button modify-recipient">
-                    联系人
-                </div>
-                <div class="ui green basic inverted button modify-addr">
+                    {{--地址--}}
+                {{--</div>--}}
+                {{--@endif--}}
+                {{--<div class="ui red basic inverted button modify-pay">--}}
 
-                    地址
-                </div>
-                @endif
-                <div class="ui red basic inverted button modify-pay">
+                    {{--修改支付方--}}
+                {{--</div>--}}
 
-                    支付方式
-                </div>
-            </div>
-        </div>
+            {{--</div>--}}
+
+        {{--</div>--}}
 
 
         <div class="new-recipient animate-panel">
@@ -188,6 +220,7 @@
             </div>
 
         <div class="new-pay-options animate-panel  ">
+            <h3>修改支付方式</h3>
             <div class=" vertical fluid ui  inverted buttons">
                 <div class="ui red basic inverted button new-pay-method ">
                     1 支付宝
@@ -202,15 +235,44 @@
                     4 货到付款
                 </div>
             </div>
-
-        </div>
-
-        <div class="choose-btns">
-            <div class="ui  inverted basic  button  auto-margin cancel-modify" style="margin-top:20px"  >
-                <i class="remove icon"></i>取消
+            <br/>
+            <div class="regular-btn red-btn auto-margin cancel-modify">
+                取消
             </div>
-
         </div>
+
+
+        {{--<div class="choose-btns">--}}
+            {{--<div class="ui  inverted basic  button  auto-margin cancel-modify" style="margin-top:20px"  >--}}
+                {{--<i class="remove icon"></i>取消--}}
+            {{--</div>--}}
+
+        {{--</div>--}}
+
+
+
+
+        <div class="change-order-status animate-panel">
+
+
+            <form action="/weixin/cancelOrder" method="post">
+                {{ csrf_field() }}
+                <input type="hidden" name="orderNo" value="{{$orderDetail['order']->order_no}}">
+
+
+            <h3>是否确定取消订单</h3>
+
+            <div class="ui buttons dimmer-btn big-font  "  >
+                <div class="regular-btn blue-btn cancel-modify"  >取消</div>
+                <a class="or" data-text="-"></a>
+                <button class="regular-btn red-btn  confirm-delete-order" style="border:0;">
+                    确定
+                </button>
+            </div>
+            </form>
+        </div>
+
+
 
     </div>
 
@@ -224,66 +286,84 @@
             $('.new-pay-options').hide();
             $('.new-recipient').hide();
             $('.choose-btns').hide();
-            $('.modify-order').click(function(){
+            $('.change-order-status').hide();
+            $('.payment').click(function(){
+
+                $('.new-pay-options ').siblings('div').hide();
+                $('.new-pay-options ').show();
 
                 $('.ui.page.dimmer')
                         .dimmer('show')
                 ;
             })
-            $('.modify-pay').click(function(){
-                $('.modify-actions').transition(
-                        {
-                            animation:'fly left',
-                            duration:100,
-                            onComplete: function () {
-                                $('.new-pay-options,.choose-btns').transition('fly right')
-                            }
-                        });
 
-            })
-            $('.modify-addr').click(function(){
-                $('.modify-actions').transition(
-                        {
-                            animation:'fly left',
-                            duration:100,
-                            onComplete: function () {
-                                $('.new-delivery-addr,.choose-btns').transition('fly right')
-                            }
-                        });
-            })
+            $('.trash').click(function(){
 
+                $('.change-order-status').siblings('div').hide();
+                $('.change-order-status').show();
 
-            $('.modify-recipient').click(function(){
-                $('.modify-actions').transition(
-                        {
-                            animation:'fly left',
-                            duration:100,
-                            onComplete: function () {
-                                $('.new-recipient,.choose-btns').transition('fly right')
-                            }
-                        });
+                $('.ui.page.dimmer')
+                        .dimmer('show')
+                ;
             })
+//
+//            $('.modify-pay').click(function(){
+//                $('.modify-actions').transition(
+//                        {
+//                            animation:'fly left',
+//                            duration:100,
+//                            onComplete: function () {
+//                                $('.new-pay-options,.choose-btns').transition('fly right')
+//                            }
+//                        });
+//
+//            })
+//            $('.modify-addr').click(function(){
+//                $('.modify-actions').transition(
+//                        {
+//                            animation:'fly left',
+//                            duration:100,
+//                            onComplete: function () {
+//                                $('.new-delivery-addr,.choose-btns').transition('fly right')
+//                            }
+//                        });
+//            })
+//
+//
+//            $('.modify-recipient').click(function(){
+//                $('.modify-actions').transition(
+//                        {
+//                            animation:'fly left',
+//                            duration:100,
+//                            onComplete: function () {
+//                                $('.new-recipient,.choose-btns').transition('fly right')
+//                            }
+//                        });
+//            })
 
             $('.cancel-modify').click(function(){
-                var visibleObj;// = obj;
-                $(this).parent().siblings('.animate-panel').each(function(){
-                  if($(this).css('display') !== 'none')
-                  {
-                      visibleObj = $(this);
-                  }
-
-                });
-
-
-                $('.choose-btns').transition(
-                        {
-                            animation:'fly left',
-                            duration:100,
-                            onComplete: function () {
-                                $('.modify-actions').transition('fly right')
-                            }
-                        });
-                visibleObj.transition('fly left');
+//                var visibleObj;// = obj;
+//                $(this).parent().siblings('.animate-panel').each(function(){
+//                  if($(this).css('display') !== 'none')
+//                  {
+//                      visibleObj = $(this);
+//                  }
+//
+//                });
+//
+//
+//                $('.choose-btns').transition(
+//                        {
+//                            animation:'fly left',
+//                            duration:100,
+//                            onComplete: function () {
+//                                $('.modify-actions').transition('fly right')
+//                            }
+//                        });
+//                visibleObj.transition('fly left');
+                $('.ui.page.dimmer')
+                        .dimmer('hide')
+                ;
             })
             $('.new-pay-method').click(function(){
                 var payIndex= $(this).index();
@@ -327,6 +407,10 @@
                     }
 
                 });
+
+            })
+
+            $('.confirm-delete-order').click(function(){
 
             })
         })

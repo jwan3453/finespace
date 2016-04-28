@@ -43,7 +43,7 @@
                 </select>
 
                 <div class="opt-qty-btns">
-                    @if(auth::check() && $cartItem->product->category_id == 1)
+                    @if(auth::check() && !is_null($cartItem->rootCategory) && $cartItem->rootCategory->name =='蛋糕')
                     <div class="opt-btn">
                         选项配置<i class="arrow circle down icon"></i>
                     </div>
@@ -61,7 +61,7 @@
 
                         <input type="hidden" value="2"/>
 
-                        <div class="opt-header">
+                        <div class="opt-header dinnerWare" >
                             餐具
                             <span class="f-right"><i class="pointing right icon"></i>长啥样？</span>
                         </div>
@@ -83,7 +83,7 @@
                     <div class="opt-product">
 
                         <input type="hidden" value="3"/>
-                        <div class="opt-header">
+                        <div class="opt-header candle">
                            蜡烛
                             <span class="f-right"><i class="pointing right icon"></i>长啥样？</span>
                         </div>
@@ -146,13 +146,19 @@
             <a  class="confirm-btn f-right" href="/weixin/checkout/"><div>小二 · 买单</div></a>
         </div>
         @endif
-        <div class="ui page dimmer dinnerBoxDimmer">
-            <div class="  dimmer-box" >
-                <h3>餐具</h3>
 
-                <img src="/img/cake_ware.jpg">
+        @if(isset($cartItemList['dinnerImageLink']))
+
+            <div class="ui page dimmer option-BoxDimmer">
+                <div class="  dimmer-box" >
+                    <h3>餐具</h3>
+
+                    <img id="optionImg" src="{{$cartItemList['dinnerImageLink']}}">
+                </div>
             </div>
-        </div>
+
+
+        @endif
     </div>
 
     <div class="ui page dimmer confirmDimmer">
@@ -271,11 +277,22 @@
 
             })
 
-            $('.opt-header').click(function(){
-                $('.dinnerBoxDimmer')
+            $('.dinnerWare, .candle').click(function(){
+
+
+                if($(this).hasClass('dinnerWare'))
+                {
+
+                    $('#optionImg').attr('src','{{$cartItemList['dinnerImageLink'] or ''}}');
+                }
+                else if($(this).hasClass('candle'))
+                {
+
+                    $('#optionImg').attr('src','{{$cartItemList['candleImageLink']  or ''}}');
+                }
+                $('.option-BoxDimmer')
                         .dimmer('show',{closable:'false'})
                 ;
-
             })
 
             $('.plus').click(function(){

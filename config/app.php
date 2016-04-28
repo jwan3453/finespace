@@ -137,6 +137,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+
         /*
          * Application Service Providers...
          */
@@ -146,6 +147,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\BackendServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
         // Barryvdh\Debugbar\ServiceProvider::class
     ],
 
@@ -196,6 +198,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
         'Entrust'    => Zizaco\Entrust\EntrustFacade::class,
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
         // 'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],

@@ -30,9 +30,10 @@ class homeController extends Controller
         $hotProducts = $this->product->getHotProduct();
         $recomProducts = $this->product->getRecomProduct();
         $newProducts = $this->product->getComboProduct();
+        $categoryList = $this->product->getCategoryList();
 
 
-        return view('weixin.home')->with('images',$images)->with('hotProducts',$hotProducts)->with('recomProducts',$recomProducts)
+        return view('weixin.home')->with('images',$images)->with('categoryList',$categoryList)->with('hotProducts',$hotProducts)->with('recomProducts',$recomProducts)
                                   ->with('newProducts',$newProducts);
     }
 }

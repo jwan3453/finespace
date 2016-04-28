@@ -4,7 +4,7 @@
 
 
     <div class="category-header auto-margin">
-        <div style="width:120px;" class="auto-margin">
+
             @if($type == 1)
                 <div class="category-name  huge-font">精品推荐</div>
             @elseif($type == 2)
@@ -12,7 +12,8 @@
             @elseif($type == 3)
                 <div class="category-name  huge-font">精品套餐</div>
             @endif
-        </div>
+                <i class="angle double left icon big f-left go-back" onclick="history.back('-1')"></i>
+
     </div>
 
 

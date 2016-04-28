@@ -6,9 +6,7 @@ use App\Models\Image;
 use App\Models\SpecInfo;
 use App\Models\ProductSpec;
 use App\Models\Store;
-
-use App\Tool\MessageResult;
-
+use App\Models\Category;
 
 class ProductRepository implements  ProductRepositoryInterface{
 
@@ -397,9 +395,10 @@ class ProductRepository implements  ProductRepositoryInterface{
     //----获取分类下的产品-------
     public function getCategoryProduct($category_id)
     {
-        $products = Product::where(['category_id'=>$category_id,'status'=>1])->get();
+        $products['product'] = Product::where(['category_id'=>$category_id,'status'=>1])->get();
+        $products['category'] = Category::find($category_id);
 
-        foreach ($products as $product) {
+        foreach ($products['product'] as $product) {
 
             //--获取产品图片---
             $img_link = Image::where('id',$product->thumb)->select('link')->first();
@@ -644,6 +643,16 @@ class ProductRepository implements  ProductRepositoryInterface{
         return $count;
     }
 
+    public function getCategoryList()
+    {
+        $categoryList = [];
+        $rootCategories = Category::where('parent_id', 0)->get();
+        foreach($rootCategories as $rootCategory)
+        {
+            $categoryList[$rootCategory->name]=  Category::where('parent_id', $rootCategory->id)->get();
+        }
+        return $categoryList;
+    }
 
 }
 

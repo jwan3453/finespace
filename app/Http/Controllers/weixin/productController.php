@@ -28,12 +28,11 @@ class productController extends Controller
     public function showProduct($id)
     {
         $prodDetail = $this->product->getProductDetail($id);
-
         if($prodDetail != null)
         {
             return view('weixin.product.showProduct')->with('product',$prodDetail);
         }
-        return '商品不存在';
+        return  view('errors.itemNotFound')->with('message','商品没找找到');
     }
 
     public function toCategory()
@@ -45,7 +44,7 @@ class productController extends Controller
     public function CateProList($id)
     {
         $product = $this->product->getCategoryProduct($id);
-        return view('weixin.product.CateProList')->with('product',$product)->with('id',$id);
+        return view('weixin.product.CateProList')->with('product',$product['product'])->with('category',$product['category']);
     }
 
     public function getSellCategory($type)

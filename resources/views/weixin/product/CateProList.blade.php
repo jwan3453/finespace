@@ -4,26 +4,26 @@
 
 
   	<div class="category-header auto-margin">
-		<div style="width:120px;" class="auto-margin">
-		@if($id == 1)
-			<div class="icon-one f-left"></div>
-			<div class="category-name f-left huge-font">布丁蛋糕</div>
-		@elseif($id == 2)
-			<div class="icon-two"></div>乳脂蛋糕
-		@elseif($id == 3)
-			<div class="icon-three"></div>穆斯蛋糕
-		@elseif($id == 4)
-			<div class="icon-four"></div>巧克力蛋糕
-		@elseif($id == 5)
-			<div class="icon-five"></div>
-			芝士蛋糕
-		@endif
-		</div>
+			@if(!count($product) == 0)
+			<div class="category-name auto-margin  huge-font">{{$category->name}}</div>
+				@else
+
+				@endif
+			<i class="angle double left icon big f-left go-back" onclick="history.back('-1')"></i>
   	</div>
 
 
 <div id="my-divided" class="ui divided items">
 	<!-- <a class="item active title-pro "> 布丁 </a> -->
+
+
+	@if(count($product)==0)
+		<div class="no-products huge-font">
+			没有找到相关商品
+		</div>
+		<a href="/"><div class="regular-btn red-btn auto-margin">带我回首页</div></a>
+	@endif
+
 
 	@foreach($product as $spc)
 
@@ -56,4 +56,12 @@
 	@endforeach
 	
 </div>
+@stop
+
+@section('scripts')
+	<script type="text/javascript">
+		$(document).ready(function(){
+
+		})
+	</script>
 @stop

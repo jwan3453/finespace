@@ -82,13 +82,13 @@ Route::post('/authCheck/CheckMobile','Auth\AuthController@clientCheckMobile');
 
 //订单
 Route::post('/weixin/updatePaymentMethod','weixin\orderController@updatePaymentMethod');
+Route::post('/weixin/cancelOrder','weixin\orderController@cancelOrder');
 Route::post('/weixin/generateOrder', 'weixin\orderController@generateOrder');
 
 Route::get('/weixin/order/all','weixin\orderController@getAllOrder');
 Route::get('/weixin/order/all/{status}','weixin\orderController@getAllOrder');
 
 Route::get('/weixin/order/{orderNo}','weixin\orderController@orderDetail');
-
 
 
 
