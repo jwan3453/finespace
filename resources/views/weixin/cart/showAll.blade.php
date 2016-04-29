@@ -16,6 +16,7 @@
             @if(isset($cartItem->product))
             <div class="cart-item">
                 <input class="hidden-id" type="hidden" value="{{$cartItem->product_id}}">
+                <input class="hidden-limit-per-day" type="hidden" value="{{$cartItem->product->limit_per_day}}">
                 <img class="f-left" src ='{{$cartItem->product->thumb}}'>
                 <div class="name ">{{$cartItem->product->name}}   </div>
                 <div class="type">
@@ -26,12 +27,24 @@
                 <i class=" remove big  icon red delete-item "></i>
 
                 <div class="order-date-time ui left icon  fluid input ">
-                    <i class=" calendar icon "></i> <input type="text" class="order-datetime"  id="orderDatetime_{{$cartItem->product->id}}" placeholder="预定时间" value="取货时间: {{$cartItem->order_dateTime}}"/>
+                    <i class=" calendar icon "></i>
+
+
+                    @if($cartItem->rootCategory !=null && $cartItem->rootCategory->name =='蛋糕')
+                        <input type="text" class="order-datetime"  id="orderDatetime_{{$cartItem->product->id}}" placeholder="取货时间" value="取货时间: {{$cartItem->order_dateTime}}"/>
+                    @else
+                        <input type="text" class="order-datetime"  id="orderDatetime_{{$cartItem->product->id}}" placeholder="用餐时间" value="用餐时间: {{$cartItem->order_dateTime}}"/>
+                    @endif
+
                 </div>
 
                 <select class="ui fluid dropdown select-store ">
 
-                    <option value="">选择取货门店</option>
+                    @if($cartItem->rootCategory !=null && $cartItem->rootCategory->name =='蛋糕')
+                        选择取货门店
+                    @else
+                        选择就餐门店
+                    @endif
                     @foreach($cartItemList['store']  as $store)
                         @if($store->id === $cartItem->selected_store)
                             <option value="{{$store->id}}" selected>{{$store->name}}</option>
@@ -43,7 +56,7 @@
                 </select>
 
                 <div class="opt-qty-btns">
-                    @if(auth::check() && !is_null($cartItem->rootCategory) && $cartItem->rootCategory->name =='蛋糕')
+                    @if(auth::check() && $cartItem->rootCategory !=null && $cartItem->rootCategory->name =='蛋糕')
                     <div class="opt-btn">
                         选项配置<i class="arrow circle down icon"></i>
                     </div>
@@ -133,7 +146,7 @@
                    您的购物车空空如也
                 </div>
 
-                 <a href="/weixin"><div class="regular-btn auto-margin">去购物<i class="chevron circle  right icon big "></i></div></a>
+                 <a href="/weixin"><div class="regular-btn red-btn auto-margin">去购物<i class="chevron circle  right icon big "></i></div></a>
              </div>
         @endif
 
@@ -203,8 +216,6 @@
             $(' .select-store').dropdown({
                 onChange: function(value, text, $selectedItem) {
                     //$('#selectBrand').val(value);
-
-
 
                     //更改就餐或取货门店
                     $.ajax({
@@ -314,34 +325,90 @@
             });
 
 
+
             $('.order-datetime').change(function(){
-                $.ajax({
-                    type: 'POST',
-                    async : false,
-                    url: '/weixin/updateOrderDateTime',
-                    dataType: 'json',
-                    data:{productId:$(this).parent().siblings('.hidden-id').val(), newOrderDateTime:$(this).val()},
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                    },
-                    success: function(data)
-                    {
-                        var status  = data.statusCode;
-                        if(status ==1 )
+
+                var valid = true;
+                var dateTime =new Date($(this).val().replace(/-/g,   "/"));
+                var hour = dateTime.getHours();
+                //取货时间是否在范围内
+                if( hour < 10 || hour > 22)
+                {
+                    $(this).val('');
+                    _showToaster('门店营业时间 10:00-22:00');
+                    valid=false;
+                    return;
+                }
+                else if(parseInt($(this).parent().siblings('.hidden-limit-per-day').val()) > 0)
+                {
+                    //该商品是否限量(套餐)
+                    //todo 完善 计算限量剩余逻辑
+                    $.ajax({
+                        type: 'POST',
+                        async : false,
+                        url: '/weixin/checkProductLimit',
+                        dataType: 'json',
+                        data:{
+                            productId:parseInt($(this).parent().siblings('.hidden-id').val()),
+                            orderDateTime:$(this).val()
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                        },
+                        success: function(data)
                         {
-                            //时间跟新成功
-                        }
-                        else{
-                            //时间跟新失败
-                            _showToaster(data.statusMsg);
+                            var status  = data.statusCode;
+
+                            if(status ==1 )
+                            {
+                                if(parseInt($(this).parent().find('.quantity').val()) > parseInt( data.extra))
+                                {
+                                    _showToaster('当日可定数量只剩'+data.extra+'套');
+                                    $(this).val('');
+                                    valid=false;
+                                    return;
+                                }
+                            }
+                            else{
+                                alert('失败了');
+                            }
+                        },
+                        error: function(xhr, type){
+                            alert('Ajax error!')
                         }
 
-                    },
-                    error: function(xhr, type){
-                        alert('Ajax error!')
-                    }
+                    });
+                }
 
-                });
+                if(valid == true)
+                {
+                    $.ajax({
+                        type: 'POST',
+
+                        url: '/weixin/updateOrderDateTime',
+                        dataType: 'json',
+                        data:{productId:$(this).parent().siblings('.hidden-id').val(), newOrderDateTime:$(this).val()},
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                        },
+                        success: function(data)
+                        {
+                            var status  = data.statusCode;
+                            if(status ==1 )
+                            {
+                                //时间跟新成功
+                            }
+                            else{
+                                //时间跟新失败
+                                _showToaster(data.statusMsg);
+                            }
+
+                        },
+                        error: function(xhr, type){
+                            alert('Ajax error!')
+                        }
+                    });
+                }
             })
 
             function addToCart(addItem,_subProductId)

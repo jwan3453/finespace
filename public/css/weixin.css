@@ -391,9 +391,7 @@ font{
 /*****会员中心******/
 
 .member-box{
-
-
-
+ border:1px solid #43536D;
 }
 
 .member-info-box{
@@ -544,9 +542,9 @@ font{
 
 .product-cate div{
     width:32%;
-    height:35px;
+    height:40px;
     text-align: center;
-    line-height: 35px;
+    line-height: 40px;
     color:white;
     background: #ff5856;
     margin:0 2px ;
@@ -891,6 +889,8 @@ font{
 .order-date-time{
     clear:both;
     padding-top:5px;
+    overflow: hidden;
+
 
 }
  .order-date-time input{

@@ -50,11 +50,23 @@
             <div class="price giant-font">￥<span id="unitPrice">{{$product->price}}</span></div>
 
             <div class="order-date-time ui left icon  fluid input huge-font">
-                <i class=" calendar icon "></i> <input type="text" class="" id="deliveryDatetime" placeholder="预定时间" />
+                <i class=" calendar icon "></i>
+                @if($product->rootCategory!=null && $product->rootCategory->name == '蛋糕')
+                    <input type="text" class="" id="deliveryDatetime" placeholder="取货时间" />
+                @else
+                    <input type="text" class="" id="deliveryDatetime" placeholder="用餐时间" />
+                @endif
             </div>
 
             <select class="ui fluid dropdown select-store huge-font">
-                <option value="">选择取货门店</option>
+                <option value="">
+
+                    @if($product->rootCategory!=null && $product->rootCategory->name == '蛋糕')
+                        选择取货门店
+                    @else
+                        选择就餐门店
+                    @endif
+                </option>
                 @foreach($product->store  as $store)
                     <option value="{{$store->id}}">{{$store->name}}</option>
                 @endforeach
@@ -239,19 +251,18 @@
                 //是否选择了到店取货时间
                 if($('#deliveryDatetime').val() =='' )
                 {
-
                     _showToaster('请选择取货时间');
                     valid=false;
                 }
                 else
                 {
 
-                   var dateTime =new Date($('#deliveryDatetime').val());
+                   var dateTime =new Date($('#deliveryDatetime').val().replace(/-/g,   "/"));
                    var hour = dateTime.getHours();
                     //取货时间是否在范围内
                    if( hour < 10 || hour > 22)
                    {
-                       _showToaster('门店取货时间 10:00-22:00');
+                       _showToaster('门店营业时间 10:00-22:00');
                        valid=false;
                    }
                    else if(parseInt($('#limitPerday').val()) > 0)
@@ -295,7 +306,8 @@
 
                    }
                    //是否选择了取货门店
-                   else if($('.select-store option:selected').val()=='')
+
+                   if($.trim($('.select-store option:selected').val())=='')
                    {
                         _showToaster('请选择预约门店');
                         valid=false;

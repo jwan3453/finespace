@@ -140,6 +140,15 @@ class ProductRepository implements  ProductRepositoryInterface{
             //获取门店信息
             $prod->store = Store::select('id','name')->get();
 
+
+
+            //查看商品的种类
+            $category = Category::where('id', $prod->category_id)->first();
+            if($category!= null)
+            {
+                $prod->rootCategory = Category::where('id', $category->parent_id)->first();
+            }
+
            return $prod;
         }
         else
