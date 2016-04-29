@@ -29,33 +29,39 @@
         </div>
 
             <div class="product-sub-cate " id="cake">
-                @foreach($categoryList['蛋糕'] as $category)
-                    <div class="column cat_border f-left" >
+                @if(isset($categoryList['蛋糕']))
+                    @foreach($categoryList['蛋糕'] as $category)
+                        <div class="column cat_border f-left" >
+                            <a  href="/weixin/CateProList/{{$category->id}}">
+                                <span class="big-font">{{$category->name}}</span>
+                            </a>
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+
+        <div class="product-sub-cate " id="coffee">
+            @if(isset($categoryList['咖啡']))
+                @foreach($categoryList['咖啡'] as $category)
+                    <div class="column cat_border " >
                         <a  href="/weixin/CateProList/{{$category->id}}">
                             <span class="big-font">{{$category->name}}</span>
                         </a>
                     </div>
                 @endforeach
-            </div>
-
-        <div class="product-sub-cate " id="coffee">
-            @foreach($categoryList['咖啡'] as $category)
-                <div class="column cat_border " >
-                    <a  href="/weixin/CateProList/{{$category->id}}">
-                        <span class="big-font">{{$category->name}}</span>
-                    </a>
-                </div>
-            @endforeach
+            @endif
         </div>
 
         <div class="product-sub-cate " id="combo">
-            @foreach($categoryList['套餐'] as $category)
-                <div class="column cat_border " >
-                    <a  href="/weixin/CateProList/{{$category->id}}">
-                        <span class="big-font">{{$category->name}}</span>
-                    </a>
-                </div>
-            @endforeach
+            @if(isset($categoryList['套餐']))
+                @foreach($categoryList['套餐'] as $category)
+                    <div class="column cat_border " >
+                        <a  href="/weixin/CateProList/{{$category->id}}">
+                            <span class="big-font">{{$category->name}}</span>
+                        </a>
+                    </div>
+                @endforeach
+            @endif
         </div>
 
 
