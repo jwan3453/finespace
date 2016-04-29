@@ -89,6 +89,13 @@
                         </a>
                     </div>
 
+                    <div class="item ">
+                        <a href="{{url('/weixin/admin/order/StockingPage')}}">
+                            <i class="f-left right triangle icon"></i>
+                            <div class="  f-left content">订单备货 </div>
+                        </a>
+                    </div>
+
                 </div>
             </div>
             <div class="item ">
@@ -108,6 +115,8 @@
                         <i class="f-left right triangle icon"></i>
                         <div class="  f-left  content">今日订单</div>
                     </div>
+
+                    
 
                 </div>
             </div>

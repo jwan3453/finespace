@@ -103,6 +103,8 @@ Route::group(['prefix' => '/weixin/admin/', 'middleware' => 'App\Http\Middleware
     Route::post('useradmin/getRole','weixin\admin\UserAdminController@getRole');
 
     Route::post('useradmin/editOraddUserAdmin','weixin\admin\UserAdminController@editOraddUserAdmin');
+
+    Route::get('order/StockingPage','weixin\admin\orderController@StockingPage');
 });
 
 

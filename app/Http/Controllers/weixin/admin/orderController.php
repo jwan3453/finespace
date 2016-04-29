@@ -104,4 +104,9 @@ class orderController extends Controller
     {
         dd($request->input('searchData'));
     }
+
+    public function StockingPage()
+    {
+        return view('admin.weixinAdmin.order.StockingPage');
+    }
 }
