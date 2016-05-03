@@ -578,6 +578,15 @@ color: #dbe4f0;
 }
 
 
+.search-bar .from{
+    width: 150px;
+}
+
+.search-bar .to{
+    width: 150px;
+}
+
+
 /*****************/
 
 /****后台用户页面*****/

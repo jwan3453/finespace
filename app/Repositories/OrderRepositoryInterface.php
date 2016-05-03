@@ -40,4 +40,6 @@ interface OrderRepositoryInterface {
 
     public function seachOrder($seachData,$paginate);
 
+    public function StockingOrder();
+
 }

@@ -4,7 +4,9 @@
 
 
 @section('resources')
+    <link rel="stylesheet" type="text/css" href= {{ asset('css/jquery-ui.min.css') }}>
 
+    <script src={{ asset('js/jquery-ui.min.js') }}></script>
 @stop
 
 @section('content')
@@ -26,9 +28,13 @@
         <div class="order-table">
             <form method="get" action="/weixin/admin/order/seachOrder">
                 <div class="ui icon input search-bar">
+                    从<input type="text" class="from" id="from" name="from" placeholder="起始时间">
+                    到<input type="text" class="to" id="to" name="to" placeholder="结束时间">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="text" placeholder="请输入单号..." id="seachData" name="seachData" value="{{$seachData}}">
                     <!-- <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> -->
                     <button class="ui circular search link icon button submit-btn" type="submit">
+                    <!-- <i class="chevron circle left icon"></i> -->
                         <i class="search link icon"></i>
                     </button>
                 </div>
@@ -54,16 +60,37 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function(){
+            $( "#from" ).datepicker({
+                dateFormat: 'yy-mm-dd',
+                showButtonPanel:true,
+                changeMonth: true,
+                numberOfMonths: 1,
 
+                onClose: function( selectedDate ) {
+                    $( "#to" ).datepicker( "option", "minDate", selectedDate );
+                  }
+                });
+            $( "#to" ).datepicker({
+                dateFormat: 'yy-mm-dd',
+                showButtonPanel:true,
+                changeMonth: true,
+                numberOfMonths:1,
+                onClose: function( selectedDate ) {
+                    $( "#from" ).datepicker( "option", "maxDate", selectedDate );
+                }
+            });
+
+            $.datepicker.formatDate('dd-mm-yy');
 
         })
 
         $("#ToSeach").click(function(){
 
-
-
-
             var seachData = $("#seachData").val();
+            var formdate = $("#from").val();
+            var todate = $("#to").val();
+
+
             $.ajax({
                 type: 'POST',
                 url: '/weixin/admin/order/seachOrder',

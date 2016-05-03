@@ -87,7 +87,8 @@ class orderController extends Controller
     public function seachOrder(Request $request)
     {
        // dd($request);
-        $orders = $this->order->seachOrder($request->input('seachData'),5);
+        // dd($request->input());
+        $orders = $this->order->seachOrder($request->input(),5);
 
         $totalAmount = 0;
         foreach($orders as $order)
@@ -107,6 +108,8 @@ class orderController extends Controller
 
     public function StockingPage()
     {
-        return view('admin.weixinAdmin.order.StockingPage');
+        $orders = $this->order->StockingOrder();
+
+        return view('admin.weixinAdmin.order.StockingPage')->with('orders',$orders);
     }
 }

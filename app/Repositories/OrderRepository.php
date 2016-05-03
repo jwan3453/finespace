@@ -6,6 +6,8 @@ use App\Models\Product;
 use App\Models\Image;
 use App\Models\ShoppingCart;
 
+use Illuminate\Support\Collection;
+
 use Auth;
 
 class OrderRepository implements  OrderRepositoryInterface{
@@ -205,9 +207,19 @@ class OrderRepository implements  OrderRepositoryInterface{
     public function seachOrder($seachData,$paginate)
     {
         if (!empty($paginate)) {
-            $orderDetail = Order::where('order_no' , 'like' , "%".$seachData."%")->paginate($paginate);
+            if ($seachData['from'] != '' && $seachData['to'] != '') {
+                $orderDetail = Order::where('order_no' , 'like' , "%".$seachData['seachData']."%")->whereBetween('created_at',array($seachData['from'],$seachData['to']))->paginate($paginate);
+            }else{
+                $orderDetail = Order::where('order_no' , 'like' , "%".$seachData['seachData']."%")->paginate($paginate);
+            }
+            
         }else{
-            $orderDetail = Order::where('order_no' , 'like' , "%".$seachData."%")->get();
+            if ($seachData['from'] != '' && $seachData['to'] != '') {
+                $orderDetail = Order::where('order_no' , 'like' , "%".$seachData['seachData']."%")->whereBetween('created_at',array($seachData['from'],$seachData['to']))->get();
+            }else{
+                $orderDetail = Order::where('order_no' , 'like' , "%".$seachData['seachData']."%")->get();
+            }
+            
         }
         
         return $orderDetail;
@@ -269,6 +281,33 @@ class OrderRepository implements  OrderRepositoryInterface{
             $SevenDayIncome[$i]['date'] = $today;
         }
         return $SevenDayIncome;
+    }
+
+
+    public function StockingOrder()
+    {
+        $date = date('Y-m-d');
+        //获取日期大于等于今天的orderitem、并且以order_dateTime排序
+        $orderitems = OrderItem::where('order_dateTime' , '>=' , $date)->orderBy('order_dateTime','asc')->get();
+        //对结果以order_id进行groubu以实现间接去除重复
+        $item = $orderitems->groupBy('order_id');
+        
+        $order = new Collection();
+       
+        foreach ($item as $key => $v) {
+            //获取订单详情
+            $orderInfo = Order::where('id',$key)->where('pay_status',1)->first();
+
+            if ($orderInfo != '') {
+                //返回的订单详情信息中插入order_dateTime
+                $orderInfo->order_dateTime = $v[0]->order_dateTime;
+               
+                $order->push($orderInfo);
+            }
+          
+        }
+        return $order;
+        
     }
 }
 
