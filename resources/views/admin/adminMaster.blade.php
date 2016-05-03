@@ -103,6 +103,13 @@
                         </a>
                     </div>
 
+                    <div class="item ">
+                        <a href="{{url('/weixin/admin/Statement')}}">
+                            <i class="f-left right triangle icon"></i>
+                            <div class="  f-left content">店员结单 </div>
+                        </a>
+                    </div>
+
                 </div>
             </div>
             <div class="item ">

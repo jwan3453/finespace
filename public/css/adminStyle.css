@@ -602,6 +602,21 @@ color: #dbe4f0;
     width: 150px;
 }
 
+.statement-table table tr .form-title{
+    font-size: 18px;
+    text-align: center;
+}
+
+.statement-table table tr .form-width{
+    width: 20%;
+    text-align: center;
+}
+
+.order-table .search-bar{
+    margin-bottom: 15px;
+}
+
+
 /*****************/
 
 /****后台用户页面*****/

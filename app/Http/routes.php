@@ -105,6 +105,10 @@ Route::group(['prefix' => '/weixin/admin/', 'middleware' => 'App\Http\Middleware
     Route::post('useradmin/editOraddUserAdmin','weixin\admin\UserAdminController@editOraddUserAdmin');
 
     Route::get('order/StockingPage','weixin\admin\orderController@StockingPage');
+
+    Route::get('Statement','weixin\admin\orderController@Statement');
+
+    Route::post('order/seachStatementData','weixin\admin\orderController@seachStatementData');
 });
 
 

@@ -86,8 +86,7 @@ class orderController extends Controller
 
     public function seachOrder(Request $request)
     {
-       // dd($request);
-        // dd($request->input());
+       
         $orders = $this->order->seachOrder($request->input(),5);
 
         $totalAmount = 0;
@@ -112,4 +111,31 @@ class orderController extends Controller
 
         return view('admin.weixinAdmin.order.StockingPage')->with('orders',$orders);
     }
+
+    public function Statement()
+    {
+        return view('admin.weixinAdmin.order.Statement');
+    }
+
+
+
+    public function seachStatementData(Request $request)
+    {
+        $seachData = $request->input('seachData');
+
+        $orderData = $this->order->seachStatementData($seachData);
+
+        $jsonResult = new MessageResult();
+        if ($orderData) {
+            $jsonResult=$orderData;
+        }else{
+            $jsonResult->statusCode = 1;
+            $jsonResult->statusMsg = "找不到该订单";
+        }
+
+        return response($jsonResult->toJson());
+        dd($orderData);
+    }
+
+
 }
