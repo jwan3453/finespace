@@ -29,7 +29,9 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        return view('admin.weixinAdmin.permission.Permission');
+        $Permission = $this->permission->getAllPermissions();
+        // dd($Permission);
+        return view('admin.weixinAdmin.permission.Permission')->with('Permission',$Permission);
     }
 
     public function AddPermission()

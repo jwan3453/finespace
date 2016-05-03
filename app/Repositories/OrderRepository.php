@@ -5,6 +5,8 @@ use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\Image;
 use App\Models\ShoppingCart;
+use App\User;
+use App\Models\Store;
 
 use Illuminate\Support\Collection;
 
@@ -308,6 +310,99 @@ class OrderRepository implements  OrderRepositoryInterface{
         }
         return $order;
         
+    }
+
+    public function seachStatementData($order_no)
+    {
+        $orderDetail = Order::where('order_no' , $order_no)->first();
+
+        if ($orderDetail) {
+            //获取order_items
+            $orderDetail->orderItems = OrderItem::where('order_id',$orderDetail->id)->select('product_detail','statement_status','selected_store')->get();
+
+            foreach ($orderDetail->orderItems as $v) {
+
+                if ($v->selected_store != 0) {
+                    $v->Store_name = Store::where('id',$v->selected_store)->select('name')->first()->name;
+                }else{
+                    $v->Store_name = "未知门店";
+                }
+
+                switch ($v->statement_status) {
+                    case '0':
+                        $v->statement_name = "未消费";
+                        break;
+                    case '1':
+                        $v->statement_name = "已消费";
+                        break;
+                    default:
+                        $v->statement_name = "未知状态";
+                        break;
+                }
+            }
+
+            //获取用户信息
+            $orderDetail->userData = User::where('id',$orderDetail->user_id)->select('name','mobile')->first();
+
+
+            switch ($orderDetail->payment_id) {
+                case '0':
+                    $orderDetail->payment_name = "未知";
+                    break;
+
+                case '1':
+                    $orderDetail->payment_name = "微信";
+                    break;
+
+                case '2':
+                    $orderDetail->payment_name = "支付宝";
+                    break;
+
+                case '3':
+                    $orderDetail->payment_name = "余额支付";
+                    break;
+
+                case '4':
+                    $orderDetail->payment_name = "上门自提";
+                    break;
+                
+            }
+
+            switch ($orderDetail->pay_status) {
+                case '0':
+                    $orderDetail->pay_name = "未支付";
+                    break;
+
+                case '1':
+                    $orderDetail->pay_name = "已支付";
+                    break;
+                
+                default:
+                    $orderDetail->pay_name = "未知";
+                    break;
+            }
+
+            switch ($orderDetail->status) {
+                case '0':
+                    $orderDetail->status_name = "已取消";
+                    break;
+
+                case '1':
+                    $orderDetail->status_name = "已确认";
+                    break;
+                
+                default:
+                    $orderDetail->status_name = "未知状态";
+                    break;
+            }
+
+
+        }else{
+            $orderDetail = false;
+        }
+        
+        return $orderDetail;
+
     }
 }
 

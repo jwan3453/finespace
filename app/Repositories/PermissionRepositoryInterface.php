@@ -6,4 +6,6 @@ interface PermissionRepositoryInterface{
 
     public function testPermission();
 
+    public function getAllPermissions();
+
 }

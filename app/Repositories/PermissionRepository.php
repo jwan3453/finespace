@@ -2,6 +2,7 @@
 namespace App\Repositories;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Models\PermissionRole;
 
 use App\User;
 
@@ -41,6 +42,16 @@ class PermissionRepository implements  PermissionRepositoryInterface{
 
         // 或者使用 Eloquent 自带的对象关系赋值
         $user->roles()->attach( 1 ); // id only
+   }
+
+
+   public function getAllPermissions()
+   {
+        $Permission_Roles = PermissionRole::all();
+
+        // dd($Permission_Roles);
+
+       return Permission::all();
    }
 
 }

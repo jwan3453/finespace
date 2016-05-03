@@ -28,8 +28,9 @@
         <div class="order-table">
             <form method="get" action="/weixin/admin/order/seachOrder">
                 <div class="ui icon input search-bar">
-                    从<input type="text" class="from" id="from" name="from" placeholder="起始时间">
-                    到<input type="text" class="to" id="to" name="to" placeholder="结束时间">
+                    <input type="text" class="from" id="from" name="from" placeholder="起始时间">
+                    &nbsp;&nbsp;&nbsp;
+                    <input type="text" class="to" id="to" name="to" placeholder="结束时间">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <input type="text" placeholder="请输入单号..." id="seachData" name="seachData" value="{{$seachData}}">
                     <!-- <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> -->

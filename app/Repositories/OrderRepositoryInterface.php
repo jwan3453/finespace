@@ -42,4 +42,6 @@ interface OrderRepositoryInterface {
 
     public function StockingOrder();
 
+    public function seachStatementData($order_no);
+
 }
