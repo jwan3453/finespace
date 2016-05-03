@@ -120,18 +120,13 @@
 
                 @endforeach
             </tbody>
-                <th ></th>
-                <th ></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th colspan="3" style="padding:2px;">
+
+                <th colspan="10" style="padding:2px;">
                     <div>
                         {!! $products->render() !!}
                     </div>
                 </th>
-                <th></th>
+
         </table>
             <div class="table-content">
 

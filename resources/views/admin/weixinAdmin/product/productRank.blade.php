@@ -15,7 +15,7 @@
 
         <div class="breadcrumb-nav">
             <div class="ui  large breadcrumb">
-                <a class="section">主页</a>
+                <a class="section" href="{{url('/weixin/admin')}}">主页</a>
                 <i class="right angle icon divider"></i>
                 <a class="section">产品管理</a>
             </div>
@@ -64,13 +64,60 @@
                 {{--</div>--}}
             {{--</form>--}}
 
+
+
+            <form method="post" action="/weixin/admin/product/rank">
+                <input type="hidden" name="_token" value="{{csrf_token()}}">
+                <div class="ui icon input search-bar">
+
+
+                    <div class="field">
+
+                        <select class="ui fluid dropdown" name="orderBy">
+                            <option value="0">排序</option>
+                            @if($orderBy!=null && $orderBy ==1 )
+                                <option value="1" selected>销量最好</option>
+                                <option value="2">销量最差</option>
+                            @elseif  ($orderBy!=null && $orderBy ==2 )
+                                <option value="1" >销量最好</option>
+                                <option value="2" selected>销量最差</option>
+                            @else
+                                <option value="1">销量最好</option>
+                                <option value="2">销量最差</option>
+                            @endif
+                        </select>
+                    </div>
+                    <div class="field">
+
+                        <select class="ui fluid dropdown" name="category">
+                            <option value="0">分类</option>
+                            @foreach($categories as $category)
+                                @if($category->parent_id!=0)
+                                    @if($categorySelected != null && $categorySelected == $category->id)
+                                        <option value="{{$category->id}}" selected>{{$category->name}}</option>
+                                    @else
+                                        <option value="{{$category->id}}" >{{$category->name}}</option>
+                                     @endif
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <button class="ui circular search link icon button submit-btn" type="submit">
+                        <i class="search link icon"></i>
+                    </button>
+                </div>
+            </form>
+
+
+
             <table class="ui primary striped selectable table ">
                 <thead>
                 <tr>
                     <th>商品ID</th>
                     <th>名称</th>
                     <th>库存</th>
-                    <th>价格</th>
+
                     <th>状态</th>
                     <th>新品</th>
                     <th>热销</th>
@@ -80,11 +127,15 @@
                 </tr>
                 </thead>
                 <tbody>
+                @if(count($products)==0)
+                   <tr> <td>没有找到商品</td></tr>
+                @endif
+
                 @foreach($products as $product)
                     <tr>
                         <td>{{$product->id}}</td>
                         <td>{{$product->name}}</td>
-                        <td>{{$product->inventory}}</td>
+
                         <td>{{$product->price}}</td>
                         <td>{{$product->status}}</td>
 
@@ -114,19 +165,15 @@
                     </tr>
 
                 @endforeach
+
                 </tbody>
-                <th ></th>
-                <th ></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
+
                 <th colspan="3" style="padding:2px;">
                     <div>
                         {!! $products->render() !!}
                     </div>
                 </th>
-                <th></th>
+
             </table>
             <div class="table-content">
 

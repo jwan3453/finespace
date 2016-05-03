@@ -50,7 +50,7 @@ interface ProductRepositoryInterface{
     public function getCategoryList();
 
     //获取产品排名
-    public function productRank();
+    public function productRank($rank,$category);
 //    public function errors();
 //
 //    public function all(array $related = null);

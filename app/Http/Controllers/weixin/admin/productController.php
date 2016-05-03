@@ -228,9 +228,12 @@ class productController extends Controller
 
 
     //获取商品排名
-    public function productRank()
+    public function productRank(Request $request)
     {
-        $products = $this->product->productRank();
-        return view('admin.weixinAdmin.product.productRank')->with('products', $products);
+        $orderBy = $request->input('orderBy');
+        $categorySelected = $request->input('category');
+        $products = $this->product->productRank($orderBy,$categorySelected);
+        $categories = $this->category->getAllCategoryInfo();
+        return view('admin.weixinAdmin.product.productRank')->with('products', $products)->with('categories',$categories)->with('categorySelected',$categorySelected)->with('orderBy',$orderBy);
     }
 }

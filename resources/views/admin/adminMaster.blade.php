@@ -22,7 +22,7 @@
 
 
 <div class="screen-bg ">
-    <img src="../../img/admin_bg.jpg">
+    <img src="/img/admin_bg.jpg">
 </div>
 
 <div class="screen-mask">
@@ -30,6 +30,19 @@
 
 
 <div class="stick-top">
+    <a href="/weixin/admin" class="auto-margin">
+    <div class="admin-logo">
+        <img src ='/img/finespace.png'>
+    </div>
+    </a>
+
+    <div class="admin-header-option f-right">
+        <a href="/weixin/admin/logout">
+            <i class="mail outline icon big"></i>
+            <span class="order-alert">12</span>
+        </a>
+        <a href="/weixin/admin/logout">退出登录 </a>
+    </div>
 </div>
 
 <div class="pos-spacing">

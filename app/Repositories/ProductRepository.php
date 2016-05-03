@@ -665,7 +665,7 @@ class ProductRepository implements  ProductRepositoryInterface{
     }
 
 
-    public function productRank($orderBy = '')
+    public function productRank($orderBy, $category)
     {
 //        $products = OrderItem::where();
 //
@@ -680,12 +680,27 @@ class ProductRepository implements  ProductRepositoryInterface{
 //            ->whereNull('orders.customer_id')
 //            ->first();
 
+        if($orderBy != null)
+        {
+            if($orderBy == 2)
+                $orderBy = 'asc';
+            else
+                $orderBy = 'desc';
+        }
+
+
         $products = OrderItem::Join('orders','order_item.order_id','=','orders.id')
                              ->join('product','order_item.product_id','=','product.id')
-                              ->where('orders.pay_status',0)
-                              ->groupBy('order_item.product_id')
+                              ->where('orders.pay_status',0);
+
+        if($category !=null && $category != 0)
+        {
+            $products = $products->where('product.category_id', $category);
+        }
+
+        $products = $products->groupBy('order_item.product_id')
                               ->selectRaw('product.*,sum(order_item.count) as totalSale')
-                              ->orderByRaw('sum(order_item.count) desc')->paginate(10);
+                              ->orderByRaw('sum(order_item.count) '.$orderBy)->paginate(10);
 
         return $products;
     }

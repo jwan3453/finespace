@@ -25,15 +25,15 @@
 
         <div class="order-table">
 
-            <div class="ui icon input search-bar">
-                <input type="text" placeholder="请输入单号...">
-                <i class="circular search link icon"></i>
-            </div>
+            {{--<div class="ui icon input search-bar">--}}
+                {{--<input type="text" placeholder="请输入单号...">--}}
+                {{--<i class="circular search link icon"></i>--}}
+            {{--</div>--}}
 
             @if(count($orders)>0)
                 @include('admin.weixinAdmin.order.orderTable')
             @else
-                <p>没找到今天的单子哦！</p>
+                <p class="no-item-found huge-font">没找到今天的单子哦！</p>
             @endif
 
             {{--<div class="table-content">--}}
