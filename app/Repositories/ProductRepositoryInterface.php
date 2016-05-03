@@ -48,6 +48,9 @@ interface ProductRepositoryInterface{
     public function getSellCategory($type);
 
     public function getCategoryList();
+
+    //获取产品排名
+    public function productRank();
 //    public function errors();
 //
 //    public function all(array $related = null);

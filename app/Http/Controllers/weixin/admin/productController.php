@@ -226,4 +226,11 @@ class productController extends Controller
         return view('admin.weixinAdmin.product.manageProduct')->with('products',$products)->with('category',$cata);
     }
 
+
+    //获取商品排名
+    public function productRank()
+    {
+        $products = $this->product->productRank();
+        return view('admin.weixinAdmin.product.productRank')->with('products', $products);
+    }
 }

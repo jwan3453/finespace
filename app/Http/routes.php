@@ -123,6 +123,9 @@ Route::post('/weixin/admin/datafill/submitTableStructure','weixin\admin\DataFill
 
 //后台商品管理////
 Route::get('/weixin/admin/product','weixin\admin\productController@manageProduct');
+Route::get('/weixin/admin/product/rank','weixin\admin\productController@productRank');
+
+
 
 //添加新的商品
 Route::get('/weixin/admin/product/add','weixin\admin\productController@newProduct');

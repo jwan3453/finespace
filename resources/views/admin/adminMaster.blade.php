@@ -17,12 +17,14 @@
     @yield('resources')
 </head>
 
-<body style="background-color: rgba(129, 13, 119, 0.75)"   >
+<body  >
 
 
 
-<div class="screen-bg blur">
+<div class="screen-bg ">
+    <img src="../../img/admin_bg.jpg">
 </div>
+
 <div class="screen-mask">
 </div>
 
@@ -45,6 +47,11 @@
                     <div class="item ">
                         <a href="{{url('/weixin/admin/product')}}"> <i class="f-left right triangle icon"></i>
                         <div class="  f-left content">商品管理 </div></a>
+                    </div>
+
+                    <div class="item ">
+                        <a href="{{url('/weixin/admin/product/rank')}}"> <i class="f-left right triangle icon"></i>
+                            <div class="  f-left content">商品销售排名 </div></a>
                     </div>
 
 
