@@ -20,7 +20,7 @@ Route::post('auth/login','Auth\AuthController@postLogin');
 
 Route::get('auth/register','Auth\AuthController@getRegister');
 
-Route::post('auth/register','Auth\AuthController@postRegister');
+Route::post('auth/register','Auth\AuthController@Register');
 
 Route::get('auth/logout','Auth\AuthController@getLogout');
 
@@ -113,8 +113,9 @@ Route::group(['prefix' => '/weixin/admin/', 'middleware' => 'App\Http\Middleware
     Route::post('order/check_Real_One','weixin\admin\orderController@check_Real_One');
 
     Route::post('order/check_All_Real','weixin\admin\orderController@check_All_Real');
-
+    
     Route::get('order/seachUser','weixin\admin\userController@seachUser');
+
 });
 
 
@@ -182,6 +183,8 @@ Route::post('/weixin/setImageCover','Service\CommonController@setImageCover');
 ///后台订单管理//////
 Route::any('/weixin/admin/order','weixin\admin\orderController@manageOrder');
 Route::get('/weixin/admin/order/today','weixin\admin\orderController@todayOrder');
+Route::post('/weixin/getOrderNotification','weixin\admin\orderController@getOrderNotification');
+
 
 
 //Route::post('/weixin/admin/order/seachOrder','weixin\admin\orderController@seachOrder');

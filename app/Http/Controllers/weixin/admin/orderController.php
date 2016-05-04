@@ -210,5 +210,17 @@ class orderController extends Controller
         // dd($All_Real);
     }
 
+    public function getOrderNotification()
+    {
+
+        $orderCount = $this->order->getOrderNotification();
+
+        $jsonResult = new MessageResult();
+        $jsonResult->extra=$orderCount;
+
+      return response($jsonResult->toJson());
+
+    }
+
 
 }

@@ -41,7 +41,7 @@ class ValidateCode {
     //生成线条、雪花
     private function createLine() {
         //线条
-        for ($i=0;$i<7;$i++) {
+        for ($i=0;$i<3;$i++) {
             $color = imagecolorallocate($this->img,mt_rand(0,156),mt_rand(0,156),mt_rand(0,156));
             imageline($this->img,mt_rand(0,$this->width),mt_rand(0,$this->height),mt_rand(0,$this->width),mt_rand(0,$this->height),$color);
         }
@@ -61,7 +61,7 @@ class ValidateCode {
     public function doimg() {
         $this->createBg();
         $this->createCode();
-        $this->createLine();
+//        $this->createLine();
         $this->createFont();
         $this->outPut();
     }

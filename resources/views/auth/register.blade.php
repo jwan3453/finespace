@@ -14,7 +14,7 @@
 
         {{--<img  src="../img/bg.jpg" style="width:100%;" class="bg-img">--}}
         <img  src="../img/login_cover.jpg " class="blur" style="width:100%; height:700px;">
-        <form method="POST"  action="{{url('auth/register')}}" id="registerForm">
+        <form method="POST"  action="{{url('auth/register')}}" id="registerForm" onsubmit=" return checkRegister()">
 
             <div class="reg-box-mask big-font">
 
@@ -58,7 +58,7 @@
 
                     <div class="ui input reg-input-box">
                         <input class="login-reg-input transparent-input" name="verifySmsCode" id="verifySmsCode" type="text" placeholder=" 验证码">
-                        <div class="long-btn blue-btn" id="sendVerifySmsCode">
+                        <div class="long-btn blue-btn ui loading " id="sendVerifySmsCode">
                             发送验证码
                         </div>
                     </div>
@@ -77,6 +77,44 @@
 
 @section('script')
     <script type="text/javascript">
+
+
+
+
+        function checkRegister()
+        {
+
+
+            if($.trim($('#mobile').val()) === '')
+            {
+                _showToaster('手机号不能为空');
+                return false;
+            }
+            else if (!(new RegExp("^1[0-9]{1}[0-9]{9}$")).test($.trim($('#mobile').val())))
+            {
+
+                _showToaster('手机号格式错误');
+
+                return false;
+            }
+            else if ($.trim($('#password').val())==='')
+            {
+
+                _showToaster('密码不能为空');
+
+                return false;
+            }
+            else if ($.trim($('#verifySmsCode').val())==='')
+            {
+
+                _showToaster('短信验证码不能为空');
+
+                return false;
+            }
+            return true;
+        }
+
+
         $(document).ready(function(){
 
 
@@ -236,6 +274,7 @@
                             if(data.statusCode === 1)
                             {
 
+                                sendBtn.text('发送中....');
                                 //发送短信
                                 $.ajax({
                                     type: 'POST',
@@ -260,6 +299,7 @@
                                         }
                                         else
                                         {
+                                            sendBtn.text('发送验证码');
                                             _showToaster(data.statusMsg);
                                             //todo 判断发送验证码失败的原因 第三方
                                         }

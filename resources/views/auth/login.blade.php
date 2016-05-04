@@ -36,7 +36,7 @@
                     <div class="login-opts " >
 
                         <div class="ui checkbox f-left">
-                            <input type="checkbox" name="example">
+                            <input type="checkbox" name="remember">
                             <label>记住密码</label>
                         </div>
 

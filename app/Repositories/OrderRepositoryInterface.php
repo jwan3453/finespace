@@ -46,4 +46,7 @@ interface OrderRepositoryInterface {
 
     public function check_All_Real($order_id = 0);
 
+    public function getOrderNotification();
+
+
 }

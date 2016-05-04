@@ -456,8 +456,22 @@ class OrderRepository implements  OrderRepositoryInterface{
             }
         }
 
+        public function getOrderNotification()
+        {
+            //获取今日需要备货订单
+            $todayInstoreOrder = $this->StockingOrder();
+            $orderCount['todayInStoreOrder'] = count($todayInstoreOrder);
 
-    }
+            //获取今日下单订单
+            $todayOrders  = Order::where('created_at','>',date('Y-m-d'))->where('created_at','<',date("Y-m-d",strtotime("+1 day")))->get();
+            $orderCount['todayOrder'] = count($todayOrders);
+
+            return  $orderCount;
+        }
+
+
+}
+
 
 
     ?>

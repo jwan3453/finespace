@@ -202,7 +202,9 @@
                     return;
                 }
                 else{
-                                //发送短信
+
+                        sendBtn.text('发送中....');
+                        //发送短信
                         $.ajax({
                                     type: 'POST',
                                     async:false,
@@ -224,7 +226,7 @@
                                         }
                                         else
                                         {
-
+                                            sendBtn.text('发送验证码');
                                             _showToaster(data.extra.msg);
                                             //todo 判断发送验证码失败的原因 第三方
                                         }

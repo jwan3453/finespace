@@ -53,6 +53,51 @@ class AuthController extends Controller
         $this->userAccount = $userAccount;
     }
 
+
+
+
+    public function Register(Request $request)
+    {
+
+        $validator = $this->validator($request->all());
+        $errorMessage  = '';
+
+
+//        if (!$validator) {
+//
+//            $this->throwValidationException(
+//                $request, $validator
+//            );
+//        }
+        // 1 正常　2手机已经注册   3 手机格式不对
+        // 4 密码格式不对 5重复密码不正确 6验证码过期
+        // 7.短信验证码错误
+
+        if($validator ==2)
+            $errorMessage = '手机号已经注册';
+        else if($validator ==3)
+            $errorMessage = '手机号格式不正确';
+        else if($validator ==4)
+            $errorMessage = '密码格式不对';
+        else if($validator ==5)
+            $errorMessage = '重复密码不正确';
+        else if($validator ==6)
+            $errorMessage = '短信验证码过期';
+        else if($validator ==7)
+            $errorMessage = '短信验证码错误';
+        if($validator != 1)
+        {
+            return view('/auth/register')->with('mobile',$request->input('mobile'))->with('message',$errorMessage);
+        }
+
+
+
+        Auth::login($this->create($request->all()));
+
+        return redirect($this->redirectPath());
+    }
+
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -72,6 +117,7 @@ class AuthController extends Controller
         $smsCode = $data['verifySmsCode'];
         $check = 1;
         $mobileStatus = $this->checkMobile($mobile);
+
 
         if ($mobileStatus == 2)
             return  2;
@@ -126,6 +172,7 @@ class AuthController extends Controller
 
         if (!preg_match('/^1[0-9]{1}[0-9]{9}$/', $mobile)) {
             //用户名包含飞字母数据下划线的字符
+
             return   3;
 
         } else {

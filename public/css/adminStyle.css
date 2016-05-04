@@ -210,17 +210,28 @@ color: #dbe4f0;
     height:55px;
     line-height: 55px;
     color:white;
-    font-size:16px;
+    font-size:14px;
 }
 .admin-header-option i{
     color:white;
     margin-top:-5px;
 }
 .admin-header-option a{
-    margin: 0 5px;
+    margin: 0 10px;
 }
 
-.order-alert{
+.today-order{
+
+    height:45px;
+    width:100px;
+
+    line-height:45px;
+    text-align: center;
+
+
+}
+
+.today-order-alert,.instore-order-alert{
     height:25px;
     width:25px;
     border-radius: 100%;
@@ -229,7 +240,11 @@ color: #dbe4f0;
     position:absolute;
     text-align: center;
     top:5px;
-    right:80px;
+    right:75px;
+}
+
+.instore-order-alert{
+    right:155px;
 }
 
 

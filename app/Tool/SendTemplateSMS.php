@@ -55,6 +55,7 @@ class SendTemplateSMS
         //关闭URL请求
         curl_close($curl);
 
+
         return json_decode($data);
 
     }

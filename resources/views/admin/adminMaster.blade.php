@@ -36,11 +36,27 @@
     </div>
     </a>
 
+
+
+
+
     <div class="admin-header-option f-right">
-        <a href="/weixin/admin/logout">
-            <i class="mail outline icon big"></i>
-            <span class="order-alert">0</span>
+
+
+
+        <a href="/weixin/admin/order/StockingPage">
+            <span class="today-order">今日到店订单</span>
+            <span class="instore-order-alert">0</span>
         </a>
+
+        <a href="/weixin/admin/order/today">
+            <span class="today-order">今日订单</span>
+            <span class="today-order-alert">0</span>
+        </a>
+
+
+
+
         <a href="/weixin/admin/logout">退出登录 </a>
     </div>
 </div>
@@ -271,8 +287,27 @@
                 $('.angle.down').click(function(){
 
 
-
                 })
+
+                $.ajax({
+                    url:'/weixin/getOrderNotification',
+                    type: 'POST',
+                    async: false,
+                    dataType: 'json',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                    },
+                    success: function (data) {
+
+                        $('.instore-order-alert').text(data.extra['todayInstoreOrder']);
+                        $('.today-order-alert').text(data.extra['todayOrder']);
+                    },
+                    error: function (xhr, type) {
+                        //todo
+                    }
+                })
+
+
             })
             function _showToaster($message){
                 $('.toaster').text($message).fadeIn(500).fadeOut(2500 );
