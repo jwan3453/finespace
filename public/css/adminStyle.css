@@ -663,6 +663,9 @@ color: #dbe4f0;
     margin-bottom: 15px;
 }
 
+.statement-table table tr .form-width .button{
+    font-size: 0.1em;
+}
 
 /*****************/
 

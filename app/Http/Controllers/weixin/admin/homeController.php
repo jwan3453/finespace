@@ -79,6 +79,8 @@ class homeController extends Controller
     {
         $request->session()->forget('adminusername');
         $request->session()->forget('adminstatus');
+
+        return view('admin.weixinAdmin.auth.login');
     }
 
     public function login(Request $request)

@@ -137,5 +137,10 @@ class orderController extends Controller
         dd($orderData);
     }
 
+    public function check_Real_One(Request $request)
+    {
+        # code...
+    }
+
 
 }
