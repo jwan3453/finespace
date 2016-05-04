@@ -41,15 +41,23 @@ class orderController extends Controller
 
     }
 
-    public function manageOrder()
+    public function manageOrder(Request $request)
     {
-        $orders  =$this->order->selectAll(5);
+        $to = $request->input('to');
+        $from = $request->input('from');
+        $seachData = $request->input('seachData');
+
+        $searchArr = array('to'=>$to,'from'=>$from,'seachData'=>$seachData);
+        
+        $orders = $this->order->manageOrder($searchArr,5);
+
+        // $orders  =$this->order->selectAll(5);
         $totalAmount = 0;
         foreach($orders as $order)
         {
             $totalAmount = $totalAmount + $order->total_amount;
         }
-        return view('admin.weixinAdmin.order.manageOrder')->with('orders',$orders)->with('totalAmount',$totalAmount)->with('seachData','');
+        return view('admin.weixinAdmin.order.manageOrder')->with('orders',$orders)->with('totalAmount',$totalAmount)->with('seachData',$seachData)->with('to',$to)->with('from',$from);
     }
 
     public function orderDetail($orderNo){
@@ -134,12 +142,72 @@ class orderController extends Controller
         }
 
         return response($jsonResult->toJson());
-        dd($orderData);
+        // dd($orderData);
     }
 
     public function check_Real_One(Request $request)
     {
-        # code...
+        $check = $this->order->check_Real_One($request->input('orderItems_id'));
+
+        $jsonResult = new MessageResult();
+
+        switch ($check) {
+            case '1':
+                $jsonResult->statusCode = 1;
+                $jsonResult->statusMsg = "确认成功！";
+                break;
+
+            case '2':
+                $jsonResult->statusCode = 0;
+                $jsonResult->statusMsg = "该订单已确认！请勿重复确认！";
+                break;
+
+            case '3':
+                $jsonResult->statusCode = 0;
+                $jsonResult->statusMsg = "找不到该信息！";
+                break;
+            
+            default:
+                $jsonResult->statusCode = 0;
+                $jsonResult->statusMsg = "未知错误！";
+                break;
+        }
+
+        return response($jsonResult->toJson());
+        // dd($check);
+    }
+
+    public function check_All_Real(Request $request)
+    {
+        $All_Real = $this->order->check_All_Real($request->input('order_id'));
+
+        $jsonResult = new MessageResult();
+
+        switch ($All_Real) {
+            case '1':
+                $jsonResult->statusCode = 1;
+                $jsonResult->statusMsg = "确认成功！";
+                break;
+
+            case '2':
+                $jsonResult->statusCode = 0;
+                $jsonResult->statusMsg = "确认失败！请重试！";
+                break;
+
+            case '3':
+                $jsonResult->statusCode = 0;
+                $jsonResult->statusMsg = "找不到该信息！";
+                break;
+            
+            default:
+                $jsonResult->statusCode = 0;
+                $jsonResult->statusMsg = "未知错误！";
+                break;
+        }
+
+        return response($jsonResult->toJson());
+
+        // dd($All_Real);
     }
 
 

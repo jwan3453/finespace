@@ -170,7 +170,7 @@
 
                 <th colspan="3" style="padding:2px;">
                     <div>
-                        {!! $products->render() !!}
+                        {!! $products->appends(['orderBy'=>$orderBy,'category'=>$categorySelected])->render() !!}
                     </div>
                 </th>
 

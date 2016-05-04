@@ -43,11 +43,22 @@ class productController extends Controller
         return view('admin.weixinAdmin.home');
     }
 
-    public function manageProduct()
+    public function manageProduct(Request $request)
     {
-        $products  = $this->product->selectAll(6);
+        $category = $request->input('category');
+        $jxrc = $request->input('jxrc');
+        $status = $request->input('status');
+        $searchData = $request->input('searchData');
+
+        // dd($request->input());
+
+        $searchArr = array('category'=>$category,'jxrc'=>$jxrc,'status'=>$status,'searchData'=>$searchData);
+
+        $products  = $this->product->manageProduct($searchArr,6);
+
         $cata = $this->category->getCateNameInfo();
-        return view('admin.weixinAdmin.product.manageProduct')->with('products',$products)->with('category',$cata);
+
+        return view('admin.weixinAdmin.product.manageProduct')->with('products',$products)->with('category',$cata)->with('Incategory',$category)->with('jxrc',$jxrc)->with('status',$status)->with('searchData',$searchData);
     }
 
     public function newProduct()

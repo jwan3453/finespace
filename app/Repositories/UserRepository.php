@@ -109,6 +109,17 @@ class UserRepository implements  UserRepositoryInterface
         return $SevenDay;
     }
 
+    public function manageUser($mobile,$paginate = 0)
+    {
+        if ($paginate != 0) {
+            $userDetail = User::where('mobile' , 'like' , $mobile.'%')->paginate(15);
+        }
+        else{
+            $userDetail = User::where('mobile' , 'like' , $mobile.'%')->get();
+        }
+        return $userDetail;
+    }
+
     // public function findByUP($reque)
     // {
     //     # code...
