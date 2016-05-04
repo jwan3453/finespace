@@ -30,6 +30,7 @@ class CreateProductTable extends Migration
             $table->integer('is_hot');
             $table->integer('is_recommend');
             $table->integer('stock_alarm');
+            $table->integer('type');//1为单品 2为套餐
             $table->string('keywords');
             $table->string('brief');
             $table->text('desc');

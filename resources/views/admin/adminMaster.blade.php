@@ -39,7 +39,7 @@
     <div class="admin-header-option f-right">
         <a href="/weixin/admin/logout">
             <i class="mail outline icon big"></i>
-            <span class="order-alert">12</span>
+            <span class="order-alert">0</span>
         </a>
         <a href="/weixin/admin/logout">退出登录 </a>
     </div>

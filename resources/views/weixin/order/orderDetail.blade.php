@@ -96,7 +96,7 @@
 
                         <div class="order-date-time ui left icon  fluid input ">
                             <i class=" calendar icon "></i>
-                            @if($orderItem->rootCategory !=null && $orderItem->rootCategory->name =='蛋糕')
+                            @if($orderItem->product->type !=2)
                                 <input type="text" disabled class="order-datetime"  id="orderDatetime_{{$orderItem->product->id}}" placeholder="取货时间" value="取货时间: {{$orderItem->order_dateTime}}"/>
                             @else
                                 <input type="text" disabled class="order-datetime"  id="orderDatetime_{{$orderItem->product->id}}" placeholder="用餐时间" value="用餐时间: {{$orderItem->order_dateTime}}"/>
@@ -106,7 +106,7 @@
                         <select class="ui fluid dropdown select-store " disabled>
 
 
-                            @if($orderItem->rootCategory !=null && $orderItem->rootCategory->name =='蛋糕')
+                            @if($orderItem->product->type !=2)
                                 选择取货门店
                             @else
                                 选择就餐门店

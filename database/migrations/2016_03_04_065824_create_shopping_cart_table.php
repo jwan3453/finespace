@@ -23,6 +23,7 @@ class CreateShoppingCartTable extends Migration
             $table->integer('count');
             $table->datetime('order_dateTime');
             $table->integer('selected_store');
+            $table->integer('type'); //1为单品 2为套餐
             $table->timestamps();
         });
     }

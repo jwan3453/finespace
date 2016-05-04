@@ -22,6 +22,19 @@
 
             </select>
         </div>
+
+        <div class="common-input-box">
+            <label>种类:</label>
+            {{--<input class="transparent-input" type="text" value="{{$product->brand_id}}"/>--}}
+            <select class="ui dropdown select-type ">
+                <option value="">选择种类</option>
+                <option value="1">单品</option>
+                <option value="2">套餐</option>
+            </select>
+        </div>
+
+
+
         <div class="common-input-box">
             <label>产品码:</label>
             <input class="transparent-input"  type="text"  name="sku" value="{{$product->sku}}"/>

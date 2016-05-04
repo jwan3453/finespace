@@ -51,7 +51,7 @@
 
             <div class="order-date-time ui left icon  fluid input huge-font">
                 <i class=" calendar icon "></i>
-                @if($product->rootCategory!=null && $product->rootCategory->name == '蛋糕')
+                @if($product->type !=2 )
                     <input type="text" class="" id="deliveryDatetime" placeholder="取货时间" />
                 @else
                     <input type="text" class="" id="deliveryDatetime" placeholder="用餐时间" />
@@ -61,7 +61,7 @@
             <select class="ui fluid dropdown select-store huge-font">
                 <option value="">
 
-                    @if($product->rootCategory!=null && $product->rootCategory->name == '蛋糕')
+                    @if($product->type !=2)
                         选择取货门店
                     @else
                         选择就餐门店
@@ -251,7 +251,12 @@
                 //是否选择了到店取货时间
                 if($('#deliveryDatetime').val() =='' )
                 {
-                    _showToaster('请选择取货时间');
+                    @if($product->type !=2 )
+                        _showToaster('请选择取货时间');
+                    @else
+                        _showToaster('请选择就餐时间');
+                    @endif
+
                     valid=false;
                 }
                 else

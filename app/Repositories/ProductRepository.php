@@ -185,6 +185,7 @@ class ProductRepository implements  ProductRepositoryInterface{
         $promotePrice = $request->input('promotePrice');
         $promoteStartDate = $request->input('promoteStartDate');
         $promoteEndDate = $request->input('promoteEndDate');
+        $type = $request->input('selectType');
         $keyWords = $request->input('keyWords');
         $brief = $request->input('brief');
         $desc = $request->input('desc');
@@ -248,7 +249,8 @@ class ProductRepository implements  ProductRepositoryInterface{
             'is_promote' =>$promoteStatus,
             'is_new' => $is_new,
             'is_hot' => $is_hot,
-            'is_recommend' => $is_recommend
+            'is_recommend' => $is_recommend,
+            'type' => $type
         ];
         return $newProductArray;
     }

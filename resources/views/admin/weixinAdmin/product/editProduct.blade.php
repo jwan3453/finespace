@@ -33,6 +33,7 @@
             <input type="hidden" id="productId" name="productId" value="{{$product->id}}" />
             <input type="hidden" id="selectCat" name="selectCat" value="{{$product->category_id}}" />
             <input type="hidden" id="selectBrand" name="selectBrand" value="{{$product->brand_id}}"/>
+            <input type="hidden" id="selectType" name="selectType" value="{{$product->type}}"/>
             {!! csrf_field() !!}
             @include('admin.weixinAdmin.product.productDetail')
             <div  class=" ui button red" id="submitUpdate" style="margin:10px 0;display: inline-block;"> 保存更改</div>
@@ -73,12 +74,14 @@
                 $(this).val($(this).val().replace(/[^0-9.]/g,''));
             }).css("ime-mode", "disabled"); //CSS设置输入法不可用
 
-            //设置产品列别选中值
+            //设置产品分类选中值
             $(".select-cat").val($('#selectCat').val());
 
             //设置产品品牌选中值
             $(".select-brand").val($('#selectBrand').val());
 
+            //设置产品类别选中值
+            $('.select-type').val($('#selectType').val());
 
             $(' .select-cat').dropdown({
                 onChange: function(value, text, $selectedItem) {
@@ -91,6 +94,13 @@
                     $('#selectBrand').val(value);
                 }
             })
+
+            $(' .select-type').dropdown({
+                onChange: function(value, text, $selectedItem) {
+                    $('#selectType').val(value);
+                }
+            })
+
 
 
             if('{{$product->status}}' === '1')

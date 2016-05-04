@@ -26,6 +26,7 @@
 
             <input type="hidden" id="selectCat" name="selectCat" />
             <input type="hidden" id="selectBrand" name="selectBrand"/>
+            <input type="hidden" id="selectType" name="selectType"/>
             {!! csrf_field() !!}
             @include('admin.weixinAdmin.product.productDetail')
             <button type="submit" class=" ui button f-right red" id="submit"> 提交</button>
@@ -87,6 +88,13 @@
                             $('#selectBrand').val(value);
                         }
             })
+
+            $(' .select-type').dropdown({
+                onChange: function(value, text, $selectedItem) {
+                    $('#selectType').val(value);
+                }
+            })
+
 
 
             $('#inventory,#price,#promotePrice').keyup(function(){
