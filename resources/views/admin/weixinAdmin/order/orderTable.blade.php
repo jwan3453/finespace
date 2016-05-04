@@ -45,7 +45,7 @@
         <th></th>
         <th colspan="3" style="padding:2px;">
             <div>
-                {!! $orders->render() !!}
+                {!! $orders->appends(['to'=>$to,'from'=>$from,'seachData'=>$seachData])->render() !!}
             </div>
         </th>
         <th></th>

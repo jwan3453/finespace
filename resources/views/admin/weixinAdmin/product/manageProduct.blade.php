@@ -25,7 +25,7 @@
 
         <div class="product-table">
 
-            <form method="post" action="/weixin/admin/product/seachProduct">
+            <form method="post" action="/weixin/admin/product">
                 <div class="ui icon input search-bar">
 
                     <div class="field">
@@ -33,30 +33,36 @@
                         <select class="ui fluid dropdown" name="category">
                             <option value="0">选择分类</option>
                             @foreach($category as $cate)
-                            <option value="{{$cate->id}}">{{$cate->name}}</option>
+                                @if($cate->id == $Incategory)
+                                    <option value="{{$cate->id}}" selected="">{{$cate->name}}</option>
+                                @elseif($cate->id != $Incategory)
+                                    <option value="{{$cate->id}}">{{$cate->name}}</option>
+                                @endif
                             @endforeach
                         </select>
                     </div>
                     <div class="field">
 
                         <select class="ui fluid dropdown" name="jxrc">
+
                             <option value="0">全部</option>
-                            <option value="1">推荐</option>
-                            <option value="2">新品</option>
-                            <option value="3">热销</option>
-                            <option value="4">促销</option>
+
+                            <option value="1" @if($jxrc == 1) selected="" @endif>推荐</option>
+                            <option value="2" @if($jxrc == 2) selected="" @endif>新品</option>
+                            <option value="3" @if($jxrc == 3) selected="" @endif>热销</option>
+                            <option value="4" @if($jxrc == 4) selected="" @endif>促销</option>
                         </select>
                     </div>
                     <div class="field">
 
                         <select class="ui fluid dropdown" name="status">
                             <option value="0">全部</option>
-                            <option value="1">上架</option>
-                            <option value="2">下架</option>
+                            <option value="1" @if($status == 1) selected="" @endif>上架</option>
+                            <option value="2" @if($status == 2) selected="" @endif>下架</option>
                         </select>
                     </div>
 
-                    <input type="text" placeholder="请输入..." id="seachData" name="searchData" >                
+                    <input type="text" placeholder="请输入..." id="seachData" name="searchData" value="{{$searchData or ''}}" >                
                     <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                     <button class="ui circular search link icon button submit-btn" type="submit">
                         <i class="search link icon"></i>
@@ -123,7 +129,7 @@
 
                 <th colspan="10" style="padding:2px;">
                     <div>
-                        {!! $products->render() !!}
+                        {!! $products->appends(['category'=>$Incategory,'jxrc'=>$jxrc,'status'=>$status,'searchData'=>$searchData])->render() !!}
                     </div>
                 </th>
 

@@ -69,4 +69,6 @@ interface ProductRepositoryInterface{
 //
 //    public function deleteWhere($column, $value);
 
+    public function manageProduct($searchArr,$paginate = 0);
+
 }

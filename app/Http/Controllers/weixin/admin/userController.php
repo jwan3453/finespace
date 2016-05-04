@@ -40,10 +40,12 @@ class userController extends Controller
         return view('admin.weixinAdmin.home');
     }
 
-    public function manageUser()
+    public function manageUser(Request $request)
     {
-        $users = $this->user->selectAll(10);
-        return view('admin.weixinAdmin.user.manageUser')->with('users',$users);
+        $seachData = $request->input('seachData');
+        $users = $this->user->manageUser($seachData,15);
+        // $users = $this->user->selectAll(10);
+        return view('admin.weixinAdmin.user.manageUser')->with('users',$users)->with('seachData',$seachData);
 
     }
 
@@ -65,6 +67,13 @@ class userController extends Controller
             //错误页面
             return '页面不存在';
         }
+    }
+
+    public function seachUser(Request $request)
+    {
+        $users = $this->user->seachUser($request->input('seachData'));
+        return view('admin.weixinAdmin.user.manageUser')->with('users',$users);
+        // dd($users);
     }
 
 }

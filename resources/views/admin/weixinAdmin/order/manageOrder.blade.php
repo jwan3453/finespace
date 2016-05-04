@@ -26,16 +26,15 @@
 
 
         <div class="order-table">
-            <form method="get" action="/weixin/admin/order/seachOrder">
+            <form method="post" action="/weixin/admin/order">
                 <div class="ui icon input search-bar">
-                    <input type="text" class="from" id="from" name="from" placeholder="起始时间">
+                    <input type="text" class="from" id="from" name="from" value="{{$from or ''}}" placeholder="起始时间">
                     &nbsp;&nbsp;&nbsp;
-                    <input type="text" class="to" id="to" name="to" placeholder="结束时间">
+                    <input type="text" class="to" id="to" name="to" value="{{$to or ''}}" placeholder="结束时间">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <input type="text" placeholder="请输入单号..." id="seachData" name="seachData" value="{{$seachData}}">
-                    <!-- <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"> -->
+                    <input type="text" placeholder="请输入单号..." id="seachData" name="seachData" value="{{$seachData or ''}}">
+                    <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>">
                     <button class="ui circular search link icon button submit-btn" type="submit">
-                    <!-- <i class="chevron circle left icon"></i> -->
                         <i class="search link icon"></i>
                     </button>
                 </div>

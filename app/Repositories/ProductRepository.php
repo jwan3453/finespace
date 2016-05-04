@@ -592,7 +592,7 @@ class ProductRepository implements  ProductRepositoryInterface{
         return $products;
     }
 
-    public function searchProduct($searchArr,$paginate = 0)
+    public function manageProduct($searchArr,$paginate = 0)
     {
         $selectArr = array();
         switch ($searchArr['jxrc']) {
@@ -609,8 +609,6 @@ class ProductRepository implements  ProductRepositoryInterface{
                 $selectArr['is_promote'] = 1;
                 break;
             default:
-                $p = 'is_promote';
-                $d = '';
                 break;
             
         }
@@ -640,7 +638,7 @@ class ProductRepository implements  ProductRepositoryInterface{
         }
         else{
            
-            $products = Product::paginate(6);
+            $products = Product::where('name','like',"%".$searchArr['searchData']."%")->paginate($paginate);
         }
         
 
@@ -702,7 +700,7 @@ class ProductRepository implements  ProductRepositoryInterface{
 
         $products = $products->groupBy('order_item.product_id')
                               ->selectRaw('product.*,sum(order_item.count) as totalSale')
-                              ->orderByRaw('sum(order_item.count) '.$orderBy)->paginate(10);
+                              ->orderByRaw('sum(order_item.count) '.$orderBy)->paginate(3);
 
         return $products;
     }

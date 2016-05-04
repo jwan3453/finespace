@@ -38,10 +38,12 @@ interface OrderRepositoryInterface {
 
     public function getAllOrder($paymentStatus);
 
-    public function seachOrder($seachData,$paginate);
+    public function manageOrder($seachData,$paginate);
 
     public function StockingOrder();
 
     public function seachStatementData($order_no);
+
+    public function check_All_Real($order_id = 0);
 
 }

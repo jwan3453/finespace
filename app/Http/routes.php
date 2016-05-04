@@ -110,7 +110,11 @@ Route::group(['prefix' => '/weixin/admin/', 'middleware' => 'App\Http\Middleware
 
     Route::post('order/seachStatementData','weixin\admin\orderController@seachStatementData');
 
-    Route::post('order/check_Real_One','weixin\admin\orderController@check_Real_One')
+    Route::post('order/check_Real_One','weixin\admin\orderController@check_Real_One');
+
+    Route::post('order/check_All_Real','weixin\admin\orderController@check_All_Real');
+
+    Route::get('order/seachUser','weixin\admin\userController@seachUser');
 });
 
 
@@ -128,7 +132,7 @@ Route::post('/weixin/admin/datafill/submitTableStructure','weixin\admin\DataFill
 
 
 //后台商品管理////
-Route::get('/weixin/admin/product','weixin\admin\productController@manageProduct');
+Route::any('/weixin/admin/product','weixin\admin\productController@manageProduct');
 //Route::get('/weixin/admin/product/rank','weixin\admin\productController@productRank');
 Route::any('/weixin/admin/product/rank/{order?}','weixin\admin\productController@productRank');
 
@@ -176,7 +180,7 @@ Route::post('/weixin/setImageCover','Service\CommonController@setImageCover');
 
 
 ///后台订单管理//////
-Route::get('/weixin/admin/order','weixin\admin\orderController@manageOrder');
+Route::any('/weixin/admin/order','weixin\admin\orderController@manageOrder');
 Route::get('/weixin/admin/order/today','weixin\admin\orderController@todayOrder');
 
 
@@ -186,7 +190,7 @@ Route::get('/weixin/admin/order/{orderNo}','weixin\admin\orderController@orderDe
 
 
 //后台用户管理
-Route::get('/weixin/admin/user','weixin\admin\userController@manageUser');
+Route::any('/weixin/admin/user','weixin\admin\userController@manageUser');
 Route::get('/weixin/admin/user/{userId}','weixin\admin\userController@userDetail');
 
 ////加载产品类别
