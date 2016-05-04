@@ -109,6 +109,8 @@ Route::group(['prefix' => '/weixin/admin/', 'middleware' => 'App\Http\Middleware
     Route::get('Statement','weixin\admin\orderController@Statement');
 
     Route::post('order/seachStatementData','weixin\admin\orderController@seachStatementData');
+
+    Route::post('order/check_Real_One','weixin\admin\orderController@check_Real_One')
 });
 
 

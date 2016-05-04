@@ -318,7 +318,7 @@ class OrderRepository implements  OrderRepositoryInterface{
 
         if ($orderDetail) {
             //获取order_items
-            $orderDetail->orderItems = OrderItem::where('order_id',$orderDetail->id)->select('product_detail','statement_status','selected_store')->get();
+            $orderDetail->orderItems = OrderItem::where('order_id',$orderDetail->id)->select('id','product_detail','statement_status','selected_store','order_dateTime','type')->get();
 
             foreach ($orderDetail->orderItems as $v) {
 
@@ -337,6 +337,18 @@ class OrderRepository implements  OrderRepositoryInterface{
                         break;
                     default:
                         $v->statement_name = "未知状态";
+                        break;
+                }
+
+                switch ($v->type) {
+                    case '1':
+                        $v->type_name = "取餐";
+                        break;
+                    case '2':
+                        $v->type_name = "就餐";
+                        break;
+                    default:
+                        $v->type_name = "未知";
                         break;
                 }
             }
@@ -403,6 +415,11 @@ class OrderRepository implements  OrderRepositoryInterface{
         
         return $orderDetail;
 
+    }
+
+    public function check_Real_One(orderItems_id)
+    {
+        $orderItems = OrderItem::where('id',$orderItems_id)->select('type')->first();
     }
 }
 

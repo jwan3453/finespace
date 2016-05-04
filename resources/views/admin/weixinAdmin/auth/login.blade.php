@@ -61,7 +61,7 @@
                 $("#content").html(data.Msg);
                 $("#content-msg").modal('show');
                 if (data.status == 1) {
-                    // window.location.href="/weixin/admin";
+                    window.location.href="/weixin/admin";
                 }
             },
             error: function(xhr, type){

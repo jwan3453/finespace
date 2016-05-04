@@ -37,7 +37,8 @@
 
                 <tr>
                     <td>单号</td>
-                    <td colspan="3" id="order_no"></td>
+                    <td colspan="2" id="order_no"></td>
+                    <td>订单状态</td>
                     <td id="order_status"></td>
                 </tr>
 
@@ -64,7 +65,7 @@
 
                 <tr>
                     <td class="form-width">名称</td>
-                    <td class="form-width">库存</td>
+                    <td class="form-width">时间(取餐/就餐)</td>
                     <td class="form-width">状态</td>
                     <td class="form-width">门店地址</td>
                     <td class="form-width">操作</td>
@@ -104,6 +105,19 @@
         <div class="ui positive right  button" id="refresh">确定</div>
     </div>
 </div>
+
+<div class="ui modal" id="check-msg"> <i class="close icon" id="close-i"></i>
+    <div class="header">提示</div>
+    <div id="category-form" class="image content">
+        <div class="content" id="check_content"></div>
+
+    </div>
+    <div class="actions">
+        <input type="hidden" id="orderItems_id" />
+        <div class="ui positive right  button" id="check_Real">确定</div>
+    </div>
+</div>
+
 @stop
 
 @section('script')
@@ -113,7 +127,7 @@
     $('#seachData').bind('input propertychange', function() {
 
         var seachData = $("#seachData").val();
-
+        //验证订单信息
         var reg =/^E[0-9]{12}[a-zA-Z0-9_]{11}$/;
         if (reg.test(seachData)) {
             $('#ToSeach').removeAttr("disabled");
@@ -141,7 +155,7 @@
                     $("#content-msg").modal("show");
                 }else{
                     $("#order_no").html(data.order_no);
-                    $("#order_status").html(data.name);
+                    $("#order_status").html(data.status_name);
                     $("#username").html(data.userData.name);
                     $("#phonenumber").html(data.userData.mobile);
                     $("#payment_status").html(data.payment_name);
@@ -155,10 +169,10 @@
 
                         a += "<tr>";
                         a += "<td class='form-width'>"+product_detail.brief+"</td>";
-                        a += "<td class='form-width'>"+product_detail.inventory+"</td>";
+                        a += "<td class='form-width'>"+data.orderItems[i].order_dateTime+"("+data.orderItems[i].type_name+")</td>";
                         a += "<td class='form-width'>"+data.orderItems[i].statement_name+"</td>";
                         a += "<td class='form-width'>"+data.orderItems[i].Store_name+"</td>";
-                        a += "<td class='form-width'></td>";
+                        a += '<td class="form-width"><button class="ui teal basic button" onclick="checkReal('+data.orderItems[i].id+','+"'"+product_detail.brief+"'"+')">确认</button></td>';
                         a += "</tr>";
                         // console.log(product_detail); 
                     }
@@ -171,6 +185,36 @@
                 alert('Ajax error!')
             }
         });
+    })
+
+
+
+    function checkReal(orderItems_id,product_name) {
+        var data = "确认结单 【 "+product_name+" 】 ?";
+        $("#check_content").html(data);
+        $("#orderItems_id").val(orderItems_id);
+        $("#check-msg").modal("show");
+
+    }
+
+    $("#check_Real").click(function(){
+        var orderItems_id = $("#orderItems_id").val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/weixin/admin/order/check_Real_One',
+            data: {orderItems_id : orderItems_id},
+            dataType: 'json',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            },
+            success:function(data){
+
+            },
+            error: function(xhr, type){
+                alert('Ajax error!')
+            }
+        })
     })
     </script>
 @stop
