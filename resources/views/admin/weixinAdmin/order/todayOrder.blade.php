@@ -33,7 +33,7 @@
             @if(count($orders)>0)
                 @include('admin.weixinAdmin.order.orderTable')
             @else
-                <p class="no-item-found huge-font">没找到今天的单子哦！</p>
+                <p class="no-item-found huge-font">今日暂无客人下单!</p>
             @endif
 
             {{--<div class="table-content">--}}

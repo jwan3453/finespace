@@ -113,7 +113,7 @@ Route::group(['prefix' => '/weixin/admin/', 'middleware' => 'App\Http\Middleware
     Route::post('order/check_Real_One','weixin\admin\orderController@check_Real_One');
 
     Route::post('order/check_All_Real','weixin\admin\orderController@check_All_Real');
-    
+
     Route::get('order/seachUser','weixin\admin\userController@seachUser');
 
     Route::get('checkOrder/{order_no?}','weixin\admin\orderController@checkOrder');

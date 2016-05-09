@@ -238,10 +238,17 @@ font{
 }
 
 .loader-box{
-    position:fixed;
+    position:absolute;
+    width:115px;
+    padding:20px;
+    border-radius: 10px;
+    background-color: rgba(191, 189, 199, 0.51);
+
+    margin:auto;
+
+    left:0;
+    right:0;
     top:30%;
-    text-align: center;
-    width:100%;
 
 
 }

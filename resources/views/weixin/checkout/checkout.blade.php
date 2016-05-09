@@ -219,7 +219,7 @@
 
     </form>
 
-    <div class="loader-box none-display ">
+    <div class="loader-box none-display auto-margin">
         <div class="ui active centered large inline loader   "></div>
     </div>
     </div>
