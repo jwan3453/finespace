@@ -154,16 +154,16 @@
                             <div class="  f-left content">全部用户 </div>
                         </a>
                     </div>
-                    <div class="item ">
+                 <!--    <div class="item ">
                         <i class="f-left right triangle icon"></i>
                         <div class="  f-left  content">今日订单</div>
-                    </div>
+                    </div> -->
 
                     
 
                 </div>
             </div>
-            <div class="item ">
+         <!--    <div class="item ">
                 <i class="  f-left linkify icon"></i>
                 <div class="  f-left content">
                     今日账单
@@ -180,7 +180,7 @@
                     </div>
 
                 </div>
-            </div>
+            </div> -->
 
 
             <div class="item ">

@@ -76,6 +76,14 @@
         <div id="main" class="chart-main" ></div>
     </div>
 
+    <div class="f-left right-side-panel-Chart2">
+        <div id="main2" class="chart-main" ></div>
+    </div>
+
+    <div class="f-left right-side-panel-Chart3">
+        <div id="main3" class="chart-main" ></div>
+    </div>
+
    
 
 
@@ -97,43 +105,44 @@
                 var SevenDayIncome = [];
                 var SevenDayOrder = [];
                 var SevenDayUser = [];
-                console.log(data);
-                // for (var i = 0; i < data['SevenDay'].length; i++) {
-                //     // console.log(data['SevenDay'][i]);
-                //     date.push(data['SevenDay'][i]);
-                // }
 
                 $.each(data.SevenDay, function(i, item){     
                     date.push(item);
                 });
-                
-                // for (var i = 0; i < data['SevenDayIncome'].length; i++) {
-                //     // console.log(data['SevenDayIncome'][i].sum);
-                //     SevenDayIncome.push(data['SevenDayIncome'][i].sum);
-                // }
-
-                // for (var i = 0; i < data['SevenDayOrder'].length; i++) {
-                //     // console.log(data['SevenDayOrder'][i].count);
-                //     SevenDayOrder.push(data['SevenDayOrder'][i].count);
-                // }
-
-                // for (var i = 0; i < data['SevenDayUser'].length; i++) {
-                //     SevenDayUser.push(data['SevenDayUser'][i].count)
-                // }
 
                 $.each(data.SevenDayIncome, function(i, item){     
                     SevenDayIncome.push(item.sum);
                 });
+                //(     数据源，     X轴数据，类型，名称，divID)
+                echarts(SevenDayIncome,date,'line','收入','main');
 
                 $.each(data.SevenDayOrder, function(i, item){     
                     SevenDayOrder.push(item.count);
                 });
 
+                echarts(SevenDayOrder,date,'bar','订单','main2');
+
                 $.each(data.SevenDayUser, function(i, item){     
                     SevenDayUser.push(item.count);
                 });
 
-                require(
+                echarts(SevenDayUser,date,'line','用户','main3');
+
+                
+            },
+            error: function(xhr, type){
+                alert('Ajax error!')
+            }
+        });
+        require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+
+
+        function echarts(data,date,type,name,divId) {
+            require(
                 [
                     'echarts',
                     'echarts/chart/line',
@@ -141,14 +150,14 @@
                        // 按需加载所需图表，如需动态类型切换功能，别忘了同时加载相应图表
                 ],
                 function (ec) {
-                    var myChart = ec.init(document.getElementById('main'));
+                    var myChart = ec.init(document.getElementById(divId));
                     var option = {
                         backgroundColor: '#FFFFFF',
                         tooltip : {
                             trigger: 'axis'
                         },
                         legend: {
-                            data:['订单','用户','收入']
+                            data:[name]
                         },
                         toolbox: {
                             show : true,
@@ -175,38 +184,18 @@
                         ],
                         series : [
                             {
-                                name:'订单',
-                                type:'line',
+                                name:name,
+                                type:type,
                                 stack: '总量',
-                                data:SevenDayOrder
+                                data:data
                             },
-                            {
-                                name:'用户',
-                                type:'line',
-                                stack: '总量',
-                                data:SevenDayUser
-                            },
-                            {
-                                name:'收入',
-                                type:'line',
-                                stack: '总量',
-                                data:SevenDayIncome
-                            }
+                            
                         ]
                     };
                     myChart.setOption(option);
                 }
             );
-            },
-            error: function(xhr, type){
-                alert('Ajax error!')
-            }
-        });
-        require.config({
-            paths: {
-                echarts: 'http://echarts.baidu.com/build/dist'
-            }
-        });
+        }
         
 
         

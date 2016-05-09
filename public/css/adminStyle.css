@@ -291,6 +291,22 @@ color: #dbe4f0;
     /*top: 200px;*/
 }
 
+.right-side-panel-Chart2{
+    margin-left: 250px;
+    padding: 0 10px;
+    position:absolute;
+    min-width:600px;
+    margin-top: 700px;
+}
+
+.right-side-panel-Chart3{
+    margin-left: 250px;
+    padding: 0 10px;
+    position:absolute;
+    min-width:600px;
+    margin-top: 1200px;
+}
+
 .sub-menu .item{
     padding:5px 15px!important;
     cursor: pointer;
@@ -761,6 +777,10 @@ color: #dbe4f0;
 
 .product-table .checkbox label{
     margin-bottom: 5px;
+}
+
+.right-side-panel #error-message{
+    margin-top: 20px;
 }
 /*********************************/
 

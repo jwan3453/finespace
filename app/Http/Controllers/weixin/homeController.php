@@ -12,6 +12,8 @@ use App\Models\Product;
 use App\Repositories\CategoryRepositoryInterface;
 use App\Repositories\ProductRepositoryInterface;
 
+use Zizaco\Entrust\Entrust;
+
 class homeController extends Controller
 {
     //
@@ -24,14 +26,13 @@ class homeController extends Controller
         $this->setting = $setting;
         $this->product = $product;
     }
-    public function index()
+    public function index(Request $request)
     {
         $images =  $this->setting->getHomeSlides();
         $hotProducts = $this->product->getHotProduct();
         $recomProducts = $this->product->getRecomProduct();
         $newProducts = $this->product->getComboProduct();
         $categoryList = $this->product->getCategoryList();
-
 
         return view('weixin.home')->with('images',$images)->with('categoryList',$categoryList)->with('hotProducts',$hotProducts)->with('recomProducts',$recomProducts)
                                   ->with('newProducts',$newProducts);

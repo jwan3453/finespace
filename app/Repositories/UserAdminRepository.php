@@ -5,6 +5,7 @@ use Hash;
 
 use App\Models\UserAdmin;
 use App\Models\Role;
+use App\Models\RoleUser;
 
 
 class UserAdminRepository implements  UserAdminRepositoryInterface
@@ -79,6 +80,8 @@ class UserAdminRepository implements  UserAdminRepositoryInterface
 
             $dataArr = array('username'=>$username,'status'=>$selectrole);
 
+
+
             if (!empty($password)) {
                 $password = Hash::make($password);
                 $dataArr['password'] = $password;
@@ -87,11 +90,17 @@ class UserAdminRepository implements  UserAdminRepositoryInterface
             $isEditOrAdd = false;
 
             if ($editOradd == 'add') {
+
                 $dataArr['creat_time'] = date('Y-m-d H:i:s');
                 $isEditOrAdd = UserAdmin::insert($dataArr);
+
+                RoleUser::insert(['user_id'=>$useradminId,'role_id'=>$selectrole]);
+
             }elseif ($editOradd == 'edit') {
                
                 $isEditOrAdd = UserAdmin::where('id',$useradminId)->update($dataArr);
+
+                RoleUser::where('user_id',$useradminId)->update(['role_id'=>$selectrole]);
             }
 
             if ($isEditOrAdd) {

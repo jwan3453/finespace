@@ -1524,6 +1524,30 @@ margin:10px 0 0 0 ;
     font-family:"微软雅黑";
 }
 
+.store-box .box-foot {
+    display: block;
+    font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    background: #ffffff;
+    margin: 0em;
+    padding: 0.3rem 1.5rem;
+    box-shadow: none;
+    color: rgba(0, 0, 0, 0.85);
+    border-bottom: 1px solid rgba(34, 36, 38, 0.15);
+    position: absolute; 
+    bottom: 0px;
+    width: 100%;
+}
+
+.box-foot .icon-size{
+    font-size: 23px;
+}
+
+.box-content .content-image .distribution-label{
+    left: calc( 0rem - 0em );
+    margin-bottom: -20px;
+    margin-left: -8px;
+}
+
 /******************************/
 
 /***错误页面*****/
