@@ -51,7 +51,6 @@ class orderController extends Controller
         
         $orders = $this->order->manageOrder($searchArr,5);
 
-        // $orders  =$this->order->selectAll(5);
         $totalAmount = 0;
         foreach($orders as $order)
         {
@@ -67,20 +66,8 @@ class orderController extends Controller
     }
 
     public function todayOrder(){
-
-        $query = [
-            [
-                'key' => 'created_at',
-                'compare'=>'>',
-                'value'=>date('Y-m-d')
-            ],
-            [
-                'key' => 'created_at',
-                'compare'=> '<',
-                'value'=> date("Y-m-d",strtotime("+1 day"))
-            ]
-        ];
-        $orders  =$this->order->findBy($query)->paginate(4);
+      
+        $orders  =$this->order->getTodayOrder(4);
 
         $totalAmount = 0;
         foreach($orders as $order)
@@ -88,7 +75,7 @@ class orderController extends Controller
             $totalAmount = $totalAmount + $order->total_amount;
         }
 
-        return view('admin.weixinAdmin.order.todayOrder')->with('orders',$orders)->with('totalAmount',$totalAmount);
+        return view('admin.weixinAdmin.order.todayOrder')->with('orders',$orders)->with('totalAmount',$totalAmount)->with('seachData','')->with('to','')->with('from','');
 
     }
 
@@ -220,6 +207,13 @@ class orderController extends Controller
 
       return response($jsonResult->toJson());
 
+    }
+
+    public function checkOrder($order_no = '')
+    {
+        // dd($order_no);
+        $orderDetail = $this->order->getOrderDetail($order_no);
+        return view('admin.weixinAdmin.order.orderDetailClerk')->with('orderDetail',$orderDetail);
     }
 
 

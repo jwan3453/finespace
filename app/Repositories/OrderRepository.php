@@ -52,7 +52,7 @@ class OrderRepository implements  OrderRepositoryInterface{
                 $count++;
             }
 
-           return $obj;
+            return $obj;
         }
 
         public function updatePaymentMethod($request)
@@ -129,6 +129,7 @@ class OrderRepository implements  OrderRepositoryInterface{
 
 
                 $cartItems = ShoppingCart::where('user_id',Auth::user()->id)->get();
+                 // dd($cartItems);
                 $newOrderArray = [
                     'order_no' => 'E' . time() . '' . uniqid(),
                     'user_id' => Auth::User()->id,
@@ -146,6 +147,7 @@ class OrderRepository implements  OrderRepositoryInterface{
                 //保存订单
                 $newOrder = Order::create($newOrderArray);
 
+               
 
                 foreach ($cartItems as $key => $cartValue) {
                     $cartValue->product =Product::find($cartValue->product_id);//->find($cartValue->product_id);
@@ -224,6 +226,66 @@ class OrderRepository implements  OrderRepositoryInterface{
                 
             }
             
+            foreach ($orderDetail as $order) {
+                if ($order->user_id != '') {
+                    $order->user_mobile = User::where('id',$order->user_id)->select('mobile')->first()->mobile;
+                }
+
+                switch ($order->payment_id) {
+                    case '0':
+                        $order->payment_name = "未知";
+                        break;
+
+                    case '1':
+                        $order->payment_name = "微信";
+                        break;
+
+                    case '2':
+                        $order->payment_name = "支付宝";
+                        break;
+
+                    case '3':
+                        $order->payment_name = "余额支付";
+                        break;
+
+                    case '4':
+                        $order->payment_name = "上门自提";
+                        break;
+
+                    default:
+                        $order->payment_name = "未知";
+                        break;
+                }
+
+                switch ($order->pay_status) {
+                    case '0':
+                        $order->pay_name = "未支付";
+                        break;
+
+                    case '1':
+                        $order->pay_name = "已支付";
+                        break;
+                    
+                    default:
+                        $order->pay_name = "未知";
+                        break;
+                }
+
+                switch ($order->status) {
+                    case '0':
+                        $order->status_name = "已取消";
+                        break;
+
+                    case '1':
+                        $order->status_name = "已确认";
+                        break;
+                    
+                    default:
+                        $order->status_name = "未知状态";
+                        break;
+                }
+            }
+
             return $orderDetail;
             
         }
@@ -291,14 +353,18 @@ class OrderRepository implements  OrderRepositoryInterface{
             $date = date('Y-m-d');
             //获取日期大于等于今天的orderitem、并且以order_dateTime排序
             $orderitems = OrderItem::where('order_dateTime' , '>=' , $date)->orderBy('order_dateTime','asc')->get();
+
             //对结果以order_id进行groubu以实现间接去除重复
             $item = $orderitems->groupBy('order_id');
-            
+          
             $order = new Collection();
            
             foreach ($item as $key => $v) {
+               
                 //获取订单详情
-                $orderInfo = Order::where('id',$key)->where('pay_status',1)->first();
+                $orderInfo = Order::where('id',$key)->where(function($query){
+                    $query->where('pay_status',1)->Orwhere('payment_id' ,4);
+                })->first();
 
                 if ($orderInfo != '') {
                     //返回的订单详情信息中插入order_dateTime
@@ -307,6 +373,12 @@ class OrderRepository implements  OrderRepositoryInterface{
                     $order->push($orderInfo);
                 }
               
+            }
+
+            foreach ($order as $v) {
+                if ($v->user_id != '') {
+                    $v->user_mobile = User::where('id',$v->user_id)->select('mobile')->first()->mobile;
+                }
             }
             return $order;
             
@@ -381,6 +453,10 @@ class OrderRepository implements  OrderRepositoryInterface{
 
                     case '4':
                         $orderDetail->payment_name = "上门自提";
+                        break;
+
+                    default:
+                        $orderDetail->payment_name = "未知";
                         break;
                     
                 }
@@ -467,6 +543,78 @@ class OrderRepository implements  OrderRepositoryInterface{
             $orderCount['todayOrder'] = count($todayOrders);
 
             return  $orderCount;
+        }
+
+        public function getTodayOrder($paginate = 0)
+        {
+            if ($paginate != 0) {
+                $orderDetail = Order::whereBetween('created_at',array(date('Y-m-d'),date("Y-m-d",strtotime("+1 day"))))->paginate($paginate);
+                
+            }else{
+                $orderDetail = Order::whereBetween('created_at',array(date('Y-m-d'),date("Y-m-d",strtotime("+1 day"))))->all();
+            }
+
+            foreach ($orderDetail as $order) {
+                if ($order->user_id != '') {
+                    $order->user_mobile = User::where('id',$order->user_id)->select('mobile')->first()->mobile;
+                }
+
+                switch ($order->payment_id) {
+                    case '0':
+                        $order->payment_name = "未知";
+                        break;
+
+                    case '1':
+                        $order->payment_name = "微信";
+                        break;
+
+                    case '2':
+                        $order->payment_name = "支付宝";
+                        break;
+
+                    case '3':
+                        $order->payment_name = "余额支付";
+                        break;
+
+                    case '4':
+                        $order->payment_name = "上门自提";
+                        break;
+
+                    default:
+                        $order->payment_name = "未知";
+                        break;
+                }
+
+                switch ($order->pay_status) {
+                    case '0':
+                        $order->pay_name = "未支付";
+                        break;
+
+                    case '1':
+                        $order->pay_name = "已支付";
+                        break;
+                    
+                    default:
+                        $order->pay_name = "未知";
+                        break;
+                }
+
+                switch ($order->status) {
+                    case '0':
+                        $order->status_name = "已取消";
+                        break;
+
+                    case '1':
+                        $order->status_name = "已确认";
+                        break;
+                    
+                    default:
+                        $order->status_name = "未知状态";
+                        break;
+                }
+            }
+
+            return $orderDetail;
         }
 
 

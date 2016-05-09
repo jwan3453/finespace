@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories;
 use App\Models\SpecInfo;
+use App\Models\Category;
 
 
 class SpecInfoRepository implements  SpecInfoRepositoryInterface{
@@ -50,6 +51,25 @@ class SpecInfoRepository implements  SpecInfoRepositoryInterface{
         }else{
             return false;
         }
+    }
+
+    public function getAllInfo($paginate = 0)
+    {
+        if ($paginate != 0) {
+            $SpecInfo = SpecInfo::orderBy('id','desc')->paginate($paginate);
+        }
+        else{
+            $SpecInfo = SpecInfo::orderBy('id','desc')->all();
+        }
+        
+        foreach ($SpecInfo as $Spec) {
+            if ($Spec->category_id != '') {
+                $Spec->category_name = Category::where('id',$Spec->category_id)->select('name')->first()->name;
+            }
+        }
+
+        return $SpecInfo;
+
     }
 
     

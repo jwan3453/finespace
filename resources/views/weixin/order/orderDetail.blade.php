@@ -148,7 +148,7 @@
 
 
         <div class="qr-code-image">
-            {!!  \SimpleSoftwareIO\QrCode\Facades\QrCode::size(250)->generate(url('weixin/order/'.$orderDetail['order']->order_no)); !!}
+            {!!  \SimpleSoftwareIO\QrCode\Facades\QrCode::size(250)->generate(url('http://192.168.1.119/weixin/admin/checkOrder/'.$orderDetail['order']->order_no)); !!}
             <p>扫描二维码获取订单详情</p>
         </div>
 

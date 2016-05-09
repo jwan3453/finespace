@@ -49,7 +49,7 @@
                     @elseif($orderDetail['order']->payment_id == 3 )
                         账户余额
                     @elseif($orderDetail['order']->payment_id == 4 )
-                        豁达付款
+                        货到付款
                     @endif
                                     </span>
             </div>

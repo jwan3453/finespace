@@ -751,3 +751,15 @@ color: #dbe4f0;
 
 /*********************************/
 
+
+/**********权限管理************/
+
+.product-table .inverted{
+    margin-bottom: 10px;
+}
+
+.product-table .checkbox label{
+    margin-bottom: 5px;
+}
+/*********************************/
+
