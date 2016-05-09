@@ -79,7 +79,7 @@ class categoryController extends Controller
 
     public function categorySpecList()
     {
-        $SpecList = $this->specinfo->selectAll(10);
+        $SpecList = $this->specinfo->getAllInfo(10);
       
         return view('admin.weixinAdmin.category.categorySpecList')->with('SpecList',$SpecList);
         

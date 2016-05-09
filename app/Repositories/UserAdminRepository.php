@@ -47,7 +47,12 @@ class UserAdminRepository implements  UserAdminRepositoryInterface
       
             foreach ($list as $v) {
                 if ($v->status != 0) {
-                    $v->typename = Role::where('id',$v->status)->select('name')->first()->name;
+                    $role = Role::where('id',$v->status)->select('display_name')->first();
+                    if ($role != '') {
+                        $v->typename = $role->display_name;
+                    }else{
+                        $v->typename = "未知";
+                    }
                 }else{
                     $v->typename = "超级管理员";
                 }

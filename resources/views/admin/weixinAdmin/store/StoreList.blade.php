@@ -37,8 +37,21 @@
                     <td>{{ $store->name }}</td>
                     <td>{{ $store->address }}</td>
                     <td>{{ $store->phone }}</td>
-                    <td>{{ $store->is_distribution }}</td>
-                    <td>{{ $store->is_display }}</td>
+                    <td>
+
+                        @if($store->is_distribution == 1)
+                            是
+                        @elseif($store->is_distribution == 0)
+                            否
+                        @endif
+                    </td>
+                    <td>
+                        @if($store->is_display == 1)
+                            是
+                        @elseif($store->is_display == 0)
+                            否
+                        @endif
+                    </td>
 
                     <td>
 

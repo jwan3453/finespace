@@ -92,7 +92,14 @@
                     <td>{{$product->name}}</td>
                     <td>{{$product->inventory}}</td>
                     <td>{{$product->price}}</td>
-                    <td>{{$product->status}}</td>
+                    <td>
+                        @if($product->status == 1)
+                            正常
+                        @elseif($product->status == 0)
+                            禁止
+                        @endif
+
+                    </td>
 
                     <td>
                         @if($product->is_new == 1)

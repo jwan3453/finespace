@@ -116,6 +116,20 @@ Route::group(['prefix' => '/weixin/admin/', 'middleware' => 'App\Http\Middleware
     
     Route::get('order/seachUser','weixin\admin\userController@seachUser');
 
+    Route::get('checkOrder/{order_no?}','weixin\admin\orderController@checkOrder');
+
+    Route::post('permission/addPermission','weixin\admin\PermissionController@addPermission');
+
+    Route::get('UserGroup','weixin\admin\PermissionController@UserGroup');
+
+    Route::post('permissions/updateOraddRole','weixin\admin\PermissionController@updateOraddRole');
+
+    Route::post('permissions/delRole','weixin\admin\PermissionController@delRole');
+
+    Route::get('permission/UserGroupPermission/{id?}','weixin\admin\PermissionController@UserGroupPermission');
+
+    Route::post('permission/PermissionRole','weixin\admin\PermissionController@PermissionRole');
+
 });
 
 

@@ -33,7 +33,7 @@
                 <tr>
                     <td>{{ $spec->id }}</td>
                     <td>{{ $spec->name }}</td>
-                    <td>{{ $spec->category_id }}</td>
+                    <td>{{ $spec->category_name }}</td>
                     <td>{{ $spec->spec_level }}</td>
 
                     <td>

@@ -228,6 +228,13 @@
                         </a>
                     </div>
 
+                    <div class="item ">
+                        <a href="/weixin/admin/UserGroup">
+                            <i class="f-left right triangle icon"></i>
+                            <div class="  f-left content">用户组管理</div>
+                        </a>
+                    </div>
+
                 </div>
             </div>
 

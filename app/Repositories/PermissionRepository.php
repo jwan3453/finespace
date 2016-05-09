@@ -30,8 +30,6 @@ class PermissionRepository implements  PermissionRepositoryInterface{
         // Permission::insert(['name'=>'manage_suers','display_name'=>'Manage Users']);
 
         $admin->perms()->sync(array(1,array('role_id'=>1)));
-        echo $admin->id."-----";
-        dd($admin);
 
         // 获取用户
         $user = User::where('mobile','=','15555555555')->first();
@@ -52,6 +50,118 @@ class PermissionRepository implements  PermissionRepositoryInterface{
         // dd($Permission_Roles);
 
        return Permission::all();
+   }
+
+   public function AddPermission($insertArr)
+   {
+        $Permission = new Permission;
+        $Permission->name = $insertArr['name'];
+        $Permission->display_name = $insertArr['display_name'];
+        if ($Permission->save()) {
+          return true;
+        }else{
+          return false;
+        }
+   }
+
+   public function getAllRole()
+   {
+      $RoleList = Role::all();
+      
+      return $RoleList;
+   }
+
+   public function updateOraddRole($dataArr)
+   {
+    // dd($dataArr);
+      $Role = new Role;
+
+      if ($dataArr['editOradd'] == 'edit') {
+        // $Role->id = ;
+        $newRole = Role::find($dataArr['roleid']);
+        $newRole->name = $dataArr['name'];
+        $newRole->display_name = $dataArr['display_name'];
+        $newRole->description = $dataArr['description'];
+        // $newRole->save();
+
+        if ($newRole->save()) {
+          return true;
+        }else{
+          return false;
+        }
+
+      }elseif ($dataArr['editOradd'] == 'add') {
+
+        $Role->name = $dataArr['name'];
+        $Role->display_name = $dataArr['display_name'];
+        $Role->description = $dataArr['description'];
+        // $Role->save();
+
+        if ($Role->save()) {
+          return true;
+        }else{
+          return false;
+        }
+
+      }
+   }
+
+
+   public function delRole($Roleid)
+   {
+     $Role = Role::find($Roleid);
+     if ($Role->delete()) {
+       return true;
+        }else{
+          return false;
+        }
+   }
+
+   public function UserGroupPermission($id = 1)
+   {
+     $Permission = Permission::all();
+
+     foreach ($Permission as $permission) {
+       $premisson_role = PermissionRole::where('permission_id',$permission->id)->where('role_id',$id)->count();
+       if ($premisson_role != '') {
+          $permission->isRole = 1;
+       }else{
+          $permission->isRole = 0;
+       }
+     }
+     return $Permission;
+     // dd($Permission);
+   }
+
+   public function PermissionRole($dataArr)
+   {
+      $dataCount = PermissionRole::where('role_id',$dataArr['role_id'])->count();
+
+      if ($dataCount > 0) {
+          $DelData = PermissionRole::where('role_id',$dataArr['role_id'])->delete();
+      }
+
+      $role_id = $dataArr['role_id'];
+
+      $isInsert = true;
+
+      foreach ($dataArr['permission'] as $permission) {
+          $insert = PermissionRole::insert(['permission_id'=>$permission,'role_id'=>$role_id]);
+
+          if (!$insert) {
+              $isInsert = false;
+
+              break;
+          }
+      }
+
+      if ($isInsert) {
+        return true;
+      }else{
+        return false;
+      }
+
+
    }
 
 }

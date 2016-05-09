@@ -37,7 +37,7 @@
                 <tr>
                     <td>{{$order->id}}</td>
                     <td>{{$order->order_no}}</td>
-                    <td>{{$order->user_id}}</td>
+                    <td>{{$order->user_mobile}}</td>
                     <td>{{$order->total_amount}}</td>
                     
                     <td>{{$order->created_at}}</td>
@@ -47,6 +47,21 @@
                     </td>
                 </tr>
                 @endforeach
+
+                <tr>
+
+        <th colspan="2" style="padding:5px;">
+            
+        </th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th colspan="3" style="padding:2px;">
+            <div>
+            </div>
+        </th>
+        <th></th>
+    </tr>
               
             </tbody>
         </table>
