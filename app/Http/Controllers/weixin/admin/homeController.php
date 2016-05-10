@@ -93,6 +93,7 @@ class homeController extends Controller
             $adminInfo = $this->useradmin->getAdminInfo($request->input('username'));
             $request->session()->put('adminusername',$adminInfo->username);
             $request->session()->put('adminstatus',$adminInfo->status);
+            $request->session()->put('adminid',$adminInfo->id);
             
             $adminSuccess = true;
         }

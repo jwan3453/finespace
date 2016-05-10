@@ -103,7 +103,7 @@ class orderController extends Controller
     public function StockingPage()
     {
         $orders = $this->order->StockingOrder();
-
+        // dd($orders);
         return view('admin.weixinAdmin.order.StockingPage')->with('orders',$orders);
     }
 

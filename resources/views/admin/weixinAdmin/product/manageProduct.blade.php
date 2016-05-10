@@ -94,9 +94,9 @@
                     <td>{{$product->price}}</td>
                     <td>
                         @if($product->status == 1)
-                            正常
+                            上架
                         @elseif($product->status == 0)
-                            禁止
+                            下架
                         @endif
 
                     </td>
@@ -127,7 +127,7 @@
                     <td>
 
                         <a href="{{url('/weixin/admin/product/edit').'/'.$product->id}}" class="ui basic  button ">编辑</a>
-                        <button class="ui basic red button ">下架</button>
+                        <!-- <button class="ui basic red button ">下架</button> -->
                     </td>
                 </tr>
 

@@ -26,7 +26,7 @@
                     <th>订单号</th>
                     <th>用户</th>
                     <th>总额</th>
-                    
+
                     <th>下单日期</th>
                     <th>取单日期</th>
                     <th>订单详情</th>
@@ -39,7 +39,7 @@
                     <td>{{$order->order_no}}</td>
                     <td>{{$order->user_mobile}}</td>
                     <td>{{$order->total_amount}}</td>
-                    
+
                     <td>{{$order->created_at}}</td>
                     <td>{{$order->order_dateTime}}</td>
                     <td>
@@ -47,22 +47,23 @@
                     </td>
                 </tr>
                 @endforeach
-
+                @if(count($orders) == 0)
+                    <tr>
+                     <th colspan="7" style="padding:5px;">今日暂无订单</th>
+                    </tr>
+                @endif
                 <tr>
 
-        <th colspan="2" style="padding:5px;">
-            
-        </th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th colspan="3" style="padding:2px;">
-            <div>
-            </div>
-        </th>
-        <th></th>
-    </tr>
-              
+                    <th colspan="2" style="padding:5px;"></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th colspan="3" style="padding:2px;">
+                        <div></div>
+                    </th>
+                    <th></th>
+                </tr>
+
             </tbody>
         </table>
 

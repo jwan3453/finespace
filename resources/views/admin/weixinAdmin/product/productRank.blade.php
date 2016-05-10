@@ -139,9 +139,9 @@
                         <td>{{$product->price}}</td>
                         <td>
                             @if($product->status == 1)
-                                正常
+                                上架
                             @elseif($product->status == 0)
-                                禁止
+                                下架
                             @endif
                         </td>
 

@@ -17,6 +17,7 @@ class UserAdminController extends Controller
     function __construct(UserAdminRepositoryInterface $useradmin)
     {
         $this->useradmin = $useradmin;
+
     }
 
     /**
@@ -26,6 +27,17 @@ class UserAdminController extends Controller
      */
     public function index()
     {
+        
+        $AdminId = session('adminid');
+
+        // dd($AdminId);
+        $is = $this->isRolePermission($AdminId,"SuperAdmin");
+
+        // dd($is);
+        if (!$is) {
+            return view('admin.weixinAdmin.error.RoleError');
+        }
+
         $list = $this->useradmin->getAllUserAdmin(6);
         return view('admin.weixinAdmin.useradmin.UserAdmin')->with('list',$list);
     }

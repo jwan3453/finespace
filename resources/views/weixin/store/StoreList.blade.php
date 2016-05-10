@@ -26,7 +26,8 @@
 
         <div class="box-content">
             <div class="content-image">
-                <img src="../img/thumb_cake1.jpg"></div>
+                <img src="../img/thumb_cake1.jpg">
+            </div>
 
             <div class="content-words">
                 <div class="words-address">
@@ -43,6 +44,16 @@
 
             </div>
 
+        </div>
+
+        <div class="box-foot">
+            @if($store->is_distribution == 1)
+                <i class="checkmark box icon green icon-size"></i>
+                支持配送
+            @elseif($store->is_distribution != 1)
+                <i class="remove circle outline icon red icon-size"></i>
+                暂不支持配送
+            @endif
         </div>
         
         <div class="store-map" id="allmap_{{$store->id}}" style="height:250px; width:100%;  clear:both;display:none;">
