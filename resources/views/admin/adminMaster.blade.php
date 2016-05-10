@@ -69,7 +69,7 @@
     <div class="f-left left-side-panel">
         <div class="ui  middle aligned animated list admin-menu ">
             <div class="item ">
-                <i class=" f-left users icon"></i>
+                <a class=" f-left icon-product"></a>
                 <div class=" f-left content">商品</div>
                 <i class="f-right  angle down icon"></i>
                 <div class="ui  middle aligned animated list sub-menu ">
@@ -88,7 +88,7 @@
             </div>
 
             <div class="item ">
-                <i class=" f-left users icon"></i>
+                <a class=" f-left icon-category"></a>
                 <div class=" f-left content">产品分类</div>
                 <i class="f-right  angle down icon"></i>
                 <div class="ui  middle aligned animated list sub-menu ">
@@ -107,7 +107,7 @@
             </div>
 
             <div class="item ">
-                <i class="  f-left marker icon"></i>
+                <a class="  f-left icon-order"></a>
                 <div class="  f-left content">订单 </div>
                 <i class="f-right angle down icon"></i>
                 <div class="ui  middle aligned animated list sub-menu ">
@@ -142,7 +142,7 @@
                 </div>
             </div>
             <div class="item ">
-                <i class="  f-left mail icon"></i>
+                <a class="  f-left icon-user"></a>
                 <div class="  f-left  content">
                     用户管理
                 </div>
@@ -184,7 +184,7 @@
 
 
             <div class="item ">
-                <i class=" f-left users icon"></i>
+                <a class=" f-left icon-store"></a>
                 <div class=" f-left content">门店管理</div>
                 <i class="f-right  angle down icon"></i>
                 <div class="ui  middle aligned animated list sub-menu ">
@@ -198,7 +198,7 @@
             </div>
 
             <div class="item ">
-                <i class="  f-left linkify icon"></i>
+                <a class="  f-left icon-system"></a>
                 <div class="  f-left content">
                     系统设置
                 </div>
@@ -215,7 +215,7 @@
             </div>
 
             <div class="item ">
-                <i class="  f-left linkify icon"></i>
+                <a class="  f-left icon-permission"></a>
                 <div class="  f-left content">
                     权限管理
                 </div>
@@ -239,7 +239,7 @@
             </div>
 
             <div class="item ">
-                <i class="  f-left linkify icon"></i>
+                <a class="  f-left icon-adminuser"></a>
                 <div class="  f-left content">
                     管理员管理
                 </div>
@@ -256,7 +256,7 @@
             </div>
 
             <div class="item ">
-                <i class="  f-left linkify icon"></i>
+                <a class="  f-left icon-datafill"></a>
                 <div class="  f-left content">
                     数据填充
                 </div>

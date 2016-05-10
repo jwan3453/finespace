@@ -14,11 +14,12 @@ abstract class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function isRolePermission($AdminId , $RoleName = "SuperAdmin")
+    public function isRolePermission($AdminId , $RoleName = "SuperAdmin" , $Permission = '')
     {
 
     	$userrole = RoleUser::where('user_id',$AdminId)->select('role_id')->first();
     	$RoleId = 1;
+        $retData = false;
     	if ($userrole != '') {
     		$RoleId = $userrole->role_id;
     	}
