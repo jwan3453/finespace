@@ -294,6 +294,9 @@
                                {
                                     if(parseInt(quantity.val()) > parseInt( data.extra))
                                     {
+
+                                        if(data.extra <=0)
+                                            data.extra =0;
                                         _showToaster('当日可定数量只剩'+data.extra+'套');
                                         valid=false;
                                     }
