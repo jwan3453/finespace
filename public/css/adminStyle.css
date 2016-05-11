@@ -192,6 +192,93 @@ color: #dbe4f0;
 
 
 }
+
+
+.icon-order{
+    background: url(../img/18X18/order.png) center no-repeat;
+    background-size: cover;
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+    margin-left:5px;
+}
+
+.icon-category{
+    background: url(../img/18X18/category.png) center no-repeat;
+    background-size: cover;
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+    margin-left:5px;
+}
+
+.icon-adminuser{
+    background: url(../img/18X18/adminuser.png) center no-repeat;
+    background-size: cover;
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+    margin-left:5px;
+}
+
+.icon-store{
+    background: url(../img/18X18/store.png) center no-repeat;
+    background-size: cover;
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+    margin-left:5px;
+}
+
+.icon-permission{
+    background: url(../img/18X18/permission.png) center no-repeat;
+    background-size: cover;
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+    margin-left:5px;
+}
+
+.icon-product{
+    background: url(../img/18X18/product.png) center no-repeat;
+    background-size: cover;
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+    margin-left:5px;
+
+}
+
+.icon-user{
+    background: url(../img/18X18/user.png) center no-repeat;
+    background-size: cover;
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+    margin-left:5px;
+}
+
+.icon-system{
+    background: url(../img/18X18/system.png) center no-repeat;
+    background-size: cover;
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+    margin-left:5px;
+}
+
+.icon-datafill{
+    background: url(../img/18X18/datafill.png) center no-repeat;
+    background-size: cover;
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+    margin-left:5px;
+}
+
+
+
+
 /********************/
 
 
