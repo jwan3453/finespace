@@ -16,7 +16,7 @@
     <div class="store-box auto-margin" >
         <div class="box-header">
             <a class="ui red ribbon label">门店信息</a> {{$store->name}}
-            <i class="map icon big" id="Tmap"></i>
+            <i class="map icon large" id="Tmap"></i>
             <input id="store_id" type="hidden" value="{{$store->id}}" />
             <input id="longitude" type="hidden" value="{{$store->longitude}}">
             <input id="latitude" type="hidden" value="{{$store->latitude}}">
@@ -48,10 +48,10 @@
 
         <div class="box-foot">
             @if($store->is_distribution == 1)
-                <i class="checkmark box icon green icon-size"></i>
+                <i class="checkmark box icon green icon-size large"></i>
                 支持配送
             @elseif($store->is_distribution != 1)
-                <i class="remove circle outline icon red icon-size"></i>
+                <i class="remove circle outline icon red icon-size large"></i>
                 暂不支持配送
             @endif
         </div>
