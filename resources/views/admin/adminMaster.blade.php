@@ -8,11 +8,11 @@
     <meta name="viewport" content="width=device-width, user-scalable=no" />
     <meta name="_token" content="{{ csrf_token() }}"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <link rel="stylesheet" type="text/css" href= {{ asset('semantic/dist/semantic.css') }}>
+    <link rel="stylesheet" type="text/css" href= {{ asset('semantic/dist/AdminSemantic.css') }}>
     <link rel="stylesheet" type="text/css" href= {{ asset('css/adminStyle.css') }}>
 
     <script src={{ asset('js/jquery-2.1.4.min.js') }}></script>
-    <script src={{ asset('semantic/dist/semantic.js') }}></script>
+    <script src={{ asset('semantic/dist/AdminSemantic.js') }}></script>
 
     @yield('resources')
 </head>
