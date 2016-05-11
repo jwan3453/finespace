@@ -16,20 +16,28 @@
     </tr>
     </thead>
     <tbody>
-    @foreach($orders as $order)
-        <tr>
-            <td>{{$order->id}}</td>
-            <td>{{$order->order_no}}</td>
-            <td>{{$order->user_mobile}}</td>
-            <td>{{$order->total_amount}}</td>
-            <td>{{$order->payment_name}}</td>
-            <td>{{$order->pay_name}}</td>
-            <td>{{$order->status_name}}</td>
-            <td>{{$order->created_at}}</td>
-            <td><a href="{{url('/weixin/admin/order/').'/'.$order->order_no}}" class="ui basic  button ">详情</a></td>
-        </tr>
 
-    @endforeach
+    @if(count($orders) == 0)
+        <tr>
+            <td>没有找到订单</td>
+        </tr>
+    @else
+
+        @foreach($orders as $order)
+            <tr>
+                <td>{{$order->id}}</td>
+                <td>{{$order->order_no}}</td>
+                <td>{{$order->user_mobile}}</td>
+                <td>{{$order->total_amount}}</td>
+                <td>{{$order->payment_name}}</td>
+                <td>{{$order->pay_name}}</td>
+                <td>{{$order->status_name}}</td>
+                <td>{{$order->created_at}}</td>
+                <td><a href="{{url('/weixin/admin/order/').'/'.$order->order_no}}" class="ui basic  button ">详情</a></td>
+            </tr>
+
+        @endforeach
+     @endif
     <tr>
 
         <th colspan="2" style="padding:5px;">

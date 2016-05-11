@@ -42,7 +42,7 @@
 
 
                     <a href="{{url('/weixin/order')}}/{{$order->order_no}}" >
-                        <div class="regular-btn auto-margin" >订单详情</div>
+                        <div class="regular-btn auto-margin blue-btn"  style="margin-top:5px;">订单详情</div>
                     </a>
 
             </div>

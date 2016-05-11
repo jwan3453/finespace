@@ -240,7 +240,7 @@ font{
 }
 
 .loader-box{
-    position:absolute;
+    position:fixed;
     width:115px;
     padding:20px;
     border-radius: 10px;

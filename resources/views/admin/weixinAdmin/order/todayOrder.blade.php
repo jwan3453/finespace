@@ -30,11 +30,9 @@
                 {{--<i class="circular search link icon"></i>--}}
             {{--</div>--}}
 
-            @if(count($orders)>0)
+
                 @include('admin.weixinAdmin.order.orderTable')
-            @else
-                <p class="no-item-found huge-font">今日暂无客人下单!</p>
-            @endif
+
 
             {{--<div class="table-content">--}}
 
