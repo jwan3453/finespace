@@ -3,11 +3,11 @@
 <head>
     <meta name="_token" content="{{ csrf_token() }}"/>
     <title></title>
-    <link rel="stylesheet" type="text/css" href= {{ asset('semantic/dist/semantic.css') }}>
-    <link rel="stylesheet" type="text/css" href= {{ asset('css/weixin.css') }}></head>
+    <link rel="stylesheet" type="text/css" href= {{ asset('../semantic/dist/AdminSemantic.css') }}>
+    <link rel="stylesheet" type="text/css" href= {{ asset('../css/weixin.css') }}></head>
 
-    <script src={{ asset('js/jquery-2.1.4.min.js') }}></script>
-    <script src={{ asset('semantic/dist/semantic.js') }}></script>
+    <script src={{ asset('../js/jquery-2.1.4.min.js') }}></script>
+    <script src={{ asset('../semantic/dist/AdminSemantic.js') }}></script>
 <body>
     <div class="ui container" style=" overflow:hidden;" id="homepage">
         <div class="sign-box auto-margin" >
